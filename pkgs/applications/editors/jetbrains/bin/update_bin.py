@@ -8,6 +8,7 @@ import subprocess
 import sys
 import xmltodict
 from packaging import version
+from pprint import pprint
 
 updates_url = "https://www.jetbrains.com/updates/updates.xml"
 current_path = pathlib.Path(__file__).parent
@@ -28,12 +29,23 @@ def download_channels():
     updates_response.raise_for_status()
     root = xmltodict.parse(updates_response.text)
     products = root["products"]["product"]
-    return {
-        channel["@name"]: channel
+    by_channel = {
+        channel["@name"]: {
+            **product,
+            'channel': [channel]
+        }
         for product in products
         if "channel" in product
         for channel in one_or_more(product["channel"])
     }
+    by_product = {
+        product["@name"]: product
+        for product in products
+        if "channel" in product
+        for channel in one_or_more(product["channel"])
+    }
+
+    return {**by_channel, **by_product}
 
 
 def build_version(build):
@@ -41,9 +53,13 @@ def build_version(build):
     return version.parse(build_number)
 
 
-def latest_build(channel):
-    builds = one_or_more(channel["build"])
-    latest = max(builds, key=build_version)
+def latest_build(product_channel):
+    builds = [
+        (channel, build)
+        for channel in one_or_more(product_channel["channel"])
+        for build in one_or_more(channel["build"])
+    ]
+    latest = max(builds, key=lambda p: build_version(p[1]))
     return latest
 
 
@@ -64,35 +80,37 @@ def update_product(name, product):
     if channel is None:
         logging.error("Failed to find channel %s.", update_channel)
         logging.error("Check that the update-channel in %s matches the name in %s", versions_file_path, updates_url)
-    else:
-        try:
-            build = latest_build(channel)
-            new_version = build["@version"]
-            new_build_number = ""
-            if "@fullNumber" not in build:
-                new_build_number = build["@number"]
-            else:
-                new_build_number = build["@fullNumber"]
-            if "EAP" not in channel["@name"]:
-                version_or_build_number = new_version
-            else:
-                version_or_build_number = new_build_number
-            version_number = new_version.split(' ')[0]
-            download_url = product["url-template"].format(version=version_or_build_number, versionMajorMinor=version_number)
-            product["url"] = download_url
-            if "sha256" not in product or product.get("build_number") != new_build_number:
-                fromVersions[name] = product["version"]
-                toVersions[name] = new_version
-                logging.info("Found a newer version %s with build number %s.", new_version, new_build_number)
-                product["version"] = new_version
-                product["build_number"] = new_build_number
-                product["sha256"] = download_sha256(download_url)
-            else:
-                logging.info("Already at the latest version %s with build number %s.", new_version, new_build_number)
-        except Exception as e:
-            logging.exception("Update failed:", exc_info=e)
-            logging.warning("Skipping %s due to the above error.", name)
-            logging.warning("It may be out-of-date. Fix the error and rerun.")
+        return
+
+    try:
+        channel, build = latest_build(channel)
+        new_version = build["@version"]
+        new_build_number = build["@fullNumber"]
+        new_build_number = ""
+        if "@fullNumber" not in build:
+            new_build_number = build["@number"]
+        else:
+            new_build_number = build["@fullNumber"]
+        if "EAP" not in channel["@name"]:
+            version_or_build_number = new_version
+        else:
+            version_or_build_number = new_build_number
+        version_number = new_version.split(' ')[0]
+        download_url = product["url-template"].format(version=version_or_build_number, versionMajorMinor=version_number)
+        product["url"] = download_url
+        if "sha256" not in product or product.get("build_number") != new_build_number:
+            fromVersions[name] = product["version"]
+            toVersions[name] = new_version
+            logging.info("Found a newer version %s with build number %s.", new_version, new_build_number)
+            product["version"] = new_version
+            product["build_number"] = new_build_number
+            product["sha256"] = download_sha256(download_url)
+        else:
+            logging.info("Already at the latest version %s with build number %s.", new_version, new_build_number)
+    except Exception as e:
+        logging.exception("Update failed:", exc_info=e)
+        logging.warning("Skipping %s due to the above error.", name)
+        logging.warning("It may be out-of-date. Fix the error and rerun.")
 
 
 def update_products(products):
