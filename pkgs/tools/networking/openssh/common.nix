@@ -26,12 +26,14 @@
 , withLdns ? true
 , libkrb5
 , libfido2
+, libxcrypt
 , hostname
 , nixosTests
 , withFIDO ? stdenv.hostPlatform.isUnix && !stdenv.hostPlatform.isMusl
 , withPAM ? stdenv.hostPlatform.isLinux
 , dsaKeysSupport ? false
 , linkOpenssl ? true
+, isNixos ? stdenv.hostPlatform.isLinux
 }:
 
 stdenv.mkDerivation {
@@ -63,7 +65,8 @@ stdenv.mkDerivation {
     # https://github.com/NixOS/nixpkgs/pull/107606
     ++ lib.optional withKerberos pkgs.libkrb5
     ++ extraNativeBuildInputs;
-  buildInputs = [ zlib openssl libedit ]
+  buildInputs = [ zlib libedit ]
+    ++ [ (if linkOpenssl then openssl else libxcrypt) ]
     ++ lib.optional withFIDO libfido2
     ++ lib.optional withKerberos libkrb5
     ++ lib.optional withLdns ldns
@@ -74,6 +77,12 @@ stdenv.mkDerivation {
     # to use: `configure' wants `gcc', but `make' wants `ld'.
     unset LD
   '';
+
+  env = lib.optionalAttrs isNixos {
+    # openssh calls passwd to allow the user to reset an expired password, but nixos
+    # doesn't ship it at /usr/bin/passwd.
+    PATH_PASSWD_PROG = "/run/wrappers/bin/passwd";
+  };
 
   # I set --disable-strip because later we strip anyway. And it fails to strip
   # properly when cross building.

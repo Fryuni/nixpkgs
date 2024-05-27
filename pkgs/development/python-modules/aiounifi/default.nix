@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "aiounifi";
-  version = "76";
+  version = "78";
   pyproject = true;
 
   disabled = pythonOlder "3.11";
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     owner = "Kane610";
     repo = "aiounifi";
     rev = "refs/tags/v${version}";
-    hash = "sha256-N9N7sMHBiEhYUFok4bTSJZyp5pkJzj9pMxahY6FTx+I=";
+    hash = "sha256-fY3VsXJfs/uqqQjR6Sp03XlkCOk+8GvXq476dgagJQ8=";
   };
 
   postPatch = ''

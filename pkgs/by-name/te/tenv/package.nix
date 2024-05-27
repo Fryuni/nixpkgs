@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "tenv";
-  version = "1.8.0";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "tofuutils";
     repo = "tenv";
     rev = "v${version}";
-    hash = "sha256-w8A3tmv8KzwtP5gqbaj5UdFxLcz9ILBP1itXSlLJ3Q0=";
+    hash = "sha256-HlAnCmkMLtQWv63BW0pUns76AylZ1RcKN3D6qpMRo5w=";
   };
 
-  vendorHash = "sha256-NMkR90+kJ3VsuhF45l5K68uOqenPfINZDEE0GfjULro=";
+  vendorHash = "sha256-teog4VJGDOYsABuE2/fvOtcWvC8mM36rJQI6KZb3eS8=";
 
   # Tests disabled for requiring network access to release.hashicorp.com
   doCheck = false;
@@ -38,9 +38,9 @@ buildGoModule rec {
 
   meta = {
     changelog = "https://github.com/tofuutils/tenv/releases/tag/v${version}";
-    description = "A version manager for OpenTofu, Terraform and Terragrunt written in Go";
-    homepage = "https://github.com/tofuutils/tenv";
+    description = "OpenTofu, Terraform, Terragrunt and Atmos version manager written in Go";
+    homepage = "https://tofuutils.github.io/tenv";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rmgpinto ];
+    maintainers = with lib.maintainers; [ rmgpinto nmishin kvendingoldo ];
   };
 }

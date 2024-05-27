@@ -63,6 +63,8 @@
 , # command-t dependencies
   getconf
 , ruby
+, # cornelis dependencies
+  cornelis
 , # cpsm dependencies
   boost
 , cmake
@@ -78,7 +80,7 @@
 , # sved dependencies
   glib
 , gobject-introspection
-, wrapGAppsHook
+, wrapGAppsHook3
 , # sniprun dependencies
   bashInteractive
 , coreutils
@@ -246,7 +248,7 @@
   };
 
   cmp-git = super.cmp-git.overrideAttrs {
-    dependencies = with self; [ nvim-cmp ];
+    dependencies = with self; [ nvim-cmp plenary-nvim ];
   };
 
   cmp-greek = super.cmp-greek.overrideAttrs {
@@ -425,6 +427,11 @@
     dependencies = with self; [ plenary-nvim ];
   };
 
+  compiler-nvim = super.compiler-nvim.overrideAttrs {
+    dependencies = [ self.overseer-nvim ];
+    nvimRequireCheck = "compiler";
+  };
+
   completion-buffers = super.completion-buffers.overrideAttrs {
     dependencies = with self; [ completion-nvim ];
   };
@@ -440,6 +447,10 @@
 
   completion-treesitter = super.completion-treesitter.overrideAttrs {
     dependencies = with self; [ completion-nvim nvim-treesitter ];
+  };
+
+  CopilotChat-nvim = super.CopilotChat-nvim.overrideAttrs {
+    dependencies = with self; [ copilot-lua plenary-nvim ];
   };
 
   copilot-vim = super.copilot-vim.overrideAttrs {
@@ -460,6 +471,17 @@
 
     # We need some patches so it stops complaining about not being in a venv
     patches = [ ./patches/coq_nvim/emulate-venv.patch ];
+  };
+
+  cornelis = super.cornelis.overrideAttrs {
+    dependencies = with self; [ vim-textobj-user ];
+    opt = with self; [ vim-which-key ];
+    # Unconditionally use the cornelis binary provided by the top-level package:
+    patches = [ ./patches/cornelis/0001-Unconditionally-use-global-binary.patch ];
+    postInstall = ''
+      substituteInPlace $out/ftplugin/agda.vim \
+        --subst-var-by CORNELIS "${lib.getBin cornelis}/bin/cornelis"
+    '';
   };
 
   cpsm = super.cpsm.overrideAttrs {
@@ -839,6 +861,10 @@
     dependencies = with self; [ plenary-nvim ];
   };
 
+  luasnip = super.luasnip.overrideAttrs {
+    dependencies = with self; [ luaPackages.jsregexp ];
+  };
+
   magma-nvim-goose = buildVimPlugin {
     pname = "magma-nvim-goose";
     version = "2023-03-13";
@@ -1048,6 +1074,8 @@
       mkdir $target/bin
       ln -s ${dbee-go}/bin/dbee $target/bin/dbee
       '';
+
+    meta.platforms = lib.platforms.linux;
   });
 
   nvim-navic = super.nvim-navic.overrideAttrs {
@@ -1061,7 +1089,7 @@
         inherit (old) version src;
         sourceRoot = "${old.src.name}/spectre_oxi";
 
-        cargoHash = "sha256-UxOAIyVlJWlp5RUFVU3Ib539D5pm6Z+3edjHLerkIRU=";
+        cargoHash = "sha256-7V4RyWIo9gL3ir4Pay8CMIVn6cXjJi9sgKVOENG4muQ=";
 
 
         preCheck = ''
@@ -1197,7 +1225,7 @@
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-iGNLk3ckm90i5m05V/va+hO9RMiOUKL19dkszoUCwlU=";
+        cargoHash = "sha256-bK4gyK6kqeRyoH7hnRHZURCjcxemIdqs71Qgb/Cl1pw=";
 
         nativeBuildInputs = [ pkg-config ];
 
@@ -1240,12 +1268,12 @@
 
   sniprun =
     let
-      version = "1.3.12";
+      version = "1.3.13";
       src = fetchFromGitHub {
         owner = "michaelb";
         repo = "sniprun";
         rev = "refs/tags/v${version}";
-        hash = "sha256-siM0MBugee2OVaD1alr2hKn9ngoaV3Iy9No/F3wryJs=";
+        hash = "sha256-PQ3nAZ+bMbHHJWD7cV6h1b3g3TzrakA/N8vVumIooMg=";
       };
       sniprun-bin = rustPlatform.buildRustPackage {
         pname = "sniprun-bin";
@@ -1255,7 +1283,7 @@
           darwin.apple_sdk.frameworks.Security
         ];
 
-        cargoHash = "sha256-Gnpv0vAU3kTtCKsV2XGlSbzYuHEqR7iDFeKj9Vhq1UQ=";
+        cargoHash = "sha256-I8R2V9zoLqiM4lu0D7URoVof68wtKHI+8T8fVrUg7i4=";
 
         nativeBuildInputs = [ makeWrapper ];
 
@@ -1335,11 +1363,11 @@
 
   sved =
     let
-      # we put the script in its own derivation to benefit the magic of wrapGAppsHook
+      # we put the script in its own derivation to benefit the magic of wrapGAppsHook3
       svedbackend = stdenv.mkDerivation {
         name = "svedbackend-${super.sved.name}";
         inherit (super.sved) src;
-        nativeBuildInputs = [ wrapGAppsHook gobject-introspection ];
+        nativeBuildInputs = [ wrapGAppsHook3 gobject-introspection ];
         buildInputs = [
           glib
           (python3.withPackages (ps: with ps; [ pygobject3 pynvim dbus-python ]))

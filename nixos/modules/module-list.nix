@@ -45,6 +45,7 @@
   ./config/xdg/portals/lxqt.nix
   ./config/xdg/portals/wlr.nix
   ./config/xdg/sounds.nix
+  ./config/xdg/terminal-exec.nix
   ./config/zram.nix
   ./hardware/acpilight.nix
   ./hardware/all-firmware.nix
@@ -106,6 +107,7 @@
   ./hardware/video/bumblebee.nix
   ./hardware/video/capture/mwprocapture.nix
   ./hardware/video/displaylink.nix
+  ./hardware/video/intel-gpu-tools.nix
   ./hardware/video/nvidia.nix
   ./hardware/video/switcheroo-control.nix
   ./hardware/video/uvcvideo/default.nix
@@ -156,6 +158,7 @@
   ./programs/bash/ls-colors.nix
   ./programs/bash/undistract-me.nix
   ./programs/bcc.nix
+  ./programs/benchexec.nix
   ./programs/browserpass.nix
   ./programs/calls.nix
   ./programs/captive-browser.nix
@@ -165,6 +168,7 @@
   ./programs/chromium.nix
   ./programs/clash-verge.nix
   ./programs/cnping.nix
+  ./programs/cpu-energy-meter.nix
   ./programs/command-not-found/command-not-found.nix
   ./programs/coolercontrol.nix
   ./programs/criu.nix
@@ -245,9 +249,9 @@
   ./programs/oblogout.nix
   ./programs/oddjobd.nix
   ./programs/openvpn3.nix
-  ./programs/pantheon-tweaks.nix
   ./programs/partition-manager.nix
   ./programs/plotinus.nix
+  ./programs/pqos-wrapper.nix
   ./programs/projecteur.nix
   ./programs/proxychains.nix
   ./programs/qdmr.nix
@@ -306,6 +310,7 @@
   ./programs/xwayland.nix
   ./programs/yabar.nix
   ./programs/yazi.nix
+  ./programs/ydotool.nix
   ./programs/yubikey-touch-detector.nix
   ./programs/zmap.nix
   ./programs/zsh/oh-my-zsh.nix
@@ -664,6 +669,7 @@
   ./services/matrix/maubot.nix
   ./services/matrix/mautrix-facebook.nix
   ./services/matrix/mautrix-meta.nix
+  ./services/matrix/mautrix-signal.nix
   ./services/matrix/mautrix-telegram.nix
   ./services/matrix/mautrix-whatsapp.nix
   ./services/matrix/mjolnir.nix
@@ -696,6 +702,7 @@
   ./services/misc/cpuminer-cryptonight.nix
   ./services/misc/db-rest.nix
   ./services/misc/devmon.nix
+  ./services/misc/devpi-server.nix
   ./services/misc/dictd.nix
   ./services/misc/disnix.nix
   ./services/misc/docker-registry.nix
@@ -773,6 +780,7 @@
   ./services/misc/polaris.nix
   ./services/misc/portunus.nix
   ./services/misc/preload.nix
+  ./services/misc/private-gpt.nix
   ./services/misc/prowlarr.nix
   ./services/misc/pufferpanel.nix
   ./services/misc/pykms.nix
@@ -946,6 +954,7 @@
   ./services/networking/charybdis.nix
   ./services/networking/chisel-server.nix
   ./services/networking/cjdns.nix
+  ./services/networking/clatd.nix
   ./services/networking/cloudflare-dyndns.nix
   ./services/networking/cloudflared.nix
   ./services/networking/cntlm.nix
@@ -1029,6 +1038,7 @@
   ./services/networking/jigasi.nix
   ./services/networking/jitsi-videobridge.nix
   ./services/networking/jool.nix
+  ./services/networking/jotta-cli.nix
   ./services/networking/kea.nix
   ./services/networking/keepalived/default.nix
   ./services/networking/keybase.nix
@@ -1098,6 +1108,7 @@
   ./services/networking/ocserv.nix
   ./services/networking/ofono.nix
   ./services/networking/oidentd.nix
+  ./services/networking/oink.nix
   ./services/networking/onedrive.nix
   ./services/networking/openconnect.nix
   ./services/networking/openvpn.nix
@@ -1256,8 +1267,8 @@
   ./services/security/kanidm.nix
   ./services/security/munge.nix
   ./services/security/nginx-sso.nix
-  ./services/security/oauth2_proxy.nix
-  ./services/security/oauth2_proxy_nginx.nix
+  ./services/security/oauth2-proxy.nix
+  ./services/security/oauth2-proxy-nginx.nix
   ./services/security/opensnitch.nix
   ./services/security/pass-secret-service.nix
   ./services/security/physlock.nix
@@ -1317,6 +1328,7 @@
   ./services/web-apps/akkoma.nix
   ./services/web-apps/alps.nix
   ./services/web-apps/anuko-time-tracker.nix
+  ./services/web-apps/artalk.nix
   ./services/web-apps/atlassian/confluence.nix
   ./services/web-apps/atlassian/crowd.nix
   ./services/web-apps/atlassian/jira.nix
@@ -1330,6 +1342,7 @@
   ./services/web-apps/chatgpt-retrieval-plugin.nix
   ./services/web-apps/cloudlog.nix
   ./services/web-apps/code-server.nix
+  ./services/web-apps/commafeed.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/crabfit.nix
   ./services/web-apps/davis.nix
@@ -1340,7 +1353,9 @@
   ./services/web-apps/dolibarr.nix
   ./services/web-apps/engelsystem.nix
   ./services/web-apps/ethercalc.nix
+  ./services/web-apps/filesender.nix
   ./services/web-apps/firefly-iii.nix
+  ./services/web-apps/flarum.nix
   ./services/web-apps/fluidd.nix
   ./services/web-apps/freshrss.nix
   ./services/web-apps/galene.nix
@@ -1384,6 +1399,7 @@
   ./services/web-apps/netbox.nix
   ./services/web-apps/nextcloud.nix
   ./services/web-apps/nextcloud-notify_push.nix
+  ./services/web-apps/nextjs-ollama-llm-ui.nix
   ./services/web-apps/nexus.nix
   ./services/web-apps/nifi.nix
   ./services/web-apps/node-red.nix
@@ -1412,6 +1428,7 @@
   ./services/web-apps/selfoss.nix
   ./services/web-apps/shiori.nix
   ./services/web-apps/silverbullet.nix
+  ./services/web-apps/simplesamlphp.nix
   ./services/web-apps/slskd.nix
   ./services/web-apps/snipe-it.nix
   ./services/web-apps/sogo.nix
@@ -1423,11 +1440,13 @@
   ./services/web-apps/windmill.nix
   ./services/web-apps/wordpress.nix
   ./services/web-apps/writefreely.nix
+  ./services/web-apps/your_spotify.nix
   ./services/web-apps/youtrack.nix
   ./services/web-apps/zabbix.nix
   ./services/web-apps/zitadel.nix
   ./services/web-servers/agate.nix
   ./services/web-servers/apache-httpd/default.nix
+  ./services/web-servers/bluemap.nix
   ./services/web-servers/caddy/default.nix
   ./services/web-servers/darkhttpd.nix
   ./services/web-servers/fcgiwrap.nix

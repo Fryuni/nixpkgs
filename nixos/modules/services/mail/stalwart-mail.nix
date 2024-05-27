@@ -11,6 +11,7 @@ let
 in {
   options.services.stalwart-mail = {
     enable = mkEnableOption "the Stalwart all-in-one email server";
+
     package = mkPackageOption pkgs "stalwart-mail" { };
 
     settings = mkOption {
@@ -26,6 +27,7 @@ in {
   };
 
   config = mkIf cfg.enable {
+
     # Default config: all local
     services.stalwart-mail.settings = {
       global.tracing.method = mkDefault "stdout";
@@ -38,9 +40,12 @@ in {
       store.blob.path = mkDefault "${dataDir}/data/blobs";
       storage.data = mkDefault "db";
       storage.fts = mkDefault "db";
+      storage.lookup = mkDefault "db";
       storage.blob = mkDefault "blob";
       resolver.type = mkDefault "system";
-      resolver.public-suffix = mkDefault ["https://publicsuffix.org/list/public_suffix_list.dat"];
+      resolver.public-suffix = lib.mkDefault [
+        "file://${pkgs.publicsuffix-list}/share/publicsuffix/public_suffix_list.dat"
+      ];
     };
 
     systemd.services.stalwart-mail = {
@@ -106,6 +111,6 @@ in {
   };
 
   meta = {
-    maintainers = with maintainers; [ happysalada pacien ];
+    maintainers = with maintainers; [ happysalada pacien onny ];
   };
 }

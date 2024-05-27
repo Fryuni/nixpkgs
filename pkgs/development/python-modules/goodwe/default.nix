@@ -9,7 +9,7 @@
 
 buildPythonPackage rec {
   pname = "goodwe";
-  version = "0.3.3";
+  version = "0.4.5";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -18,7 +18,7 @@ buildPythonPackage rec {
     owner = "marcelblijleven";
     repo = "goodwe";
     rev = "refs/tags/v${version}";
-    hash = "sha256-CIEv3srjyVWQ1UGKVRwPXpzrND/8hTbw6HSlko9+AIk=";
+    hash = "sha256-xWVYxOc0PibttftZIrnmClPcu4EnJCQ1Zob8Pg+FTBE=";
   };
 
   postPatch = ''

@@ -1,33 +1,34 @@
-{ lib
-, buildPythonPackage
-, fetchFromGitHub
-, pythonOlder
-, stdenvNoCC
-, substituteAll
+{
+  lib,
+  buildPythonPackage,
+  fetchFromGitHub,
+  pythonOlder,
+  stdenvNoCC,
+  substituteAll,
 
-# build
-, setuptools
-, pythonRelaxDepsHook
+  # build
+  setuptools,
+  pythonRelaxDepsHook,
 
-# propagates
-, aiohttp
-, aiorun
-, async-timeout
-, coloredlogs
-, dacite
-, orjson
-, home-assistant-chip-clusters
+  # propagates
+  aiohttp,
+  aiorun,
+  async-timeout,
+  coloredlogs,
+  dacite,
+  orjson,
+  home-assistant-chip-clusters,
 
-# optionals
-, cryptography
-, home-assistant-chip-core
-, zeroconf
+  # optionals
+  cryptography,
+  home-assistant-chip-core,
+  zeroconf,
 
-# tests
-, python
-, pytest
-, pytest-aiohttp
-, pytestCheckHook
+  # tests
+  python,
+  pytest,
+  pytest-aiohttp,
+  pytestCheckHook,
 }:
 
 let
@@ -55,7 +56,7 @@ in
 
 buildPythonPackage rec {
   pname = "python-matter-server";
-  version = "5.9.0";
+  version = "5.10.0";
   format = "pyproject";
 
   disabled = pythonOlder "3.10";
@@ -64,7 +65,7 @@ buildPythonPackage rec {
     owner = "home-assistant-libs";
     repo = "python-matter-server";
     rev = "refs/tags/${version}";
-    hash = "sha256-O3AJ7vBjuwRGa4AMwWIdxn5m2F45rLCjCHeff18b/5E=";
+    hash = "sha256-rfpGclSgCBTxlTgVqgNz3ixoldB9M+6mLmogkNDDdWs=";
   };
 
   patches = [
@@ -85,9 +86,7 @@ buildPythonPackage rec {
     pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [
-    "home-assistant-chip-clusters"
-  ];
+  pythonRelaxDeps = [ "home-assistant-chip-clusters" ];
 
   propagatedBuildInputs = [
     aiohttp
@@ -110,15 +109,15 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytest-aiohttp
     pytestCheckHook
-  ]
-  ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
+  ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  preCheck = let
-    pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
-  in
-  ''
-    export PYTHONPATH=${pythonEnv}/${python.sitePackages}
-  '';
+  preCheck =
+    let
+      pythonEnv = python.withPackages (_: propagatedBuildInputs ++ nativeCheckInputs ++ [ pytest ]);
+    in
+    ''
+      export PYTHONPATH=${pythonEnv}/${python.sitePackages}
+    '';
 
   pytestFlagsArray = [
     # Upstream theymselves limit the test scope

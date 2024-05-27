@@ -19,19 +19,19 @@
 , setuptools
 , python
 , pytestCheckHook
-, wrapGAppsHook
+, wrapGAppsHook3
 }:
 
 buildPythonApplication rec {
   pname = "cobang";
-  version = "0.10.9";
+  version = "0.12.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "hongquan";
     repo = "CoBang";
     rev = "refs/tags/v${version}";
-    hash = "sha256-xOP2XkmHOGMe50dn4StX/9veTdloLHq76ENWEUK4Keo=";
+    hash = "sha256-4INScFnYSwVnGjaohgDL3Sv/NeIwiiyLux8c9/Y/Wq4=";
   };
 
   postPatch = ''
@@ -43,7 +43,7 @@ buildPythonApplication rec {
   nativeBuildInputs = [
     # Needed to recognize gobject namespaces
     gobject-introspection
-    wrapGAppsHook
+    wrapGAppsHook3
     setuptools
   ];
 

@@ -20,15 +20,6 @@ let
     patches = (drv.patches or [ ]) ++ [
       # Part of the GC solution in https://github.com/NixOS/nix/pull/4944
       ./patches/boehmgc-coroutine-sp-fallback.patch
-
-      # Required since 2.20, and has always been a valid change
-      # Awaiting 8.2 patch release of https://github.com/ivmai/bdwgc/commit/d1d4194c010bff2dc9237223319792cae834501c
-      # or master release of https://github.com/ivmai/bdwgc/commit/86b3bf0c95b66f718c3cb3d35fd7387736c2a4d7
-      (fetchpatch {
-        name = "boehmgc-traceable_allocator-public.diff";
-        url = "https://github.com/NixOS/nix/raw/2.20.0/dep-patches/boehmgc-traceable_allocator-public.diff";
-        hash = "sha256-FLsHY/JS46neiSyyQkVpbHZEFvWSCzWrFQu1CC71sh4=";
-      })
     ];
   });
 
@@ -147,6 +138,7 @@ in lib.makeExtensible (self: ({
     patches = [
       patch-monitorfdhup
     ];
+    self_attribute_name = "nix_2_3";
     maintainers = with lib.maintainers; [ flokli raitobezarius ];
   }).override { boehmgc = boehmgc-nix_2_3; }).overrideAttrs {
     # https://github.com/NixOS/nix/issues/10222
@@ -157,27 +149,46 @@ in lib.makeExtensible (self: ({
   nix_2_18 = common {
     version = "2.18.2";
     hash = "sha256-8gNJlBlv2bnffRg0CejiBXc6U/S6YeCLAdHrYvTPyoY=";
+    self_attribute_name = "nix_2_18";
   };
 
   nix_2_19 = common {
     version = "2.19.4";
     hash = "sha256-qXjyVmDm1SFWk1az3GWIsJ0fVG0nWet2FdldFOnUydI=";
+    self_attribute_name = "nix_2_19";
   };
 
   nix_2_20 = common {
     version = "2.20.6";
     hash = "sha256-BSl8Jijq1A4n1ToQy0t0jDJCXhJK+w1prL8QMHS5t54=";
+    self_attribute_name = "nix_2_20";
   };
 
   nix_2_21 = common {
     version = "2.21.2";
     hash = "sha256-ObaVDDPtnOeIE0t7m4OVk5G+OS6d9qYh+ktK67Fe/zE=";
+    self_attribute_name = "nix_2_21";
   };
 
   nix_2_22 = common {
-    version = "2.22.0";
-    hash = "sha256-Ugcc+lSq8nJP+mddMlGFnoG4Ix1lRFHWOal3299bqR8=";
+    version = "2.22.1";
+    hash = "sha256-5Q1WkpTWH7fkVfYhHDc5r0A+Vc+K5xB1UhzrLzBCrB8=";
+    self_attribute_name = "nix_2_22";
   };
+
+  git = common rec {
+    version = "2.23.0";
+    suffix = "pre20240526_${lib.substring 0 8 src.rev}";
+    src = fetchFromGitHub {
+      owner = "NixOS";
+      repo = "nix";
+      rev = "7de033d63fbcf97aad164e131ae3a85e5dcebce7";
+      hash = "sha256-LtsyUsVpr9sM0n1L7MeTw8/6wGtGeXFvKAbPR5lqN8Q=";
+    };
+    self_attribute_name = "git";
+  };
+
+  latest = self.nix_2_22;
 
   # The minimum Nix version supported by Nixpkgs
   # Note that some functionality *might* have been backported into this Nix version,
@@ -197,8 +208,6 @@ in lib.makeExtensible (self: ({
       nix;
 
   stable = addFallbackPathsCheck self.nix_2_18;
-
-  unstable = self.nix_2_22;
 } // lib.optionalAttrs config.allowAliases (
   lib.listToAttrs (map (
     minor:
@@ -207,4 +216,7 @@ in lib.makeExtensible (self: ({
     in
     lib.nameValuePair attr (throw "${attr} has been removed")
   ) (lib.range 4 17))
+  // {
+    unstable = throw "nixVersions.unstable has been removed. For bleeding edge (Nix master, roughly weekly updated) use nixVersions.git, otherwise use nixVersions.latest.";
+  }
 )))

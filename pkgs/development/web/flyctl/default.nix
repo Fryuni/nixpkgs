@@ -1,17 +1,17 @@
-{ lib, buildGo122Module, fetchFromGitHub, testers, flyctl, installShellFiles }:
+{ lib, buildGoModule, fetchFromGitHub, testers, flyctl, installShellFiles, gitUpdater }:
 
-buildGo122Module rec {
+buildGoModule rec {
   pname = "flyctl";
-  version = "0.2.40";
+  version = "0.2.58";
 
   src = fetchFromGitHub {
     owner = "superfly";
     repo = "flyctl";
     rev = "v${version}";
-    hash = "sha256-HIJ2EAfNKVlECXHgw2qx5OlWv5davaBrtrSQVsdrKKY=";
+    hash = "sha256-aXiBDPl/x/xeu+fNrxs+JejVtSZu8KZKbrSetJj4/Pk=";
   };
 
-  vendorHash = "sha256-uA9Sfovz42+JT+AEY7t4dwWpIUgqX8qdGto7LU7qLtY=";
+  vendorHash = "sha256-NmogEh3xWQ/opMm9UarpfuH3MJzJ9+qb0KX/O+i/pcA=";
 
   subPackages = [ "." ];
 
@@ -34,8 +34,15 @@ buildGo122Module rec {
     HOME=$(mktemp -d)
   '';
 
-  postCheck = ''
-    go test ./... -ldflags="-X 'github.com/superfly/flyctl/internal/buildinfo.buildDate=1970-01-01T00:00:00Z'"
+  # We override checkPhase to be able to test ./... while using subPackages
+  checkPhase = ''
+    runHook preCheck
+    # We do not set trimpath for tests, in case they reference test assets
+    export GOFLAGS=''${GOFLAGS//-trimpath/}
+
+    buildGoDir test ./...
+
+    runHook postCheck
   '';
 
   postInstall = ''
@@ -46,18 +53,26 @@ buildGo122Module rec {
     ln -s $out/bin/flyctl $out/bin/fly
   '';
 
+  # Upstream tags every PR merged with release tags like
+  # v2024.5.20-pr3545.4. We ignore all revisions containing a '-'
+  # to skip these releases.
+  passthru.updateScript = gitUpdater {
+    rev-prefix = "v";
+    ignoredVersions = "-";
+  };
+
   passthru.tests.version = testers.testVersion {
     package = flyctl;
     command = "HOME=$(mktemp -d) flyctl version";
     version = "v${flyctl.version}";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Command line tools for fly.io services";
     downloadPage = "https://github.com/superfly/flyctl";
     homepage = "https://fly.io/";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ adtya jsierles techknowlogick ];
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ adtya jsierles techknowlogick RaghavSood ];
     mainProgram = "flyctl";
   };
 }

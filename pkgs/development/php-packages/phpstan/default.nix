@@ -1,17 +1,21 @@
-{ fetchFromGitHub, lib, php }:
+{
+  fetchFromGitHub,
+  lib,
+  php,
+}:
 
 php.buildComposerProject (finalAttrs: {
   pname = "phpstan";
-  version = "1.10.66";
+  version = "1.11.2";
 
   src = fetchFromGitHub {
     owner = "phpstan";
     repo = "phpstan-src";
     rev = finalAttrs.version;
-    hash = "sha256-ZEQ6oP6zyi0cL69J9ck8gAht5taPkzH+iW5ALC4saAQ=";
+    hash = "sha256-g1YIFqNo1UTmNrgS+lAkDXSnKsmhLj+Itoi3tgxdx4Y=";
   };
 
-  vendorHash = "sha256-Qp/eMhcKK32N1EMgeIspBDs28Oofwn6n2bEFKqvSx9E=";
+  vendorHash = "sha256-sFV22B5ohbDvclb1nuvpMhhfKjEe7FAFCqWfIguAY8M=";
   composerStrictValidation = false;
 
   meta = {

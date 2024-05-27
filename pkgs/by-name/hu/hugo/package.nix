@@ -10,16 +10,16 @@
 
 buildGoModule rec {
   pname = "hugo";
-  version = "0.125.4";
+  version = "0.126.1";
 
   src = fetchFromGitHub {
     owner = "gohugoio";
     repo = "hugo";
     rev = "refs/tags/v${version}";
-    hash = "sha256-oeOP9UoiAGwYR2Vzr5IZrLfYA3EQJ9j6Bzh7C12pA+c=";
+    hash = "sha256-c421kzgD6PFM/9Rn+NmZGyRlJPWhQPraW/4HcuRoEUU=";
   };
 
-  vendorHash = "sha256-L8+e6rZvFaNV9gyWJtXv9NnzoigVDSyNKTuxGrRwb44=";
+  vendorHash = "sha256-VfwiA5LCAJ1pkmMCy/Dcc5bLKkNY1MHtxHcHvKLoWHs=";
 
   doCheck = false;
 

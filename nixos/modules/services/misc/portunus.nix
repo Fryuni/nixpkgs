@@ -98,6 +98,10 @@ in
 
           The OIDC secret must be set as the `DEX_CLIENT_''${id}` environment variable
           in the [](#opt-services.dex.environmentFile) setting.
+
+          ::: {.note}
+          Make sure the id only contains characters that are allowed in an environment variable name, e.g. no -.
+          :::
         '';
       };
 
@@ -231,12 +235,14 @@ in
     };
 
     systemd.services = {
-      dex.serviceConfig = mkIf cfg.dex.enable {
-        # `dex.service` is super locked down out of the box, but we need some
-        # place to write the SQLite database. This creates $STATE_DIRECTORY below
-        # /var/lib/private because DynamicUser=true, but it gets symlinked into
-        # /var/lib/dex inside the unit
-        StateDirectory = "dex";
+      dex = mkIf cfg.dex.enable {
+        serviceConfig = {
+          # `dex.service` is super locked down out of the box, but we need some
+          # place to write the SQLite database. This creates $STATE_DIRECTORY below
+          # /var/lib/private because DynamicUser=true, but it gets symlinked into
+          # /var/lib/dex inside the unit
+          StateDirectory = "dex";
+        };
       };
 
       portunus = {

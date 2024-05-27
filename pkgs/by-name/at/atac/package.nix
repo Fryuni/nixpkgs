@@ -9,16 +9,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "atac";
-  version = "0.13.0";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "Julien-cpsn";
     repo = "ATAC";
     rev = "v${version}";
-    hash = "sha256-ChX2LMRbqoKzl+QKkeervrCHr3plAQ21RzC4RqEucCA=";
+    hash = "sha256-WDO6HDmjlXU4uelAJIWJN2sOJTioR7i2WzQpqg6dtKo=";
   };
 
-  cargoHash = "sha256-nYkXL3SIjG3REE+w2vIlB04FWs7e0d4iu0hRjAPz7aU=";
+  cargoHash = "sha256-+dBEl1qk1/3WuSypsxV4x7DEmnMxa2z0MC03IZaON3s=";
 
   nativeBuildInputs = [
     pkg-config
@@ -29,6 +29,7 @@ rustPlatform.buildRustPackage rec {
       oniguruma
     ]
     ++ lib.optionals stdenv.isDarwin [
+      darwin.apple_sdk.frameworks.AppKit
       darwin.apple_sdk.frameworks.Security
       darwin.apple_sdk.frameworks.SystemConfiguration
     ];

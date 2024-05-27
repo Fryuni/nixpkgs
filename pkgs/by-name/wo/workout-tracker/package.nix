@@ -8,13 +8,13 @@
 
 buildGoModule rec {
   pname = "workout-tracker";
-  version = "0.14.1";
+  version = "0.14.3";
 
   src = fetchFromGitHub {
     owner = "jovandeginste";
     repo = "workout-tracker";
     rev = "refs/tags/v${version}";
-    hash = "sha256-zmDY5KpKkq/9SYAm+v0QSnLLjxYQCzzXWLlCFkE8bA0=";
+    hash = "sha256-NGj3W6SYZauaAhMinPzsSXM8Dqy+B+am985JJjh6xTs=";
   };
 
   vendorHash = null;

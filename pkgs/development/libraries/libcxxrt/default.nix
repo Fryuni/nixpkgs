@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation {
   pname = "libcxxrt";
-  version = "unstable-2024-04-15";
+  version = "4.0.10-unstable-2024-04-15";
 
   src = fetchFromGitHub {
     owner = "libcxxrt";
@@ -13,9 +13,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ cmake ];
 
+  outputs = [ "out" "dev" ];
+
   installPhase = ''
-    mkdir -p $out/include $out/lib
-    cp ../src/cxxabi.h $out/include
+    mkdir -p $dev/include $out/lib
+    cp ../src/cxxabi.h $dev/include
     cp lib/libcxxrt${stdenv.hostPlatform.extensions.library} $out/lib
   '';
 

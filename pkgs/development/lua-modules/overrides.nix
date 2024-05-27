@@ -6,6 +6,7 @@
 # plenary utilities
 , which
 , findutils
+, clang
 , coreutils
 , curl
 , cyrus_sasl
@@ -28,6 +29,7 @@
 , libiconv
 , libmpack
 , libmysqlclient
+, libpsl
 , libuuid
 , libuv
 , libxcrypt
@@ -47,6 +49,7 @@
 , sol2
 , sqlite
 , tomlplusplus
+, tree-sitter
 , unbound
 , vimPlugins
 , vimUtils
@@ -91,7 +94,7 @@ in
     ];
     postConfigure = ''
       substituteInPlace ''${rockspecFilename} \
-        --replace "'lua_cliargs = 3.0-1'," "'lua_cliargs >= 3.0-1',"
+        --replace-fail "'lua_cliargs = 3.0'," "'lua_cliargs >= 3.0-1',"
     '';
     postInstall = ''
       installShellCompletion --cmd busted \
@@ -150,9 +153,9 @@ in
   # we have to invoke busted manually
   fzy = prev.fzy.overrideAttrs(oa: {
     doCheck = true;
-    nativeCheckInputs = [ prev.busted ];
+    nativeCheckInputs = [ final.busted ];
     checkPhase = ''
-      busted test/test.lua
+      busted
     '';
   });
 
@@ -235,6 +238,10 @@ in
     preConfigure = ''
       make rock
     '';
+
+    # Lua 5.4 support is experimental at the moment, see
+    # https://github.com/lgi-devs/lgi/pull/249
+    meta.broken = luaOlder "5.1" || luaAtLeast "5.4";
   });
 
   lmathx = prev.luaLib.overrideLuarocks prev.lmathx (drv:
@@ -427,6 +434,13 @@ in
   #   meta.broken = true;
   # });
 
+  lua-resty-openidc =  prev.lua-resty-openidc.overrideAttrs (_: {
+    postConfigure = ''
+      substituteInPlace ''${rockspecFilename} \
+        --replace '"lua-resty-session >= 2.8, <= 3.10",' '"lua-resty-session >= 2.8",'
+    '';
+  });
+
   lua-yajl =  prev.lua-yajl.overrideAttrs (oa: {
     buildInputs = oa.buildInputs ++ [
       yajl
@@ -604,6 +618,15 @@ in
     dontPatchShebangs = true;
   });
 
+  psl = prev.psl.overrideAttrs (drv: {
+    buildInputs = drv.buildInputs or [ ] ++ [ libpsl ];
+
+    luarocksConfig.variables = drv.luarocksConfig.variables // {
+      PSL_INCDIR = lib.getDev libpsl + "/include";
+      PSL_DIR = lib.getLib libpsl;
+    };
+  });
+
   rapidjson = prev.rapidjson.overrideAttrs (oa: {
     preBuild = ''
       sed -i '/set(CMAKE_CXX_FLAGS/d' CMakeLists.txt
@@ -636,7 +659,8 @@ in
       tar xf *.tar.gz
     '';
 
-    propagatedBuildInputs = [ lua luaposix
+    propagatedBuildInputs = [
+      luaposix
       readline.out
     ];
 
@@ -691,12 +715,15 @@ in
   toml = prev.toml.overrideAttrs (oa: {
     patches = [ ./toml.patch ];
 
-    propagatedBuildInputs = oa.propagatedBuildInputs ++ [ magic-enum sol2 ];
+    nativeBuildInputs = oa.nativeBuildInputs ++ [ tomlplusplus ];
+    propagatedBuildInputs = oa.propagatedBuildInputs ++ [ sol2 ];
 
     postPatch = ''
-      substituteInPlace CMakeLists.txt --replace \
-        "TOML_PLUS_PLUS_SRC" \
-        "${tomlplusplus.src}"
+      substituteInPlace CMakeLists.txt \
+        --replace-fail "TOML_PLUS_PLUS_SRC" "${tomlplusplus.src}/include/toml++" \
+        --replace-fail "MAGIC_ENUM_SRC" "${magic-enum.src}/include/magic_enum"
+
+      cat CMakeLists.txt
     '';
   });
 
@@ -707,11 +734,10 @@ in
       hash = "sha256-2P+mokkjdj2PccQG/kAGnIoUPVnK2FqNfYpHPhsp8kw=";
     };
 
-    nativeBuildInputs = let
-      # HACK: luarocks-nix doesn't pick up rockspec build dependencies,
-      # so we have to pass the correct package in here.
-      lua = lib.head oa.propagatedBuildInputs;
-    in oa.nativeBuildInputs ++ [
+    NIX_LDFLAGS = lib.optionalString stdenv.isDarwin
+      (if lua.pkgs.isLuaJIT then "-lluajit-${lua.luaversion}" else "-llua");
+
+    nativeBuildInputs = oa.nativeBuildInputs ++ [
       cargo
       rustPlatform.cargoSetupHook
       lua.pkgs.luarocks-build-rust-mlua
@@ -719,11 +745,31 @@ in
 
   });
 
+  tree-sitter-norg = prev.tree-sitter-norg.overrideAttrs (oa: {
+    nativeBuildInputs = let
+      # HACK: luarocks-nix doesn't pick up rockspec build dependencies,
+      # so we have to pass the correct package in here.
+      lua = lib.head oa.propagatedBuildInputs;
+    in oa.nativeBuildInputs ++ [
+      lua.pkgs.luarocks-build-treesitter-parser
+    ] ++ (lib.optionals stdenv.isDarwin [
+      clang
+      tree-sitter
+    ]);
+    meta.broken = (luaOlder "5.1" || stdenv.isDarwin);
+  });
+
   vstruct = prev.vstruct.overrideAttrs (_: {
     meta.broken = (luaOlder "5.1" || luaAtLeast "5.4");
   });
 
   vusted = prev.vusted.overrideAttrs (_: {
+    postConfigure = ''
+      cat ''${rockspecFilename}
+      substituteInPlace ''${rockspecFilename} \
+        --replace-fail '"luasystem = 0.2.1",' "'luasystem >= 0.2',"
+    '';
+
     # make sure vusted_entry.vim doesn't get wrapped
     postInstall = ''
       chmod -x $out/bin/vusted_entry.vim

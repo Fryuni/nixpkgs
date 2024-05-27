@@ -5,11 +5,11 @@ with lib;
 let
 
   # The splicing information needed for nativeBuildInputs isn't available
-  # on the derivations likely to be used as `cfgc.package`.
+  # on the derivations likely to be used as `cfg.package`.
   # This middle-ground solution ensures *an* sshd can do their basic validation
   # on the configuration.
   validationPackage = if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform
-    then cfgc.package
+    then cfg.package
     else pkgs.buildPackages.openssh;
 
   # dont use the "=" operator
@@ -169,6 +169,13 @@ in
         '';
       };
 
+      package = mkOption {
+        type = types.package;
+        default = config.programs.ssh.package;
+        defaultText = literalExpression "programs.ssh.package";
+        description = "OpenSSH package to use for sshd.";
+      };
+
       startWhenNeeded = mkOption {
         type = types.bool;
         default = false;
@@ -293,6 +300,17 @@ in
           These are paths relative to the host root file system or home
           directories and they are subject to certain token expansion rules.
           See AuthorizedKeysFile in man sshd_config for details.
+        '';
+      };
+
+      authorizedKeysInHomedir = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Enables the use of the `~/.ssh/authorized_keys` file.
+
+          Otherwise, the only files trusted by default are those in `/etc/ssh/authorized_keys.d`,
+          *i.e.* SSH keys from [](#opt-users.users._name_.openssh.authorizedKeys.keys).
         '';
       };
 
@@ -533,8 +551,8 @@ in
       };
     users.groups.sshd = {};
 
-    services.openssh.moduliFile = mkDefault "${cfgc.package}/etc/ssh/moduli";
-    services.openssh.sftpServerExecutable = mkDefault "${cfgc.package}/libexec/sftp-server";
+    services.openssh.moduliFile = mkDefault "${cfg.package}/etc/ssh/moduli";
+    services.openssh.sftpServerExecutable = mkDefault "${cfg.package}/libexec/sftp-server";
 
     environment.etc = authKeysFiles // authPrincipalsFiles //
       { "ssh/moduli".source = cfg.moduliFile;
@@ -548,7 +566,7 @@ in
             wantedBy = optional (!cfg.startWhenNeeded) "multi-user.target";
             after = [ "network.target" ];
             stopIfChanged = false;
-            path = [ cfgc.package pkgs.gawk ];
+            path = [ cfg.package pkgs.gawk ];
             environment.LD_LIBRARY_PATH = nssModulesPath;
 
             restartTriggers = optionals (!cfg.startWhenNeeded) [
@@ -582,7 +600,7 @@ in
             serviceConfig =
               { ExecStart =
                   (optionalString cfg.startWhenNeeded "-") +
-                  "${cfgc.package}/bin/sshd " + (optionalString cfg.startWhenNeeded "-i ") +
+                  "${cfg.package}/bin/sshd " + (optionalString cfg.startWhenNeeded "-i ") +
                   "-D " +  # don't detach into a daemon process
                   "-f /etc/ssh/sshd_config";
                 KillMode = "process";
@@ -635,7 +653,7 @@ in
     # https://github.com/NixOS/nixpkgs/pull/10155
     # https://github.com/NixOS/nixpkgs/pull/41745
     services.openssh.authorizedKeysFiles =
-      [ "%h/.ssh/authorized_keys" "/etc/ssh/authorized_keys.d/%u" ];
+      lib.optional cfg.authorizedKeysInHomedir "%h/.ssh/authorized_keys" ++ [ "/etc/ssh/authorized_keys.d/%u" ];
 
     services.openssh.settings.AuthorizedPrincipalsFile = mkIf (authPrincipalsFiles != {}) "/etc/ssh/authorized_principals.d/%u";
 

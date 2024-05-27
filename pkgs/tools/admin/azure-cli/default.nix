@@ -18,14 +18,14 @@
 }:
 
 let
-  version = "2.58.0";
+  version = "2.60.0";
 
   src = fetchFromGitHub {
     name = "azure-cli-${version}-src";
     owner = "Azure";
     repo = "azure-cli";
     rev = "azure-cli-${version}";
-    hash = "sha256-2KLjPzxtHeuH0/+Sge1wTmGimOiaTWr8EI+xkFBrPD0=";
+    hash = "sha256-rQwjcp6MsqhP+o+Hpvt4CFC4ygqsIaRIQOxWKca5Hq8=";
   };
 
   # put packages that needs to be overridden in the py package scope
@@ -39,8 +39,8 @@ let
     , url
     , sha256
     , description
-    }: python3.pkgs.buildPythonPackage {
-      inherit pname version;
+    , ...
+    }@args: python3.pkgs.buildPythonPackage ({
       format = "wheel";
       src = fetchurl { inherit url sha256; };
       meta = with lib; {
@@ -51,9 +51,11 @@ let
         license = lib.licenses.mit;
         sourceProvenance = [ sourceTypes.fromSource ];
       };
-    };
+    } // (removeAttrs args [ "url" "sha256" "description" ]));
 
-  extensions = callPackages ./extensions-generated.nix { inherit mkAzExtension; };
+  extensions =
+    callPackages ./extensions-generated.nix { inherit mkAzExtension; }
+    // callPackages ./extensions-manual.nix { inherit mkAzExtension; };
 
   extensionDir = stdenvNoCC.mkDerivation {
     name = "azure-cli-extensions";
@@ -227,6 +229,10 @@ py.pkgs.toPythonApplication (py.pkgs.buildAzureCliPackage rec {
     wcwidth
     websocket-client
     xmltodict
+  ] ++ lib.optionals (!withImmutableConfig) [
+    # pip is required to install extensions locally, but it's not needed if
+    # we're using the default immutable configuration.
+    pip
   ];
 
   postInstall = ''

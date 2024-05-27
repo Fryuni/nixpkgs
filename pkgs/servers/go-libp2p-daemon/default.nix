@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "go-libp2p-daemon";
-  version = "0.5.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "libp2p";
     repo = "go-libp2p-daemon";
     rev = "v${version}";
-    hash = "sha256-3zlSD+9KnIOBlaE3gCTBGKwZY0rMW8lbb4b77BlJm/g=";
+    hash = "sha256-XXg1qIACAHgK1/PltwuoNVYrsntfzo71g1dlq9V/FS4=";
   };
 
-  vendorHash = "sha256-8wrtPfuZ9X3cKjDeywht0d3p5lQouk6ZPO1PIjBz2Ro=";
+  vendorHash = "sha256-Kdxo0QsS7o9BjSG6qFrlCnqyZXhX6NkT/aUznGrm3xo=";
 
   doCheck = false;
 

@@ -92,12 +92,12 @@ in rec {
 
   catppuccin = mkTmuxPlugin {
     pluginName = "catppuccin";
-    version = "unstable-2023-08-21";
+    version = "unstable-2024-05-15";
     src = fetchFromGitHub {
       owner = "catppuccin";
       repo = "tmux";
-      rev = "7a284c98e5df4cc84a1a45ad633916f0b2b916b2";
-      hash = "sha256-jxcxW0gEfXaSt8VM3UIs0dKNKaHb8JSEQBBV3SVjW/A=";
+      rev = "697087f593dae0163e01becf483b192894e69e33";
+      hash = "sha256-EHinWa6Zbpumu+ciwcMo6JIIvYFfWWEKH1lwfyZUNTo=";
     };
     postInstall = ''
       sed -i -e 's|''${PLUGIN_DIR}/catppuccin-selected-theme.tmuxtheme|''${TMUX_TMPDIR}/catppuccin-selected-theme.tmuxtheme|g' $target/catppuccin.tmux
@@ -310,12 +310,18 @@ in rec {
   fzf-tmux-url = mkTmuxPlugin {
     pluginName = "fzf-tmux-url";
     rtpFilePath = "fzf-url.tmux";
-    version = "unstable-2021-12-27";
+    version = "unstable-2024-04-14";
     src = fetchFromGitHub {
       owner = "wfxr";
       repo = "tmux-fzf-url";
-      rev = "1241fc5682850fe41812cad81c76541674ee305b";
-      sha256 = "1270c5nfvgsdajgfahlacqfb5xwg4hwfrciiy0v03d50vg4h0kdi";
+      rev = "28ed7ce3c73a328d8463d4f4aaa6ccb851e520fa";
+      hash = "sha256-tl0SjG/CeolrN7OIHj6MgkB9lFmFgEuJevsSuwVs+78=";
+    };
+    meta = with lib; {
+      homepage = "https://github.com/wfxr/tmux-fzf-url";
+      description = "Quickly open urls on your terminal screen!";
+      license = licenses.mit;
+      platforms = platforms.unix;
     };
   };
 

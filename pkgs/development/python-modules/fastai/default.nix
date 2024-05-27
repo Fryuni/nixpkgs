@@ -1,31 +1,32 @@
-{ lib
-, buildPythonPackage
-, fetchPypi
-, fastprogress
-, fastcore
-, fastdownload
-, torch
-, torchvision
-, matplotlib
-, pillow
-, scikit-learn
-, scipy
-, spacy
-, pandas
-, requests
-, pythonOlder
+{
+  lib,
+  buildPythonPackage,
+  fetchPypi,
+  fastprogress,
+  fastcore,
+  fastdownload,
+  torch,
+  torchvision,
+  matplotlib,
+  pillow,
+  scikit-learn,
+  scipy,
+  spacy,
+  pandas,
+  requests,
+  pythonOlder,
 }:
 
 buildPythonPackage rec {
   pname = "fastai";
-  version = "2.7.14";
+  version = "2.7.15";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-QiVyYojI/xs7wYl3umhky0j+xzptNS7Fv+fLMRy/4jc=";
+    hash = "sha256-8swg/RjN9exzjMVtKdVN51iH1IrRX501z1DDjTqFaSM=";
   };
 
   propagatedBuildInputs = [

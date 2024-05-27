@@ -14,17 +14,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "listenbrainz-mpd";
-  version = "2.3.4";
+  version = "2.3.6";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "elomatreb";
     repo = "listenbrainz-mpd";
     rev = "v${version}";
-    hash = "sha256-QHhSrmBNvUTffPzjns670Tn3Z3UDcDvarq605Qx9k4w=";
+    hash = "sha256-ZcpxMVUb24Ckb3CunibNYvDRk6MOsutUCUfElbUQ8Ok=";
   };
 
-  cargoHash = "sha256-vtU439Pd3zWx+qakh1xTENQhun7S+WsJMndXqPWrPWU=";
+  cargoHash = "sha256-uZlzWxdruwPemUnvhjyh9uKRb8vj7462N/2u2bTGQgI=";
 
   nativeBuildInputs = [ pkg-config installShellFiles asciidoctor ];
 

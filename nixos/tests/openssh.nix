@@ -1,11 +1,11 @@
 import ./make-test-python.nix ({ pkgs, ... }:
 
 let inherit (import ./ssh-keys.nix pkgs)
-      snakeOilPrivateKey snakeOilPublicKey;
+      snakeOilPrivateKey snakeOilPublicKey snakeOilEd25519PrivateKey snakeOilEd25519PublicKey;
 in {
   name = "openssh";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ aszlig eelco ];
+    maintainers = [ aszlig ];
   };
 
   nodes = {
@@ -108,14 +108,39 @@ in {
         };
       };
 
+    server-no-openssl =
+      { ... }:
+      {
+        services.openssh = {
+          enable = true;
+          package = pkgs.opensshPackages.openssh.override {
+            linkOpenssl = false;
+          };
+          hostKeys = [
+            { type = "ed25519"; path = "/etc/ssh/ssh_host_ed25519_key"; }
+          ];
+          settings = {
+            # Must not specify the OpenSSL provided algorithms.
+            Ciphers = [ "chacha20-poly1305@openssh.com" ];
+            KexAlgorithms = [
+              "curve25519-sha256"
+              "curve25519-sha256@libssh.org"
+            ];
+          };
+        };
+        users.users.root.openssh.authorizedKeys.keys = [
+          snakeOilEd25519PublicKey
+        ];
+      };
+
     server-no-pam =
       { pkgs, ... }:
       {
-        programs.ssh.package = pkgs.opensshPackages.openssh.override {
-          withPAM = false;
-        };
         services.openssh = {
           enable = true;
+          package = pkgs.opensshPackages.openssh.override {
+            withPAM = false;
+          };
           settings = {
             UsePAM = false;
           };
@@ -139,6 +164,7 @@ in {
     server_allowed_users.wait_for_unit("sshd", timeout=30)
     server_localhost_only.wait_for_unit("sshd", timeout=30)
     server_match_rule.wait_for_unit("sshd", timeout=30)
+    server_no_openssl.wait_for_unit("sshd", timeout=30)
     server_no_pam.wait_for_unit("sshd", timeout=30)
 
     server_lazy.wait_for_unit("sshd.socket", timeout=30)
@@ -227,6 +253,16 @@ in {
         )
         client.fail(
             "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i privkey.snakeoil carol@server-allowed-users true",
+            timeout=30
+        )
+
+    with subtest("no-openssl"):
+        client.succeed(
+            "cat ${snakeOilEd25519PrivateKey} > privkey.snakeoil"
+        )
+        client.succeed("chmod 600 privkey.snakeoil")
+        client.succeed(
+            "ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i privkey.snakeoil server-no-openssl true",
             timeout=30
         )
 

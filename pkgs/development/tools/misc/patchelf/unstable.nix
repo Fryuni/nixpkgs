@@ -1,8 +1,8 @@
-{ lib, stdenv, fetchurl, autoreconfHook, fetchFromGitHub, unstableGitUpdater }:
+{ lib, stdenv, autoreconfHook, fetchFromGitHub, unstableGitUpdater }:
 
 stdenv.mkDerivation rec {
   pname = "patchelf";
-  version = "unstable-2024-01-15";
+  version = "0.18.0-unstable-2024-01-15";
 
   src = fetchFromGitHub {
     owner = "NixOS";

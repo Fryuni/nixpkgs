@@ -39,15 +39,6 @@ let
         };
       });
 
-      aioautomower = super.aioautomower.overridePythonAttrs (oldAttrs: rec {
-        version = "2024.3.4";
-        src = fetchFromGitHub {
-          inherit (oldAttrs.src) owner repo;
-          rev = "refs/tags/${version}";
-          hash = "sha256-dk8HfIiQOKq7Ky+vYa3wKmTS78gTw6J0yyQT2Folpp0=";
-        };
-      });
-
       aioelectricitymaps = super.aioelectricitymaps.overridePythonAttrs (oldAttrs: rec {
         version = "0.4.0";
         src = fetchFromGitHub {
@@ -61,19 +52,14 @@ let
         ];
       });
 
-      aiogithubapi = super.aiogithubapi.overridePythonAttrs (oldAttrs: rec {
-        version = "22.10.1";
+      aiolyric = super.aiolyric.overridePythonAttrs (oldAttrs: rec {
+        version = "1.1.1";
         src = fetchFromGitHub {
-          owner = "ludeeus";
-          repo = "aiogithubapi";
+          owner = "timmo001";
+          repo = "aiolyric";
           rev = "refs/tags/${version}";
-          hash = "sha256-ceBuqaMqqL6qwN52765MG4sLt+08hx2G9rUVNC7x6ik=";
+          hash = "sha256-FZhLjVrLzLv6CZz/ROlvbtBK9XnpO8pG48aSIoBxhCo=";
         };
-        propagatedBuildInputs = with self; [
-          aiohttp
-          async-timeout
-          backoff
-        ];
       });
 
       aiopurpleair = super.aiopurpleair.overridePythonAttrs (oldAttrs: rec {
@@ -193,6 +179,16 @@ let
         };
       });
 
+      homematicip = super.homematicip.overridePythonAttrs rec {
+        version = "1.1.0";
+        src = fetchFromGitHub {
+          owner = "hahn-th";
+          repo = "homematicip-rest-api";
+          rev = "refs/tags/${version}";
+          hash = "sha256-tx7/amXG3rLdUFgRPQcuf57qkBLAPxPWjLGSO7MrcWU=";
+        };
+      };
+
       intellifire4py = super.intellifire4py.overridePythonAttrs (oldAttrs: rec {
         version = "2.2.2";
         src = fetchFromGitHub {
@@ -293,16 +289,16 @@ let
         doCheck = false; # no tests
       });
 
-      # Pinned due to API changes in 1.3.0
-      ovoenergy = super.ovoenergy.overridePythonAttrs (oldAttrs: rec {
-        version = "1.2.0";
+      # Can probably be removed with 2024.6.0
+      plugwise = super.plugwise.overridePythonAttrs rec {
+        version = "0.37.3";
         src = fetchFromGitHub {
-          owner = "timmo001";
-          repo = "ovoenergy";
+          owner = "plugwise";
+          repo = "python-plugwise";
           rev = "refs/tags/v${version}";
-          hash = "sha256-OSK74uvpHuEtWgbLVFrz1NO7lvtHbt690smGQ+GlsOI=";
+          hash = "sha256-aQz0p+DNi1XVoFwdFjc3RjpHqA2kGf4pU1QS6m271gU=";
         };
-      });
+      };
 
       # Pinned due to API changes in 0.1.0
       poolsense = super.poolsense.overridePythonAttrs (oldAttrs: rec {
@@ -311,16 +307,6 @@ let
           pname = "poolsense";
           inherit version;
           hash = "sha256-17MHrYRmqkH+1QLtgq2d6zaRtqvb9ju9dvPt9gB2xCc=";
-        };
-      });
-
-      py-synologydsm-api = super.py-synologydsm-api.overridePythonAttrs (oldAttrs: rec {
-        version = "2.1.4";
-        src = fetchFromGitHub {
-          owner = "mib1185";
-          repo = "py-synologydsm-api";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-37JzdhMny6YDTBO9NRzfrZJAVAOPnpcr95fOKxisbTg=";
         };
       });
 
@@ -366,20 +352,6 @@ let
         };
       });
 
-      python-roborock = super.python-roborock.overridePythonAttrs (oldAttrs: rec {
-        version = "0.40.0";
-        src = fetchFromGitHub {
-          owner = "humbertogontijo";
-          repo = "python-roborock";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-H4xwgulNLs3R1Q5GhvQffpAZ1CWXZUJAja8BskW+YJk=";
-        };
-        postPatch = ''
-          substituteInPlace pyproject.toml \
-            --replace-fail "poetry-core==" "poetry-core>="
-        '';
-      });
-
       pytibber = super.pytibber.overridePythonAttrs (oldAttrs: rec {
         version = "0.28.2";
         src = fetchFromGitHub {
@@ -388,6 +360,13 @@ let
           rev = "refs/tags/${version}";
           hash = "sha256-vi5f4V0nPb9K3nwdmwMDoNE85Or6haOWjMY4d/2Fj2s=";
         };
+        dependencies = with self; [
+          aiohttp
+          async-timeout
+          gql
+          python-dateutil
+          websockets
+        ];
       });
 
       pykaleidescape = super.pykaleidescape.overridePythonAttrs (oldAttrs: rec {
@@ -429,6 +408,46 @@ let
         };
       });
 
+      # newer sigstore version transitivevly require pydantic>=2
+      sigstore = super.sigstore.overridePythonAttrs (oldAttrs: rec {
+        version = "1.1.2";
+        src = fetchFromGitHub {
+          owner = "sigstore";
+          repo = "sigstore-python";
+          rev = "refs/tags/v${version}";
+          hash = "sha256-QqY5GOBS75OkbSaF5Ua5jnJAhsYfVRuWLUoWDxX8Ino=";
+        };
+        dependencies = with self; [
+          appdirs
+          cryptography
+          id
+          pydantic
+          pyjwt
+          pyopenssl
+          requests
+          securesystemslib
+          sigstore-protobuf-specs
+          tuf
+        ];
+        doCheck = false; # pytest too new
+      });
+
+      sigstore-protobuf-specs = super.sigstore-protobuf-specs.overridePythonAttrs {
+        version = "0.1.0";
+        src = fetchPypi {
+          pname = "sigstore-protobuf-specs";
+          version = "0.1.0";
+          hash = "sha256-YistIxYToo7T5mYKzYeBhnW06DSG9JoPDBmKxUdfy4E=";
+        };
+        nativeBuildInputs = with self; [
+          flit-core
+          pythonRelaxDepsHook
+        ];
+        pythonRelaxDeps = [
+          "betterproto"
+        ];
+      };
+
       tesla-powerwall = super.tesla-powerwall.overridePythonAttrs (oldAttrs: rec {
         version = "0.5.1";
         src = fetchFromGitHub {
@@ -439,17 +458,22 @@ let
         };
       });
 
-      versioningit = super.versioningit.overridePythonAttrs (oldAttrs: rec {
-        version = "2.2.0";
-        src = fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version;
-          hash = "sha256-6xjnunJoqIC/HM/pLlNOlqs04Dl/KNy8s/wNpPaltr0=";
+      tuf = super.tuf.overridePythonAttrs rec {
+        version = "2.1.0";
+        src = fetchFromGitHub {
+          owner = "theupdateframework";
+          repo = "python-tuf";
+          rev = "refs/tags/v${version}";
+          hash = "sha256-MdPctAZuKn/YAwpMJ5gWU7PXJD3iK7bYprLXV52wNQQ=";
         };
-        pytestFlagsArray = [
-          "-W" "ignore::DeprecationWarning"
+        disabledTests = [
+          "test_sign_failures"
         ];
-      });
+      };
+
+      versioningit = super.versioningit.overridePythonAttrs {
+        doCheck = false;
+      };
 
       voluptuous = super.voluptuous.overridePythonAttrs (oldAttrs: rec {
         version = "0.13.1";
@@ -526,7 +550,7 @@ let
   extraBuildInputs = extraPackages python.pkgs;
 
   # Don't forget to run update-component-packages.py after updating
-  hassVersion = "2024.4.4";
+  hassVersion = "2024.5.5";
 
 in python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
@@ -544,16 +568,16 @@ in python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = "refs/tags/${version}";
-    hash = "sha256-bZcrFtaO0S22M6Wt2otK8rCg+NhpXr+/yRFxi02QJJI=";
+    hash = "sha256-WAwLir9+O82kNBAwy0hUdfVxgDb3C4sIRDcyzVxfcuM=";
   };
 
   # Secondary source is pypi sdist for translations
   sdist = fetchPypi {
     inherit pname version;
-    hash = "sha256-NyIBFpDstX1MEoLS9p7GXl/+V6xB2hklNf2LmNLUMQk=";
+    hash = "sha256-kcZM+IK96/q2GXeDSJzJTbzbz5mYcHevTDLpKspII6o=";
   };
 
-  nativeBuildInputs = with python.pkgs; [
+  build-system = with python.pkgs; [
     pythonRelaxDepsHook
     setuptools
   ];
@@ -564,11 +588,13 @@ in python.pkgs.buildPythonApplication rec {
     "bcrypt"
     "ciso8601"
     "cryptography"
+    "jinja2"
     "hass-nabucasa"
     "httpx"
     "orjson"
     "pillow"
     "pyopenssl"
+    "sqlalchemy"
     "typing-extensions"
     "urllib3"
   ];
@@ -593,16 +619,20 @@ in python.pkgs.buildPythonApplication rec {
   postPatch = ''
     substituteInPlace tests/test_config.py --replace-fail '"/usr"' '"/build/media"'
 
+    substituteInPlace pyproject.toml --replace-fail "wheel~=0.43.0" wheel
+
     sed -i 's/setuptools[~=]/setuptools>/' pyproject.toml
     sed -i 's/wheel[~=]/wheel>/' pyproject.toml
   '';
 
-  propagatedBuildInputs = with python.pkgs; [
+  dependencies = with python.pkgs; [
     # Only packages required in pyproject.toml
+    aiodns
     aiohttp
     aiohttp-cors
     aiohttp-fast-url-dispatcher
-    aiohttp-zlib-ng
+    aiohttp-isal
+    aiohttp-session
     astral
     async-interrupt
     atomicwrites-homeassistant
@@ -614,8 +644,8 @@ in python.pkgs.buildPythonApplication rec {
     cryptography
     fnv-hash-fast
     hass-nabucasa
-    httpx
     home-assistant-bluetooth
+    httpx
     ifaddr
     jinja2
     lru-dict
@@ -624,8 +654,8 @@ in python.pkgs.buildPythonApplication rec {
     pillow
     pip
     psutil-home-assistant
-    pyopenssl
     pyjwt
+    pyopenssl
     python-slugify
     pyyaml
     requests
@@ -667,11 +697,14 @@ in python.pkgs.buildPythonApplication rec {
     tomli
     # Sneakily imported in tests/conftest.py
     paho-mqtt
+    # Used in tests/non_packaged_scripts/test_alexa_locales.py
+    beautifulsoup4
   ] ++ lib.concatMap (component: getPackages component python.pkgs) [
     # some components are needed even if tests in tests/components are disabled
     "default_config"
     "debugpy"
     "hue"
+    "qwikswitch"
     "sentry"
   ];
 
@@ -685,10 +718,10 @@ in python.pkgs.buildPythonApplication rec {
     "--showlocals"
     # AssertionError: assert 1 == 0
     "--deselect tests/test_config.py::test_merge"
-    # AssertionError: assert 'WARNING' not in '2023-11-10 ...nt abc[L]>\n'"
-    "--deselect=tests/helpers/test_script.py::test_multiple_runs_repeat_choose"
-    # SystemError: PyThreadState_SetAsyncExc failed
-    "--deselect=tests/helpers/test_template.py::test_template_timeout"
+    # AssertionError: assert 6 == 5
+    "--deselect=tests/helpers/test_translation.py::test_caching"
+    # assert "Detected that integration 'hue' attempted to create an asyncio task from a thread at homeassistant/components/hue/light.py, line 23
+    "--deselect=tests/util/test_async.py::test_create_eager_task_from_thread_in_integration"
     # tests are located in tests/
     "tests"
   ];

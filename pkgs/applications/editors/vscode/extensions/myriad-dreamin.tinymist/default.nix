@@ -10,10 +10,8 @@ vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "tinymist";
     publisher = "myriad-dreamin";
-    # Please update the corresponding binary (tinymist) when updating
-    # this extension.
-    version = "0.11.6";
-    hash = "sha256-qS+QY9RmJYXWRcohMcorF3SxoniBPE8SFcg0Ka1vvOE=";
+    inherit (tinymist) version;
+    hash = "sha256-etPjbmcBhS1dgq5wEoRIekZlRxYoC6KrsV/+owjHu4I=";
   };
 
   nativeBuildInputs = [
