@@ -1089,21 +1089,20 @@
         inherit (old) version src;
         sourceRoot = "${old.src.name}/spectre_oxi";
 
-        cargoHash = "sha256-7V4RyWIo9gL3ir4Pay8CMIVn6cXjJi9sgKVOENG4muQ=";
-
+        cargoHash = "sha256-4XAQFKsTM5IxNld1TIC0i861i/3uPjwsDWoW7ZbHfXg=";
 
         preCheck = ''
           mkdir tests/tmp/
         '';
       };
     in
-    (lib.optionalAttrs stdenv.isLinux {
+    {
       dependencies = with self;
         [ plenary-nvim ];
       postInstall = ''
         ln -s ${spectre_oxi}/lib/libspectre_oxi.* $out/lua/spectre_oxi.so
       '';
-    }));
+    });
 
   nvim-teal-maker = super.nvim-teal-maker.overrideAttrs {
     postPatch = ''
@@ -1225,7 +1224,7 @@
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-bK4gyK6kqeRyoH7hnRHZURCjcxemIdqs71Qgb/Cl1pw=";
+        cargoHash = "sha256-dqa5Rd3NeOSqv18F1QdkrWEypJ0bvVwIDwrMOyBVsDM=";
 
         nativeBuildInputs = [ pkg-config ];
 

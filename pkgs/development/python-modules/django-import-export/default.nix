@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "django-import-export";
-  version = "4.0.3";
+  version = "4.0.7";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
@@ -25,7 +25,7 @@ buildPythonPackage rec {
     owner = "django-import-export";
     repo = "django-import-export";
     rev = "refs/tags/${version}";
-    hash = "sha256-ItJx9yJSy88/OvkpjGDWGBOMk5YlSquicSWi0tbKeWE=";
+    hash = "sha256-yN47HwIHGciE4w0xN+l/dOsbHNf5DZrYjrmJgZeWlE0=";
   };
 
   pythonRelaxDeps = [ "tablib" ];

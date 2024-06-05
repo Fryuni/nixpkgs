@@ -54,6 +54,8 @@
 , vimPlugins
 , vimUtils
 , yajl
+, zip
+, unzip
 , zlib
 , zziplib
 }:
@@ -407,6 +409,34 @@ in
     ];
   });
 
+
+  # As a nix user, use this derivation instead of "luarocks_bootstrap"
+  luarocks = prev.luarocks.overrideAttrs (oa: {
+
+    nativeBuildInputs = oa.nativeBuildInputs ++ [ installShellFiles lua unzip ];
+    # cmake is just to compile packages with "cmake" buildType, not luarocks itself
+    dontUseCmakeConfigure = true;
+
+    propagatedBuildInputs = [ zip unzip cmake ];
+
+    postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd luarocks \
+        --bash <($out/bin/luarocks completion bash) \
+        --fish <($out/bin/luarocks completion fish) \
+        --zsh <($out/bin/luarocks completion zsh)
+
+      installShellCompletion --cmd luarocks-admin \
+        --bash <($out/bin/luarocks-admin completion bash) \
+        --fish <($out/bin/luarocks-admin completion fish) \
+        --zsh <($out/bin/luarocks-admin completion zsh)
+    '';
+
+    meta = oa.meta // {
+      mainProgram = "luarocks";
+    };
+
+  });
+
   luasec = prev.luasec.overrideAttrs (oa: {
     externalDeps = [
       { name = "OPENSSL"; dep = openssl; }
@@ -678,9 +708,15 @@ in
     doCheck = true;
     nativeCheckInputs = [ final.plenary-nvim neovim-unwrapped ];
 
+    # the plugin loads the library from either the LIBSQLITE env
+    # or the vim.g.sqlite_clib_path variable.
+    postPatch = ''
+      substituteInPlace lua/sqlite/defs.lua \
+        --replace-fail "path = vim.g.sqlite_clib_path" 'path = vim.g.sqlite_clib_path or  "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"'
+    '';
+
     # we override 'luarocks test' because otherwise neovim doesn't find/load the plenary plugin
     checkPhase = ''
-      export LIBSQLITE="${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}"
       export HOME="$TMPDIR";
 
       nvim --headless -i NONE \
@@ -722,8 +758,6 @@ in
       substituteInPlace CMakeLists.txt \
         --replace-fail "TOML_PLUS_PLUS_SRC" "${tomlplusplus.src}/include/toml++" \
         --replace-fail "MAGIC_ENUM_SRC" "${magic-enum.src}/include/magic_enum"
-
-      cat CMakeLists.txt
     '';
   });
 
