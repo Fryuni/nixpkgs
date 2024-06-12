@@ -27,20 +27,20 @@ let
 in
 buildNpmPackage' rec {
   pname = "bruno";
-  version = "1.18.0";
+  version = "1.18.1";
 
   src = fetchFromGitHub {
     owner = "usebruno";
     repo = "bruno";
     rev = "v${version}";
-    hash = "sha256-vYN245vMt/NjISaaFSXOkELONVld6knaKbi5FiN/0tA=";
+    hash = "sha256-hUziF2HfQ8ekFwj7+8qw7Aj01la9yY57/+xujZpmVJE=";
 
     postFetch = ''
       ${lib.getExe npm-lockfile-fix} $out/package-lock.json
     '';
   };
 
-  npmDepsHash = "sha256-NIf7aMDAeE39+putw/7GTYODIdVmjJIvIwnL5O+sBmI=";
+  npmDepsHash = "sha256-BVCyZKhSBNJDmhnO68ULj5aMINFQIIlwlGqwjGkOoEI=";
   npmFlags = [ "--legacy-peer-deps" ];
 
   nativeBuildInputs = [
@@ -147,7 +147,7 @@ buildNpmPackage' rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "Open-source IDE For exploring and testing APIs.";
+    description = "Open-source IDE For exploring and testing APIs";
     homepage = "https://www.usebruno.com";
     inherit (electron.meta) platforms;
     license = licenses.mit;

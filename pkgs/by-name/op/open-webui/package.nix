@@ -7,19 +7,19 @@
 }:
 let
   pname = "open-webui";
-  version = "0.2.4";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "open-webui";
     repo = "open-webui";
     rev = "v${version}";
-    hash = "sha256-jWO0mo26C+QTIX5j3ucDk/no+vQnAh7Q6JwB3lLM83k=";
+    hash = "sha256-hUm4UUQUFoDRrAg+RqIo735iQs8304OUJlT91vILmXo=";
   };
 
   frontend = buildNpmPackage {
     inherit pname version src;
 
-    npmDepsHash = "sha256-QIgYHZusuq2QD8p8MGsNVhCbz6fR+qP9UuU/kbBkadc=";
+    npmDepsHash = "sha256-VdGneemYLMuMczjQB6I35Ry2kyIuAe2IaeDus/NvzK8=";
 
     # Disabling `pyodide:fetch` as it downloads packages during `buildPhase`
     # Until this is solved, running python packages from the browser will not work.
@@ -45,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
   pyproject = true;
 
   # The custom hook tries to run `npm install` in `buildPhase`.
-  # We don't have to worry, as nodejs depedencies are managed by `frontend` drv.
+  # We don't have to worry, as node dependencies are managed by `frontend` drv.
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail '[tool.hatch.build.hooks.custom]' "" \
@@ -55,64 +55,64 @@ python3.pkgs.buildPythonApplication rec {
   pythonRelaxDeps = true;
 
   pythonRemoveDeps = [
-    # using `psycopg2` instead
-    "psycopg2-binary"
     # using `opencv4`
     "opencv-python-headless"
+    # using `psycopg2` instead
+    "psycopg2-binary"
     # package request: https://github.com/NixOS/nixpkgs/issues/317065
     "rapidocr-onnxruntime"
-    # package request: https://github.com/NixOS/nixpkgs/issues/317066
-    "langfuse"
-    # package request: https://github.com/NixOS/nixpkgs/issues/317068
-    "langchain-chroma"
   ];
 
   dependencies = with python3.pkgs; [
+    aiohttp
+    apscheduler
+    argon2-cffi
+    bcrypt
     beautifulsoup4
+    black
+    boto3
+    chromadb
+    docx2txt
+    extract-msg
+    fake-useragent
     fastapi
-    uvicorn
-    python-multipart
+    faster-whisper
     flask
     flask-cors
-    python-socketio
-    python-jose
+    fpdf2
+    google-generativeai
+    langchain
+    langchain-chroma
+    langchain-community
+    langfuse
+    litellm
+    markdown
+    opencv4
+    openpyxl
+    pandas
     passlib
-    requests
-    aiohttp
     peewee
     peewee-migrate
     psycopg2
-    pymysql
-    bcrypt
-    litellm
-    boto3
-    argon2-cffi
-    apscheduler
-    google-generativeai
-    langchain
-    langchain-community
-    fake-useragent
-    chromadb
-    sentence-transformers
-    pypdf
-    docx2txt
-    python-pptx
-    unstructured
-    markdown
-    pypandoc
-    pandas
-    openpyxl
-    pyxlsb
-    xlrd
-    validators
-    opencv4
-    fpdf2
-    rank-bm25
-    faster-whisper
+    pydub
     pyjwt
-    black
-    youtube-transcript-api
+    pymysql
+    pypandoc
+    pypdf
+    python-jose
+    python-multipart
+    python-pptx
+    python-socketio
     pytube
+    pyxlsb
+    rank-bm25
+    requests
+    sentence-transformers
+    unstructured
+    uvicorn
+    validators
+    xlrd
+    youtube-transcript-api
   ];
 
   build-system = with python3.pkgs; [

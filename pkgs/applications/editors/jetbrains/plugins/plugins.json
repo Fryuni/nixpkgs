@@ -126,9 +126,11 @@
     },
     "7322": {
       "compatible": [
+        "clion",
         "datagrip",
         "goland",
         "idea-community",
+        "pycharm-community",
         "rider",
         "rust-rover"
       ],
