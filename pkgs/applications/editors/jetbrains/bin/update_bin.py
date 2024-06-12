@@ -9,6 +9,7 @@ import sys
 import xmltodict
 from packaging import version
 from pprint import pprint
+from os import environ
 
 updates_url = "https://www.jetbrains.com/updates/updates.xml"
 current_path = pathlib.Path(__file__).parent
@@ -57,6 +58,7 @@ def latest_build(product_channel):
     builds = [
         (channel, build)
         for channel in one_or_more(product_channel["channel"])
+        if environ.get('USE_EAP') == 'True' or channel['@status'] != 'eap'
         for build in one_or_more(channel["build"])
     ]
     latest = max(builds, key=lambda p: build_version(p[1]))
