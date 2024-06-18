@@ -20,6 +20,8 @@ let
 in lib.makeOverridable ({
   # The kernel version
   version,
+  # The kernel pname (should be set for variants)
+  pname ? "linux",
   # Position of the Linux build expression
   pos ? null,
   # Additional kernel make flags
@@ -169,12 +171,6 @@ let
       postPatch = ''
         # Ensure that depmod gets resolved through PATH
         sed -i Makefile -e 's|= /sbin/depmod|= depmod|'
-
-        # Don't include a (random) NT_GNU_BUILD_ID, to make the build more deterministic.
-        # This way kernels can be bit-by-bit reproducible depending on settings
-        # (e.g. MODULE_SIG and SECURITY_LOCKDOWN_LSM need to be disabled).
-        # See also https://kernelnewbies.org/BuildId
-        sed -i Makefile -e 's|--build-id=[^ ]*|--build-id=none|'
 
         # Some linux-hardened patches now remove certain files in the scripts directory, so the file may not exist.
         [[ -f scripts/ld-version.sh ]] && patchShebangs scripts/ld-version.sh
@@ -408,8 +404,7 @@ assert lib.versionOlder version "5.8" -> libelf != null;
 assert lib.versionAtLeast version "5.8" -> elfutils != null;
 
 stdenv.mkDerivation ((drvAttrs config stdenv.hostPlatform.linux-kernel kernelPatches configfile) // {
-  pname = "linux";
-  inherit version;
+  inherit pname version;
 
   enableParallelBuilding = true;
 

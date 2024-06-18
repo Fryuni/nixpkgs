@@ -2206,6 +2206,8 @@ self: super: with self; {
 
   clf = callPackage ../development/python-modules/clf { };
 
+  cli-ui = callPackage ../development/python-modules/cli-ui { };
+
   clip = callPackage ../development/python-modules/clip { };
 
   clip-anytorch = callPackage ../development/python-modules/clip-anytorch { };
@@ -3482,8 +3484,6 @@ self: super: with self; {
 
   docker-pycreds = callPackage ../development/python-modules/docker-pycreds { };
 
-  docker-py = callPackage ../development/python-modules/docker-py { };
-
   dockerspawner = callPackage ../development/python-modules/dockerspawner { };
 
   docloud = callPackage ../development/python-modules/docloud { };
@@ -4709,6 +4709,8 @@ self: super: with self; {
 
   generic = callPackage ../development/python-modules/generic { };
 
+  genie-partner-sdk = callPackage ../development/python-modules/genie-partner-sdk { };
+
   geniushub-client = callPackage ../development/python-modules/geniushub-client { };
 
   genome-collector = callPackage ../development/python-modules/genome-collector { };
@@ -5818,6 +5820,8 @@ self: super: with self; {
   inkbird-ble = callPackage ../development/python-modules/inkbird-ble { };
 
   inkex = callPackage ../development/python-modules/inkex { };
+
+  inline-snapshot = callPackage ../development/python-modules/inline-snapshot { };
 
   inlinestyler = callPackage ../development/python-modules/inlinestyler { };
 
@@ -7050,6 +7054,8 @@ self: super: with self; {
   logster = callPackage ../development/python-modules/logster { };
 
   loguru = callPackage ../development/python-modules/loguru { };
+
+  loguru-logging-intercept = callPackage ../development/python-modules/loguru-logging-intercept { };
 
   logutils = callPackage ../development/python-modules/logutils {
     redis-server = pkgs.redis;
@@ -8660,6 +8666,8 @@ self: super: with self; {
 
   natasha = callPackage ../development/python-modules/natasha { };
 
+  natural = callPackage ../development/python-modules/natural { };
+
   nomadnet = callPackage ../development/python-modules/nomadnet { };
 
   noneprompt = callPackage ../development/python-modules/noneprompt {  };
@@ -10081,6 +10089,8 @@ self: super: with self; {
 
   pyrender = callPackage ../development/python-modules/pyrender { };
 
+  pyreqwest-impersonate = callPackage ../development/python-modules/pyreqwest-impersonate { };
+
   pyrevolve = callPackage ../development/python-modules/pyrevolve { };
 
   pyrfxtrx = callPackage ../development/python-modules/pyrfxtrx { };
@@ -11052,8 +11062,6 @@ self: super: with self; {
 
   pyfcm = callPackage ../development/python-modules/pyfcm { };
 
-  pyfftw = callPackage ../development/python-modules/pyfftw { };
-
   pyfido = callPackage ../development/python-modules/pyfido { };
 
   pyfiglet = callPackage ../development/python-modules/pyfiglet { };
@@ -11561,6 +11569,8 @@ self: super: with self; {
   pyopenssl = callPackage ../development/python-modules/pyopenssl { };
 
   pyopenuv = callPackage ../development/python-modules/pyopenuv { };
+
+  pyopenweathermap = callPackage ../development/python-modules/pyopenweathermap { };
 
   pyopnsense = callPackage ../development/python-modules/pyopnsense { };
 
@@ -13077,6 +13087,8 @@ self: super: with self; {
 
   rapidgzip = callPackage ../development/python-modules/rapidgzip { inherit (pkgs) nasm; };
 
+  rapidocr-onnxruntime = callPackage ../development/python-modules/rapidocr-onnxruntime { };
+
   rapt-ble = callPackage ../development/python-modules/rapt-ble { };
 
   rarfile = callPackage ../development/python-modules/rarfile {
@@ -14117,6 +14129,8 @@ self: super: with self; {
   slpp = callPackage ../development/python-modules/slpp { };
 
   slugid = callPackage ../development/python-modules/slugid { };
+
+  py-slvs = callPackage ../development/python-modules/py-slvs { };
 
   sly = callPackage ../development/python-modules/sly { };
 
@@ -16473,6 +16487,8 @@ self: super: with self; {
   };
 
   uhi = callPackage ../development/python-modules/uhi { };
+
+  uiprotect = callPackage ../development/python-modules/uiprotect { };
 
   ujson = callPackage ../development/python-modules/ujson { };
 

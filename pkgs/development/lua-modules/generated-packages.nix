@@ -31,6 +31,28 @@ buildLuarocksPackage {
   };
 }) {};
 
+ansicolors = callPackage({ buildLuarocksPackage, fetchurl, luaOlder }:
+buildLuarocksPackage {
+  pname = "ansicolors";
+  version = "1.0.2-3";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/ansicolors-1.0.2-3.rockspec";
+    sha256 = "19y962xdx5ldl3596ywdl7n825dffz9al6j6rx6pbgmhb7pi8s5v";
+  }).outPath;
+  src = fetchurl {
+    url    = "https://github.com/kikito/ansicolors.lua/archive/v1.0.2.tar.gz";
+    sha256 = "0r4xi57njldmar9pn77l0vr5701rpmilrm51spv45lz0q9js8xps";
+  };
+
+  disabled = luaOlder "5.1";
+
+  meta = {
+    homepage = "https://github.com/kikito/ansicolors.lua";
+    description = "Library for color Manipulation.";
+    license.fullName = "MIT <http://opensource.org/licenses/MIT>";
+  };
+}) {};
+
 argparse = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaAtLeast, luaOlder }:
 buildLuarocksPackage {
   pname = "argparse";
@@ -2363,6 +2385,29 @@ buildLuarocksPackage {
     description = "libYAML binding for Lua";
     maintainers = with lib.maintainers; [ lblasc ];
     license.fullName = "MIT/X11";
+  };
+}) {};
+
+lz-n = callPackage({ buildLuarocksPackage, fetchurl, fetchzip, luaOlder }:
+buildLuarocksPackage {
+  pname = "lz.n";
+  version = "1.2.2-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/lz.n-1.2.2-1.rockspec";
+    sha256 = "1vbb5q3rfk0wfx4pdv3xcxnmflrrny5gm21d8h1wj32m6kbc6ddi";
+  }).outPath;
+  src = fetchzip {
+    url    = "https://github.com/nvim-neorocks/lz.n/archive/v1.2.2.zip";
+    sha256 = "0im71h313vxijdkx9q5506lrhk1rqxvraqh89l7h4nr8xziscpv9";
+  };
+
+  disabled = luaOlder "5.1";
+
+  meta = {
+    homepage = "https://github.com/nvim-neorocks/lz.n";
+    description = "🦥 A dead simple lazy-loading Lua library for Neovim plugins.";
+    maintainers = with lib.maintainers; [ mrcjkb ];
+    license.fullName = "GPL-2+";
   };
 }) {};
 

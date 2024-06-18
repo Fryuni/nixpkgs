@@ -5327,6 +5327,18 @@ final: prev:
     meta.homepage = "https://github.com/folke/lazy.nvim/";
   };
 
+  lazydev-nvim = buildVimPlugin {
+    pname = "lazydev-nvim";
+    version = "2024-06-09";
+    src = fetchFromGitHub {
+      owner = "folke";
+      repo = "lazydev.nvim";
+      rev = "7cbb524c85f87017df9c1ea2377a1d840ad8ed51";
+      sha256 = "034abfj3rskgqqcynw6mz61bhjmq8x8qn6f4lq6wvyhzhkfplaqb";
+    };
+    meta.homepage = "https://github.com/folke/lazydev.nvim/";
+  };
+
   lazygit-nvim = buildVimPlugin {
     pname = "lazygit.nvim";
     version = "2024-05-13";
@@ -5901,6 +5913,18 @@ final: prev:
       sha256 = "03saw1w5pybj6yywzi8hinciv18znimm7k0h34k4pqp5gi1jfaql";
     };
     meta.homepage = "https://github.com/mkasa/lushtags/";
+  };
+
+  lz-n = buildNeovimPlugin {
+    pname = "lz.n";
+    version = "2024-06-16";
+    src = fetchFromGitHub {
+      owner = "nvim-neorocks";
+      repo = "lz.n";
+      rev = "ffd6633cbe2145177bd522fa340104fa44afbc1c";
+      sha256 = "sha256-aV+m4+8oWwIPTQhilXfHOUyYqQGl4NRnk7HvEQYMp0Y=";
+    };
+    meta.homepage = "https://github.com/nvim-neorocks/lz.n/";
   };
 
   magma-nvim-goose = buildVimPlugin {
@@ -8173,6 +8197,30 @@ final: prev:
     meta.homepage = "https://github.com/ojroques/nvim-osc52/";
   };
 
+  nvim-paredit = buildVimPlugin {
+    pname = "nvim-paredit";
+    version = "2024-03-30";
+    src = fetchFromGitHub {
+      owner = "julienvincent";
+      repo = "nvim-paredit";
+      rev = "8dd4ffd6ee0d798026f9ad6cf04344560207b9f1";
+      sha256 = "0kqd87m58ya9faijs2ldzirps5ayillfmcdgd19b342jw0q393k6";
+    };
+    meta.homepage = "https://github.com/julienvincent/nvim-paredit/";
+  };
+
+  nvim-parinfer = buildVimPlugin {
+    pname = "nvim-parinfer";
+    version = "2023-08-09";
+    src = fetchFromGitHub {
+      owner = "gpanders";
+      repo = "nvim-parinfer";
+      rev = "5ca09287ab3f4144f78ff7977fabc27466f71044";
+      sha256 = "0qci774sf7kxsq1a77nmis4zgjggf89w0j5ibzdbrw11cyv0nb3n";
+    };
+    meta.homepage = "https://github.com/gpanders/nvim-parinfer/";
+  };
+
   nvim-peekup = buildVimPlugin {
     pname = "nvim-peekup";
     version = "2023-02-23";
@@ -8977,6 +9025,18 @@ final: prev:
       sha256 = "1w6j57lri4r79igzi5rvvfv93c3pb4lrvvcg95gpa9rg122plw15";
     };
     meta.homepage = "https://github.com/NLKNguyen/papercolor-theme/";
+  };
+
+  parpar-nvim = buildVimPlugin {
+    pname = "parpar-nvim";
+    version = "2023-09-12";
+    src = fetchFromGitHub {
+      owner = "dundalek";
+      repo = "parpar.nvim";
+      rev = "e99a88f0f0b1234f49a3efe9c49b712b58a5acfc";
+      sha256 = "09y0q4shgi8a88z42lrkh41ay64yhb7050rlc3b6r2lk6k72xdqz";
+    };
+    meta.homepage = "https://github.com/dundalek/parpar.nvim/";
   };
 
   pear-tree = buildVimPlugin {
@@ -17417,6 +17477,32 @@ final: prev:
       sha256 = "1wpn6gfw1r89232d779lz8wy19asrribindlcsaikrsqvml3a0hr";
     };
     meta.homepage = "https://github.com/jhradilek/vim-snippets/";
+  };
+
+
+  nvim-genghis = buildVimPlugin {
+    pname = "nvim-genghis";
+    version = "2024-05-21";
+    src = fetchFromGitHub {
+      owner = "chrisgrieser";
+      repo = "nvim-genghis";
+      rev = "7ed82d0d0513946bbc678f326e5750c79a942351";
+      sha256 = "sha256-R3YHrcpRJ8bbVctKTWQbouyCYcbKpQ2Sz6NWDOkqLYI=";
+    };
+    meta.homepage = "https://github.com/chrisgrieser/nvim-genghis";
+  };
+
+
+  git-prompt-string-lualine-nvim = buildVimPlugin {
+    pname = "git-prompt-string-lualine-nvim";
+    version = "2024-04-22";
+    src = fetchFromGitHub {
+      owner = "mikesmithgh";
+      repo = "git-prompt-string-lualine.nvim";
+      rev = "5426ce15462abe4faf5cd76db7476b2686120fe9";
+      sha256 = "sha256-BM1AEpIcOd5nr4N/ZoxK9NodiUbUuY9hw7n/wRTXzzk=";
+    };
+    meta.homepage = "https://github.com/mikesmithgh/git-prompt-string-lualine.nvim";
   };
 
 

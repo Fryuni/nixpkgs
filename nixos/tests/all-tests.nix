@@ -130,6 +130,7 @@ in {
   appliance-repart-image = runTest ./appliance-repart-image.nix;
   apparmor = handleTest ./apparmor.nix {};
   archi = handleTest ./archi.nix {};
+  aria2 = handleTest ./aria2.nix {};
   armagetronad = handleTest ./armagetronad.nix {};
   artalk = handleTest ./artalk.nix {};
   atd = handleTest ./atd.nix {};
@@ -1018,7 +1019,7 @@ in {
   vault-agent = handleTest ./vault-agent.nix {};
   vault-dev = handleTest ./vault-dev.nix {};
   vault-postgresql = handleTest ./vault-postgresql.nix {};
-  vaultwarden = handleTest ./vaultwarden.nix {};
+  vaultwarden = discoverTests (import ./vaultwarden.nix);
   vector = handleTest ./vector {};
   vengi-tools = handleTest ./vengi-tools.nix {};
   victoriametrics = handleTest ./victoriametrics.nix {};

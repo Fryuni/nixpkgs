@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2024.6.1";
+  version = "2024.6.3";
   components = {
     "3_day_blinds" = ps: with ps; [
     ];
@@ -112,9 +112,10 @@
     ];
     "aladdin_connect" = ps: with ps; [
       fnv-hash-fast
+      genie-partner-sdk
       psutil-home-assistant
       sqlalchemy
-    ]; # missing inputs: genie-partner-sdk
+    ];
     "alarm_control_panel" = ps: with ps; [
     ];
     "alarmdecoder" = ps: with ps; [
@@ -3138,8 +3139,9 @@
       hassil
       home-assistant-intents
       mutagen
+      ollama
       webrtc-noise-gain
-    ]; # missing inputs: ollama-hass
+    ];
     "ombi" = ps: with ps; [
       pyombi
     ];
@@ -3210,7 +3212,8 @@
       pyopenuv
     ];
     "openweathermap" = ps: with ps; [
-    ]; # missing inputs: pyopenweathermap
+      pyopenweathermap
+    ];
     "opnsense" = ps: with ps; [
       pyopnsense
     ];
@@ -4762,7 +4765,7 @@
       unifiled
     ];
     "unifiprotect" = ps: with ps; [
-      pyunifiprotect
+      uiprotect
       unifi-discovery
     ];
     "universal" = ps: with ps; [
@@ -5249,6 +5252,7 @@
     "airvisual_pro"
     "airzone"
     "airzone_cloud"
+    "aladdin_connect"
     "alarm_control_panel"
     "alarmdecoder"
     "alert"
@@ -5707,6 +5711,7 @@
     "nx584"
     "obihai"
     "octoprint"
+    "ollama"
     "omnilogic"
     "onboarding"
     "oncue"
@@ -5724,6 +5729,7 @@
     "opensky"
     "opentherm_gw"
     "openuv"
+    "openweathermap"
     "opnsense"
     "opower"
     "oralb"

@@ -144,6 +144,7 @@ mapAliases ({
   django_treebeard = django-treebeard; # added 2023-07-25
   dns = dnspython; # added 2017-12-10
   docker_pycreds = docker-pycreds; # added 2024-01-03
+  docker-py = throw "docker-py was renamed to docker in version 2.0.0 back in 2016"; # added 2024-05-29
   doctest-ignore-unicode = throw "doctest-ignore-unicode has been removed since it has been unmaintained for 11 years"; # added 2024-05-20
   dogpile_cache = dogpile-cache; # added 2021-10-28
   dogpile-core = throw "dogpile-core is no longer maintained, use dogpile-cache instead"; # added 2021-11-20
@@ -364,6 +365,7 @@ mapAliases ({
   pychef = throw "pychef has been removed because it's been archived upstream and abandoned since 2017."; # added 2022-11-14
   PyChromecast = pychromecast; # added 2023-02-19
   pycryptodome-test-vectors = throw "pycryptodome-test-vectors has been removed because it is an internal package to pycryptodome"; # added 2022-05-28
+  pyfftw = throw "pyfftw has been removed because it is unmaintained and broken."; # Added 2024-06-17
   pyflunearyou = pyoutbreaksnearme; # added 2023-02-11
   pyialarmxr = pyialarmxr-homeassistant; # added 2022-06-07
   pyialarmxr-homeassistant = throw "The package was removed together with the component support in home-assistant 2022.7.0"; # added 2022-07-07

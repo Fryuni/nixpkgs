@@ -463,6 +463,8 @@
         --replace "  let node = get(g:, 'copilot_node_command', ''\'''\')" \
                   "  let node = get(g:, 'copilot_node_command', '${nodejs}/bin/node')"
     '';
+
+    meta.license = lib.licenses.unfree;
   };
 
   coq_nvim = super.coq_nvim.overrideAttrs {
@@ -1011,6 +1013,10 @@
     dependencies = [ self.plenary-nvim ];
   };
 
+  neotest-playwright = super.neotest-playwright.overrideAttrs {
+    dependencies = [ self.telescope-nvim ];
+  };
+
   neo-tree-nvim = super.neo-tree-nvim.overrideAttrs {
     dependencies = with self; [ plenary-nvim nui-nvim ];
   };
@@ -1040,6 +1046,13 @@
 
     doInstallCheck = true;
     nvimRequireCheck = "dapui";
+  };
+
+  nvim-genghis = super.nvim-genghis.overrideAttrs {
+    dependencies = [ self.dressing-nvim ];
+
+    doInstallCheck = true;
+    nvimRequireCheck = "genghis";
   };
 
   nvim-lsputils = super.nvim-lsputils.overrideAttrs {
