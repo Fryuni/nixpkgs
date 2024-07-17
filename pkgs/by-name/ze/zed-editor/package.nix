@@ -35,13 +35,13 @@ assert withGLES -> stdenv.isLinux;
 
 rustPlatform.buildRustPackage rec {
   pname = "zed";
-  version = "0.141.2";
+  version = "0.141.3";
 
   src = fetchFromGitHub {
     owner = "zed-industries";
     repo = "zed";
     rev = "refs/tags/v${version}";
-    hash = "sha256-pbflVG4JoXWZEf4Elmd4+RDb9uAaTsj+8lTaBGMaMdo=";
+    hash = "sha256-D4wVHMNy7xESuEORULyKf3ZxFfRSKfWEXjBnjh3yBVU=";
     fetchSubmodules = true;
   };
 
@@ -113,6 +113,10 @@ rustPlatform.buildRustPackage rec {
       ]
     );
 
+  cargoBuildFlags = [
+    "--package=zed"
+    "--package=cli"
+  ];
   buildFeatures = [ "gpui/runtime_shaders" ];
 
   env = {
@@ -129,8 +133,8 @@ rustPlatform.buildRustPackage rec {
   gpu-lib = if withGLES then libglvnd else vulkan-loader;
 
   postFixup = lib.optionalString stdenv.isLinux ''
-    patchelf --add-rpath ${gpu-lib}/lib $out/bin/*
-    patchelf --add-rpath ${wayland}/lib $out/bin/*
+    patchelf --add-rpath ${gpu-lib}/lib $out/libexec/*
+    patchelf --add-rpath ${wayland}/lib $out/libexec/*
   '';
 
   checkFlags = lib.optionals stdenv.hostPlatform.isLinux [
@@ -138,19 +142,29 @@ rustPlatform.buildRustPackage rec {
     "--skip=test_open_paths_action"
   ];
 
-  postInstall = ''
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin $out/libexec
+    cp target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/zed $out/libexec/zed-editor
+    cp target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/cli $out/bin/zed
+
     install -D ${src}/crates/zed/resources/app-icon@2x.png $out/share/icons/hicolor/1024x1024@2x/apps/zed.png
     install -D ${src}/crates/zed/resources/app-icon.png $out/share/icons/hicolor/512x512/apps/zed.png
 
-    # extracted from https://github.com/zed-industries/zed/blob/v0.141.2/script/bundle-linux
+    # extracted from https://github.com/zed-industries/zed/blob/v0.141.2/script/bundle-linux (envsubst)
+    # and https://github.com/zed-industries/zed/blob/v0.141.2/script/install.sh (final desktop file name)
     (
       export DO_STARTUP_NOTIFY="true"
       export APP_CLI="zed"
       export APP_ICON="zed"
       export APP_NAME="Zed"
+      export APP_ARGS="%U"
       mkdir -p "$out/share/applications"
-      ${lib.getExe envsubst} < "crates/zed/resources/zed.desktop.in" > "$out/share/applications/zed.desktop"
+      ${lib.getExe envsubst} < "crates/zed/resources/zed.desktop.in" > "$out/share/applications/dev.zed.Zed.desktop"
     )
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script {
@@ -160,17 +174,17 @@ rustPlatform.buildRustPackage rec {
     ];
   };
 
-  meta = with lib; {
+  meta = {
     description = "High-performance, multiplayer code editor from the creators of Atom and Tree-sitter";
     homepage = "https://zed.dev";
     changelog = "https://github.com/zed-industries/zed/releases/tag/v${version}";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [
       GaetanLepage
       niklaskorz
     ];
     mainProgram = "zed";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
     # Currently broken on darwin: https://github.com/NixOS/nixpkgs/pull/303233#issuecomment-2048650618
     broken = stdenv.isDarwin;
   };

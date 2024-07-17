@@ -13,16 +13,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "ntpd-rs";
-  version = "1.1.2";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "pendulum-project";
     repo = "ntpd-rs";
     rev = "v${version}";
-    hash = "sha256-0ykJruuyD1Z/QcmrogodNlMZp05ocXIo3wdygB/AnT0=";
+    hash = "sha256-yIX9RD1xqkFoxDt82wnKfQR3z/vLA0I5/cptaIgSNjw=";
   };
 
-  cargoHash = "sha256-Badq3GYr7BoF8VNGGtKTT4/ksuds1zBcSxx5O3vLbzg=";
+  cargoHash = "sha256-NRFmb9rZVbd0qYKIkslT4TcbC/aD4QhAjm2GA4BvReY=";
 
   buildInputs = lib.optionals stdenv.isDarwin [ Security ];
   nativeBuildInputs = [
@@ -42,10 +42,6 @@ rustPlatform.buildRustPackage rec {
   checkFlags = [
     # doesn't find the testca
     "--skip=daemon::keyexchange::tests"
-    # seems flaky?
-    "--skip=algorithm::kalman::peer::tests::test_offset_steering_and_measurements"
-    # needs networking
-    "--skip=hwtimestamp::tests::get_hwtimestamp"
   ];
 
   postInstall = ''
@@ -68,16 +64,16 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  meta = with lib; {
+  meta = {
     description = "Full-featured implementation of the Network Time Protocol";
     homepage = "https://tweedegolf.nl/en/pendulum";
     changelog = "https://github.com/pendulum-project/ntpd-rs/blob/v${version}/CHANGELOG.md";
     mainProgram = "ntp-ctl";
-    license = with licenses; [
+    license = with lib.licenses; [
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [
+    maintainers = with lib.maintainers; [
       fpletz
       getchoo
     ];

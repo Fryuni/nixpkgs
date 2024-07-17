@@ -32,7 +32,7 @@ self: let
     });
   };
 
-  elpaBuild = import ../../../../build-support/emacs/elpa.nix {
+  elpaBuild = import ../build-support/elpa.nix {
     inherit lib stdenv texinfo writeText gcc;
     inherit (self) emacs;
   };
@@ -121,4 +121,4 @@ self: let
 
   in elpaDevelPackages // { inherit elpaBuild; });
 
-in (generateElpa { }) // { __attrsFailEvaluation = true; }
+in generateElpa { }
