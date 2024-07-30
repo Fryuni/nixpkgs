@@ -1,7 +1,7 @@
 { lib
 , fetchFromGitHub
 , makeWrapper
-, jre_headless
+, jdk_headless
 , jre_minimal
 , maven
 , writeScript
@@ -15,7 +15,7 @@ let
       "java.logging"
       "java.xml"
     ];
-    jdk = jre_headless;
+    jdk = jdk_headless;
   };
 in
 maven.buildMavenPackage rec {
@@ -46,7 +46,8 @@ maven.buildMavenPackage rec {
     "org.junit.platform:junit-platform-launcher:1.10.0"
   ];
 
-  mvnHash = "sha256-LSnClLdAuqSyyT7O4f4aVaPBxdkkZQz60wTmqwQuzdU=";
+  mvnJdk = jdk_headless;
+  mvnHash = "sha256-jIvYUATcNUZZmZcXbUMqyHGX4CYiXqL0jkji+zrCYJY=";
 
   buildOffline = true;
 

@@ -749,7 +749,10 @@ with lib.maintainers;
   };
 
   openstack = {
-    members = [ SuperSandro2000 ];
+    members = [
+      SuperSandro2000
+      anthonyroussel
+    ];
     scope = "Maintain the ecosystem around OpenStack";
     shortName = "OpenStack";
   };
@@ -949,6 +952,17 @@ with lib.maintainers;
     ];
     scope = "Group registration for Strid Tech AB team members who collectively maintain packages";
     shortName = "StridTech";
+  };
+
+  swift = {
+    members = [
+      dduan
+      stephank
+      trepetti
+      trundle
+    ];
+    scope = "Maintain Swift compiler suite for NixOS.";
+    shortName = "Swift";
   };
 
   systemd = {
