@@ -6,6 +6,8 @@ import logging
 import requests
 import subprocess
 import sys
+from urllib.error import HTTPError
+import urllib.request
 import xmltodict
 from packaging import version
 from pprint import pprint
@@ -73,6 +75,19 @@ def download_sha256(url):
 
 
 channels = download_channels()
+
+
+def get_url(template, version_or_build_number, version_number):
+    release = [str(n) for n in version.parse(version_number).release]
+    for k in range(len(release), 0, -1):
+        s = ".".join(release[0:k])
+        url = template.format(version=version_or_build_number, versionMajorMinor=s)
+        try:
+            if urllib.request.urlopen(url).getcode() == 200:
+                return url
+        except HTTPError:
+            pass
+    return None
 
 
 def update_product(name, product):
