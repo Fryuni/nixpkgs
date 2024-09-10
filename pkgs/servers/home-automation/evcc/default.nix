@@ -16,20 +16,20 @@
 
 buildGo123Module rec {
   pname = "evcc";
-  version = "0.130.1";
+  version = "0.130.8";
 
   src = fetchFromGitHub {
     owner = "evcc-io";
     repo = "evcc";
     rev = version;
-    hash = "sha256-DFMQavUHu5sagtseHWDSmQ/KrAsdfyHGTluC7v1LtWM=";
+    hash = "sha256-U6HQyHh9hei2mzCWQnGBFrJL2JRwFSo4AMbqSizJOEI=";
   };
 
-  vendorHash = "sha256-Oj5+bmhlZHyOfcJf10EK8mvJauIWk88k0qj2NBkRvFQ=";
+  vendorHash = "sha256-UsNx11WgQbBV8q5sREuLysud54MjfvXi5wvMKNJryns=";
 
   npmDeps = fetchNpmDeps {
     inherit src;
-    hash = "sha256-8DfLh6RhBI6GeTSIvmXCZ8Yudt5TYnimUoAdbOYfWfw=";
+    hash = "sha256-60F6j87T77JEt3ej4FVTc8rnnpZSGzomrQp8VPWjv6Q=";
   };
 
   nativeBuildInputs = [
@@ -73,26 +73,7 @@ buildGo123Module rec {
     skippedTests = [
       # network access
       "TestOctopusConfigParse"
-      "TestTemplates/ac-elwa-2"
-      "TestTemplates/allinpower"
-      "TestTemplates/electricitymaps"
-      "TestTemplates/elering"
-      "TestTemplates/energinet"
-      "TestTemplates/grünstromindex"
-      "TestTemplates/keba-modbus"
-      "TestTemplates/pun"
-      "TestTemplates/entsoe"
-      "TestTemplates/ngeso"
-      "TestTemplates/tibber"
-      "TestTemplates/groupe-e"
-      "TestTemplates/awattar"
-      "TestTemplates/energy-charts-api"
-      "TestTemplates/polestar"
-      "TestTemplates/sma-inverter-speedwire/battery"
-      "TestTemplates/sma-inverter-speedwire/pv"
-      "TestTemplates/smartenergy"
-      "TestTemplates/tibber-pulse/grid"
-
+      "TestTemplates"
     ];
   in
   [ "-skip=^${lib.concatStringsSep "$|^" skippedTests}$" ];

@@ -64,6 +64,8 @@ let
 
     b0 = callPackage ../development/ocaml-modules/b0 { };
 
+    backoff = callPackage ../development/ocaml-modules/backoff { };
+
     bap = janeStreet_0_15.bap;
 
     base64 = callPackage ../development/ocaml-modules/base64 { };
@@ -1199,6 +1201,10 @@ let
 
     mtime =  callPackage ../development/ocaml-modules/mtime { };
 
+    multicore-bench =  callPackage ../development/ocaml-modules/multicore-bench { };
+
+    multicore-magic =  callPackage ../development/ocaml-modules/multicore-magic { };
+
     multipart-form-data =  callPackage ../development/ocaml-modules/multipart-form-data { };
 
     mustache =  callPackage ../development/ocaml-modules/mustache { };
@@ -1777,6 +1783,8 @@ let
     terminal = callPackage ../development/ocaml-modules/terminal { };
 
     terminal_size = callPackage ../development/ocaml-modules/terminal_size { };
+
+    terml = callPackage ../development/ocaml-modules/terml { };
 
     tezos-base58 = callPackage ../development/ocaml-modules/tezos-base58 { };
 
