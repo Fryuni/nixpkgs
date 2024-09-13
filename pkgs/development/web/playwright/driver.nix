@@ -191,14 +191,35 @@ let
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ cacert ];
+    installPhase = let
+      downloaded = stdenv.mkDerivation {
+        pname = "playwright-browsers-base";
+        inherit (playwright) version;
 
-    installPhase = ''
+        dontUnpack = true;
+        dontFixup = true;
+
+        nativeBuildInputs = [ cacert ];
+
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+        outputHash = {
+          x86_64-darwin = "sha256-GMmfXHpVFfjGZOqfEye64/rxQMECtPf8geGNvoMrCXA=";
+          aarch64-darwin = lib.fakeSha256;
+        }
+        .${system} or throwSystem;
+
+        installPhase = ''
+          export PLAYWRIGHT_BROWSERS_PATH=$out
+          ${playwright-core}/cli.js install
+          rm -r $out/.links
+        '';
+      };
+    in ''
       runHook preInstall
 
-      export PLAYWRIGHT_BROWSERS_PATH=$out
-      ${playwright-core}/cli.js install
-      rm -r $out/.links
+      mkdir -p $out
+      cp -r ${downloaded}/* $out
 
       runHook postInstall
     '';
