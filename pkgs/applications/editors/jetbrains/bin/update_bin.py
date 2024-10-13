@@ -9,13 +9,21 @@ import sys
 from urllib.error import HTTPError
 import urllib.request
 import xmltodict
+from collections import ChainMap
 from packaging import version
 from pprint import pprint
-from os import environ
+from os import environ, mkdir
 
 updates_url = "https://www.jetbrains.com/updates/updates.xml"
 current_path = pathlib.Path(__file__).parent
 versions_file_path = current_path.joinpath("versions.json").resolve()
+
+debug_outputs_path = current_path.joinpath("outputs").resolve()
+if not debug_outputs_path.exists():
+    debug_outputs_path.mkdir()
+
+available_channels_path = current_path.joinpath("outputs", "available_channels.json")
+
 fromVersions = {}
 toVersions = {}
 
@@ -66,15 +74,28 @@ def latest_build(product_channel):
     latest = max(builds, key=lambda p: build_version(p[1]))
     return latest
 
+sha256memo = {}
 
 def download_sha256(url):
+    # Memoization for multiple architectures
+    if url in sha256memo:
+        return sha256memo[url]
+
     url = f"{url}.sha256"
     download_response = requests.get(url)
     download_response.raise_for_status()
-    return download_response.content.decode('UTF-8').split(' ')[0]
+    sha256 = download_response.content.decode('UTF-8').split(' ')[0]
+    sha256memo[url] = sha256
+    return sha256
 
 
 channels = download_channels()
+
+with available_channels_path.open("w") as channels_fh:
+    json.dump(sorted(list(channels.keys())), channels_fh, indent=2)
+
+with debug_outputs_path.joinpath("channels.json").open("w") as channels_fh:
+    json.dump(channels, channels_fh, indent=2)
 
 
 def get_url(template, version_or_build_number, version_number):
@@ -135,13 +156,18 @@ def update_products(products):
         update_product(name, product)
 
 
-with open(versions_file_path, "r") as versions_file:
+with versions_file_path.open("r") as versions_file:
     versions = json.load(versions_file)
 
-for products in versions.values():
-    update_products(products)
+products = {**ChainMap(*versions.values())}
+update_products(products)
 
-with open(versions_file_path, "w") as versions_file:
+versions = {
+    arch: products
+    for arch in versions.keys()
+}
+
+with versions_file_path.open("w") as versions_file:
     json.dump(versions, versions_file, indent=2)
     versions_file.write("\n")
 
