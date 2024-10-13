@@ -24,20 +24,18 @@
   responses,
   syrupy,
   toml,
-
-  nix-update-script,
 }:
 
 buildPythonPackage rec {
   pname = "langchain-openai";
-  version = "0.2.0";
+  version = "0.2.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "langchain-ai";
     repo = "langchain";
     rev = "refs/tags/langchain-openai==${version}";
-    hash = "sha256-3wTSvvPOMZciEqPxpcjrcqEpK//qwsEmvZnlZBfjltQ=";
+    hash = "sha256-M1gyw0Nmh+aLU9scbuqmK2kPyfwtaFaCfue+T8PLguQ=";
   };
 
   sourceRoot = "${src.name}/libs/partners/openai";
@@ -89,11 +87,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "langchain_openai" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "langchain-openai==(.*)"
-    ];
+  passthru = {
+    inherit (langchain-core) updateScript;
   };
 
   meta = {

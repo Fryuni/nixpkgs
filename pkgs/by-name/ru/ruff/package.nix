@@ -8,41 +8,33 @@
   rust-jemalloc-sys,
   ruff-lsp,
   nix-update-script,
-  testers,
-  ruff,
+  versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "ruff";
-  version = "0.6.5";
+  version = "0.6.9";
 
   src = fetchFromGitHub {
     owner = "astral-sh";
     repo = "ruff";
     rev = "refs/tags/${version}";
-    hash = "sha256-1V95S0FWHzCxztgip+rbCjji4O71D+QdcSZ/hbABeKg=";
+    hash = "sha256-O8iRCVxHrchBSf9kLdkdT0+oMi+5fLCAF9CMEsPrHqw=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "lsp-types-0.95.1" = "sha256-8Oh299exWXVi6A39pALOISNfp8XBya8z+KT/Z7suRxQ=";
-      "salsa-0.18.0" = "sha256-EjpCTOB6E7n5oNn1bvzNyznzs0uRJvAXrNsZggk4hgM=";
+      "salsa-0.18.0" = "sha256-zHXLNK6SCiJ3MmT0PMIauA1eolyJ4wfVWxN6wcvmhts=";
     };
   };
-
-  # Revert the change made in https://github.com/astral-sh/ruff/pull/13299
-  # It was causing linking issues: https://github.com/NixOS/nixpkgs/pull/341674#issuecomment-2351172084
-  postPatch = ''
-    substituteInPlace crates/ruff_benchmark/Cargo.toml \
-      --replace-fail '"unprefixed_malloc_on_supported_platforms"' ' '
-  '';
 
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = [
     rust-jemalloc-sys
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.apple_sdk.frameworks.CoreServices ];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ruff \
@@ -51,16 +43,17 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/ruff generate-shell-completion zsh)
   '';
 
-  passthru.tests = {
-    inherit ruff-lsp;
+  passthru = {
+    tests = {
+      inherit ruff-lsp;
+    };
     updateScript = nix-update-script { };
-    version = testers.testVersion { package = ruff; };
   };
 
   # Failing on darwin for an unclear reason.
   # According to the maintainers, those tests are from an experimental crate that isn't actually
   # used by ruff currently and can thus be safely skipped.
-  checkFlags = lib.optionals stdenv.isDarwin [
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     "--skip=changed_file"
     "--skip=changed_metadata"
     "--skip=changed_versions_file"
@@ -79,6 +72,12 @@ rustPlatform.buildRustPackage rec {
     "--skip=search_path"
     "--skip=unix::symlink_inside_workspace"
   ];
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
+  versionCheckProgramArg = [ "--version" ];
+  doInstallCheck = true;
 
   meta = {
     description = "Extremely fast Python linter";

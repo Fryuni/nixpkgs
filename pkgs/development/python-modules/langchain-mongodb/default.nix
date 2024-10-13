@@ -14,18 +14,10 @@
   freezegun,
   httpx,
   langchain,
-  lark,
-  pandas,
   pytest-asyncio,
   pytestCheckHook,
   pytest-mock,
-  pytest-socket,
-  requests-mock,
-  responses,
   syrupy,
-  toml,
-
-  nix-update-script,
 }:
 
 buildPythonPackage rec {
@@ -64,11 +56,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "langchain_mongodb" ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "langchain-mongodb==(.*)"
-    ];
+  passthru = {
+    inherit (langchain-core) updateScript;
   };
 
   meta = {

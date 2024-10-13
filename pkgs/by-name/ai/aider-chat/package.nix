@@ -12,7 +12,7 @@ let
     self = python3;
     packageOverrides = _: super: { tree-sitter = super.tree-sitter_0_21; };
   };
-  version = "0.56.0";
+  version = "0.59.0";
 in
 python3.pkgs.buildPythonApplication {
   pname = "aider-chat";
@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication {
     owner = "paul-gauthier";
     repo = "aider";
     rev = "refs/tags/v${version}";
-    hash = "sha256-e0Fqj67vYt41Zbr1FN2fuLp6cHRius8RtacBHLgB9dM=";
+    hash = "sha256-20LicYj1j5gGzhF+SxPUKu858nHZgwDF1JxXeHRtYe0=";
   };
 
   pythonRelaxDeps = true;
@@ -60,6 +60,7 @@ python3.pkgs.buildPythonApplication {
       pypandoc
       pyperclip
       pyyaml
+      psutil
       rich
       scipy
       sounddevice
@@ -67,6 +68,7 @@ python3.pkgs.buildPythonApplication {
       streamlit
       tokenizers
       watchdog
+      pydub
     ]
     ++ lib.optionals (!tensorflow.meta.broken) [
       llama-index-core
@@ -95,6 +97,8 @@ python3.pkgs.buildPythonApplication {
       "test_browser_flag_imports_streamlit"
       # AttributeError
       "test_simple_send_with_retries"
+      # Expected 'check_version' to have been called once
+      "test_main_exit_calls_version_check"
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # Tests fails on darwin
@@ -104,6 +108,7 @@ python3.pkgs.buildPythonApplication {
 
   preCheck = ''
     export HOME=$(mktemp -d)
+    export AIDER_CHECK_UPDATE=false
   '';
 
   meta = {

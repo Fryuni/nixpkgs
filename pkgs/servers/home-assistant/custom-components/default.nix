@@ -14,6 +14,8 @@
 
   better_thermostat = callPackage ./better_thermostat {};
 
+  bodymiscale = callPackage ./bodymiscale { };
+
   dwd = callPackage ./dwd { };
 
   elevenlabs_tts = callPackage ./elevenlabs_tts {};
@@ -50,6 +52,8 @@
 
   moonraker = callPackage ./moonraker {};
 
+  nest_protect = callPackage ./nest_protect {};
+
   ntfy = callPackage ./ntfy {};
 
   omnik_inverter = callPackage ./omnik_inverter {};
@@ -63,6 +67,8 @@
   smartir = callPackage ./smartir {};
 
   smartthinq-sensors = callPackage ./smartthinq-sensors {};
+
+  solax_modbus = callPackage ./solax_modbus {};
 
   solis-sensor = callPackage ./solis-sensor {};
 

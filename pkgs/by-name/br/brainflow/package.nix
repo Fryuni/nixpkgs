@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   bluez,
   cmake,
   dbus,
@@ -18,13 +17,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "brainflow";
-  version = "5.13.3";
+  version = "5.14.0";
 
   src = fetchFromGitHub {
     owner = "brainflow-dev";
     repo = "brainflow";
     rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-LFiDyNuWbEAKU0Rl+n7ozxr5CM4NLphR2o9bYHw6xJY=";
+    hash = "sha256-cnItKuOu4ez54mAyRuk8PDC3oKKUIqdkAUuuaxNs5Z8=";
   };
 
   patches = [ ];

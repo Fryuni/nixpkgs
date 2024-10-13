@@ -25,9 +25,9 @@ let
     # However, the version string is more useful for end-users.
     # These are contained in a attrset of their own to make it obvious that
     # people should update both.
-    version = "1.31.1";
-    rev = "1f44388cee449c9dae8ae34c0b4f09036bcbf560";
-    hash = "sha256-XvlF3hMS2PH87HgFwKoFzxHDYgRjZmxn02L1aLwYOrY=";
+    version = "1.31.2";
+    rev = "cc4a75482810de4b84c301d13deb551bd3147339";
+    hash = "sha256-mfQpEGLMJV3UKqcUdbhy6/pP1sWut26zjwN6vDE7LmA=";
   };
 
   # these need to be updated for any changes to fetchAttrs
@@ -172,7 +172,7 @@ buildBazelPackage {
 
       "--define=wasm=${wasmRuntime}"
     ]
-    ++ (lib.optionals stdenv.isAarch64 [
+    ++ (lib.optionals stdenv.hostPlatform.isAarch64 [
       # external/com_github_google_tcmalloc/tcmalloc/internal/percpu_tcmalloc.h:611:9: error: expected ':' or '::' before '[' token
       #   611 |       : [end_ptr] "=&r"(end_ptr), [cpu_id] "=&r"(cpu_id),
       #       |         ^
