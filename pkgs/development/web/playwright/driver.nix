@@ -215,7 +215,7 @@ let
         outputHashAlgo = "sha256";
         outputHashMode = "recursive";
         outputHash = {
-          x86_64-darwin = "sha256-GMmfXHpVFfjGZOqfEye64/rxQMECtPf8geGNvoMrCXA=";
+          x86_64-darwin = "sha256-8ZGvJahjMS7oEHm307ouyM86DzDEtY0jzBnmki7qYMM=";
           aarch64-darwin = lib.fakeSha256;
         }
         .${system} or throwSystem;
