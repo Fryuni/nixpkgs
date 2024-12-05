@@ -1168,8 +1168,7 @@ in
 
           If set, users can authenticate with their Kerberos password.
           This requires a valid Kerberos configuration
-          (`config.security.krb5.enable` should be set to
-          `true`).
+          (`security.krb5.enable` should be set to `true`).
 
           Note that the Kerberos PAM modules are not necessary when using SSS
           to handle Kerberos authentication.
@@ -1587,8 +1586,8 @@ in
 
     warnings = lib.optional
       (with config.security.pam.sshAgentAuth;
-        enable && lib.any (s: lib.hasPrefix "%h" s || lib.hasPrefix "~" s) authorizedKeysFiles)
-      ''config.security.pam.sshAgentAuth.authorizedKeysFiles contains files in the user's home directory.
+        enable && lib.any (s: lib.hasPrefix "%h" s || lib.hasPrefix "~" s) authorizedKeysFiles) ''
+        security.pam.sshAgentAuth.authorizedKeysFiles contains files in the user's home directory.
 
         Specifying user-writeable files there result in an insecure configuration:
         a malicious process can then edit such an authorized_keys file and bypass the ssh-agent-based authentication.
@@ -1669,13 +1668,11 @@ in
         (lib.concatMap lib.attrValues)
         (lib.filter (rule: rule.enable))
         (lib.catAttrs "modulePath")
-        # TODO(@uninsane): replace this warning + lib.filter with just an assertion
-        (map (modulePath: lib.warnIfNot
+        (map (modulePath: lib.throwIfNot
           (lib.hasPrefix "/" modulePath)
-          ''non-absolute PAM modulePath "${modulePath}" is unsupported by apparmor and will be treated as an error by future versions of nixpkgs; see <https://github.com/NixOS/nixpkgs/pull/314791>''
+          ''non-absolute PAM modulePath "${modulePath}" is unsupported by apparmor''
           modulePath
         ))
-        (lib.filter (lib.hasPrefix "/"))
         lib.unique
         (map (module: "mr ${module},"))
         concatLines

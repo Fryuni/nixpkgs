@@ -2,6 +2,7 @@
 , fetchFromGitHub
 , pkgs
 , stdenv
+, config
 }:
 
 let
@@ -49,8 +50,6 @@ let
 
 in rec {
   inherit mkTmuxPlugin;
-
-  mkDerivation = throw "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
 
   battery = mkTmuxPlugin {
     pluginName = "battery";
@@ -378,14 +377,14 @@ in rec {
     };
   };
 
-  nord = mkTmuxPlugin rec {
+  nord = mkTmuxPlugin {
     pluginName = "nord";
-    version = "0.3.0";
+    version = "0.3.0-unstable-2023-03-03";
     src = pkgs.fetchFromGitHub {
       owner = "nordtheme";
       repo = "tmux";
-      rev = "v${version}";
-      hash = "sha256-s/rimJRGXzwY9zkOp9+2bAF1XCT9FcyZJ1zuHxOBsJM=";
+      rev = "f7b6da07ab55fe32ee5f7d62da56d8e5ac691a92";
+      hash = "sha256-mcmVYNWOUoQLiu4eM/EUudRg67Gcou13xuC6zv9aMKA=";
     };
     meta = {
       homepage = "https://www.nordtheme.com/ports/tmux";
@@ -399,6 +398,7 @@ in rec {
           theme in order to work properly.
       '';
       license = lib.licenses.mit;
+      maintainers = [ lib.maintainers.sigmasquadron ];
     };
   };
 
@@ -771,6 +771,26 @@ in rec {
     };
   };
 
+  tmux-powerline = mkTmuxPlugin {
+    pluginName = "powerline";
+    version = "3.0.0";
+    src = fetchFromGitHub {
+      owner = "erikw";
+      repo = "tmux-powerline";
+      rev = "2480e5531e0027e49a90eaf540f973e624443937";
+      hash = "sha256-25uG7OI8OHkdZ3GrTxG1ETNeDtW1K+sHu2DfJtVHVbk=";
+    };
+    rtpFilePath = "main.tmux";
+    meta = {
+      homepage = "https://github.com/erikw/tmux-powerline";
+      description = "Empowering your tmux (status bar) experience!";
+      longDescription = "A tmux plugin giving you a hackable status bar consisting of dynamic & beautiful looking powerline segments, written purely in bash.";
+      license = lib.licenses.bsd3;
+      platforms = lib.platforms.unix;
+      maintainers = with lib.maintainers; [ thomasjm ];
+    };
+  };
+
   tmux-thumbs = pkgs.callPackage ./tmux-thumbs {
     inherit mkTmuxPlugin;
   };
@@ -863,12 +883,12 @@ in rec {
 
   yank = mkTmuxPlugin {
     pluginName = "yank";
-    version = "unstable-2021-06-20";
+    version = "unstable-2023-07-19";
     src = fetchFromGitHub {
       owner = "tmux-plugins";
       repo = "tmux-yank";
-      rev = "1b1a436e19f095ae8f825243dbe29800a8acd25c";
-      sha256 = "hRvkBf+YrWycecnDixAsD4CAHg3KsioomfJ/nLl5Zgs=";
+      rev = "acfd36e4fcba99f8310a7dfb432111c242fe7392";
+      sha256 = "sha256-/5HPaoOx2U2d8lZZJo5dKmemu6hKgHJYq23hxkddXpA=";
     };
   };
 
@@ -890,4 +910,6 @@ in rec {
       maintainers = with maintainers; [ o0th ];
     };
   };
+} // lib.optionalAttrs config.allowAliases {
+  mkDerivation = throw "tmuxPlugins.mkDerivation is deprecated, use tmuxPlugins.mkTmuxPlugin instead"; # added 2021-03-14
 }

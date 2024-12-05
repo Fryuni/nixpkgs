@@ -8,13 +8,13 @@
 
 buildGoModule rec {
   pname = "nvrh";
-  version = "0.1.9";
+  version = "0.1.15";
 
   src = fetchFromGitHub {
     owner = "mikew";
     repo = "nvrh";
     rev = "refs/tags/v${version}";
-    hash = "sha256-QM8VVvNTPvu6Yg1G8FW/694RyTbw36AqkvISeP70gpE=";
+    hash = "sha256-FLlSS/ZgoGT4SyBG/sKdrN3eBSJdT0qFeGl01y4P/So=";
   };
 
   postPatch = ''
@@ -26,7 +26,7 @@ buildGoModule rec {
     cp manifest.json src/
   '';
 
-  vendorHash = "sha256-Ao2BrB6fUOw2uFziQWNKeVTZtIeoW0MP7aLyuI1J3ng=";
+  vendorHash = "sha256-DuGMlRdVUMKwghPQjVP3A+epnsA5a15jl84Y8LTPkTM=";
 
   ldflags = [
     "-s"
