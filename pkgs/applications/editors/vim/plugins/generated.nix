@@ -1242,6 +1242,30 @@ final: prev:
     meta.homepage = "https://github.com/APZelos/blamer.nvim/";
   };
 
+  blink-cmp-copilot = buildVimPlugin {
+    pname = "blink-cmp-copilot";
+    version = "2024-12-16";
+    src = fetchFromGitHub {
+      owner = "giuxtaposition";
+      repo = "blink-cmp-copilot";
+      rev = "f8e12f3ec152ca7dfbdbd6f50797aac0171a46a9";
+      sha256 = "1rpdzacp1m6k3ng38hb1vwnb931k5kncc10761x5ycn4qk88icq9";
+    };
+    meta.homepage = "https://github.com/giuxtaposition/blink-cmp-copilot/";
+  };
+
+  blink-compat = buildVimPlugin {
+    pname = "blink.compat";
+    version = "2024-12-03";
+    src = fetchFromGitHub {
+      owner = "Saghen";
+      repo = "blink.compat";
+      rev = "73249d35c8737b614bed64c2f33277387035f8ec";
+      sha256 = "151lqk78g3zwbwr7d0yvlxc3zbwyh9776nl779r7fx7ap4dm0vj1";
+    };
+    meta.homepage = "https://github.com/Saghen/blink.compat/";
+  };
+
   block-nvim = buildVimPlugin {
     pname = "block.nvim";
     version = "2023-10-10";
@@ -11016,14 +11040,14 @@ final: prev:
 
   roslyn-nvim = buildVimPlugin {
     pname = "roslyn.nvim";
-    version = "2024-10-13";
+    version = "2024-12-13";
     src = fetchFromGitHub {
-      owner = "jmederosalvarado";
+      owner = "seblj";
       repo = "roslyn.nvim";
-      rev = "5a2df70f8b78cca3732bacdf51eaa21a861fe3df";
-      sha256 = "11226pwyfz2xadir41lafr6p6khlc4w5awd6bgr2zrwvsf5wf0aa";
+      rev = "6d591af98e0fac1d382de15de88d26df53ec8b67";
+      sha256 = "0v7x0a0xld34n3bklbxhqna0hcwpxph6l2pfq8h2v2dfswid0015";
     };
-    meta.homepage = "https://github.com/jmederosalvarado/roslyn.nvim/";
+    meta.homepage = "https://github.com/seblj/roslyn.nvim/";
   };
 
   rspec-vim = buildVimPlugin {
