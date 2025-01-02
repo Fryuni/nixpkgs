@@ -4,7 +4,7 @@
   fetchFromGitHub,
   nixosTests,
   alsa-lib,
-  boost184,
+  boost,
   cmake,
   cryptopp,
   glslang,
@@ -17,7 +17,7 @@
   libunwind,
   libusb1,
   magic-enum,
-  mesa,
+  libgbm,
   pkg-config,
   pugixml,
   qt6,
@@ -37,13 +37,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "shadps4";
-  version = "0.4.0-unstable-2024-12-08";
+  version = "0.4.0-unstable-2024-12-23";
 
   src = fetchFromGitHub {
     owner = "shadps4-emu";
     repo = "shadPS4";
-    rev = "4fb2247196d4626bab8f2c28710b0c34cad053fe";
-    hash = "sha256-bRURBUhIVQLrBxJFaJirw3n1n7xviRoAZGLZ+rV/UeM=";
+    rev = "c2e9c877dd82e9bf79c8ede7bc8cffb591a31c76";
+    hash = "sha256-6LmNLH5Fy+9AYDXLh/YFThs3EUgA6gnmUEvBltkUQig=";
     fetchSubmodules = true;
   };
 
@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     alsa-lib
-    boost184
+    boost
     cryptopp
     glslang
     ffmpeg
@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libX11
     xorg.libXext
     magic-enum
-    mesa
+    libgbm
     pugixml
     qt6.qtbase
     qt6.qtdeclarative

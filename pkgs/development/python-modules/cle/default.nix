@@ -16,14 +16,14 @@
 
 let
   # The binaries are following the argr projects release cycle
-  version = "9.2.132";
+  version = "9.2.134";
 
   # Binary files from https://github.com/angr/binaries (only used for testing and only here)
   binaries = fetchFromGitHub {
     owner = "angr";
     repo = "binaries";
     rev = "refs/tags/v${version}";
-    hash = "sha256-ytL8UlvbzOSvUwXjZhxAW6lQJawGOTfMlq/yQnBLIu0=";
+    hash = "sha256-2C4vA8lRLLcfwqGoQ3dqV1kGGtlKx2sgSOKy1QqsEVY=";
   };
 in
 buildPythonPackage rec {
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     owner = "angr";
     repo = "cle";
     rev = "refs/tags/v${version}";
-    hash = "sha256-TO1zVqoPr1HBTMd9+Gbn39lLsZv8cMcAG0EKsvgymcI=";
+    hash = "sha256-0txid9qiNMEBemSphwok5Gkk3NJvzWSIlvrqFnre5TA=";
   };
 
   build-system = [ setuptools ];
