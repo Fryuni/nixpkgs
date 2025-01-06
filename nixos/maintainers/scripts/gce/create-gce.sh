@@ -4,32 +4,29 @@
 set -euo pipefail
 
 BUCKET_NAME="${BUCKET_NAME:-nixos-cloud-images}"
+IMAGE_FAMILY="${IMAGE_FAMILY:-nixos}"
 TIMESTAMP="$(date +%Y%m%d%H%M)"
+IMAGE_NAME="${IMAGE_FAMILY}-${TIMESTAMP}"
 export TIMESTAMP
 
-nix-build '<nixpkgs/nixos/lib/eval-config.nix>' \
-   -A config.system.build.googleComputeImage \
-   --arg modules "[ <nixpkgs/nixos/modules/virtualisation/google-compute-image.nix> ]" \
-   --argstr system x86_64-linux \
-   -o gce \
-   -j 10
+nix-build ./nixos/lib/eval-config.nix \
+    -A config.system.build.googleComputeImage \
+    --arg modules "[ ./nixos/modules/virtualisation/google-compute-image.nix ]" \
+    --argstr system x86_64-linux \
+    -o gce \
+    -j 10
 
 img_path=$(echo gce/*.tar.gz)
-img_name=${IMAGE_NAME:-$(basename "$img_path")}
-img_id=$(echo "$img_name" | sed 's|.raw.tar.gz$||;s|\.|-|g;s|_|-|g')
-img_family=$(echo "$img_id" | cut -d - -f1-4)
+img_id=$(echo "$IMAGE_NAME" | sed 's|.raw.tar.gz$||;s|\.|-|g;s|_|-|g')
 
-if ! gsutil ls "gs://${BUCKET_NAME}/$img_name"; then
-  gsutil cp "$img_path" "gs://${BUCKET_NAME}/$img_name"
-  gsutil acl ch -u AllUsers:R "gs://${BUCKET_NAME}/$img_name"
+STORAGE_FILE="gs://${BUCKET_NAME}/$IMAGE_FAMILY/$TIMESTAMP.tar.gz"
 
-  gcloud compute images create \
-    "$img_id" \
-    --source-uri "gs://${BUCKET_NAME}/$img_name" \
-    --family="$img_family"
+if ! gsutil ls "$STORAGE_FILE"; then
+    gcloud storage cp "$img_path" "$STORAGE_FILE"
+    # gsutil acl ch -u AllUsers:R "gs://${BUCKET_NAME}/$IMAGE_NAME"
 
-  gcloud compute images add-iam-policy-binding \
-    "$img_id" \
-    --member='allAuthenticatedUsers' \
-    --role='roles/compute.imageUser'
+    gcloud compute images create \
+        "$img_id" \
+        --source-uri "$STORAGE_FILE" \
+        --family="$IMAGE_FAMILY"
 fi
