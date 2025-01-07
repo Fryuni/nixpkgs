@@ -9,10 +9,16 @@ with lib;
 let
   cfg = config.virtualisation.googleComputeImage;
   defaultConfigFile = pkgs.writeText "configuration.nix" ''
-    { ... }:
+    { pkgs, ... }:
     {
       imports = [
         <nixpkgs/nixos/modules/virtualisation/google-compute-image.nix>
+      ];
+
+      environment.systemPackages = with pkgs; [
+        jq
+        git
+        neovim
       ];
 
       nix.settings = {
@@ -125,6 +131,12 @@ in
       inherit (config.virtualisation) diskSize;
       inherit config lib pkgs;
     };
+
+    environment.systemPackages = with pkgs; [
+      jq
+      git
+      neovim
+    ];
 
     nix.settings = {
       auto-optimise-store = true;
