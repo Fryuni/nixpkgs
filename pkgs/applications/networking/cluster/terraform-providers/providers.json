@@ -171,13 +171,13 @@
     "vendorHash": null
   },
   "bitbucket": {
-    "hash": "sha256-fvSy0gnSQkpSCfKlmOQW+ItMi6utocsDB6ex4RZMvGo=",
+    "hash": "sha256-cHuBfF0R/n03Y5KNnbdsWcGeX24+NPT2HnsQpTivCf0=",
     "homepage": "https://registry.terraform.io/providers/DrFaust92/bitbucket",
     "owner": "DrFaust92",
     "repo": "terraform-provider-bitbucket",
-    "rev": "v2.42.0",
+    "rev": "v2.45.1",
     "spdx": "MPL-2.0",
-    "vendorHash": "sha256-oDMKf39uNMO9/kyiZ1IuZlj2yIF1q5Z3wewxEBh3yso="
+    "vendorHash": "sha256-iNY6Jz/SKOLynx33smDFbg371Wa31CouNtrOuV7lkcw="
   },
   "bitwarden": {
     "hash": "sha256-zvl9B1RhViJ83/7i9ab1KvQc9Yfpzq3c1JIz+bzwVmM=",
@@ -615,11 +615,11 @@
     "vendorHash": "sha256-GoOKTT+EOhaPhpbgSW3SycYsE8LEQP0v4eQfiTEnPy8="
   },
   "huaweicloud": {
-    "hash": "sha256-WVoG8XoH1u0mnM4i/mULV+c6gGr3u6AVj5RiqOAlBmA=",
+    "hash": "sha256-cfyd8vbzRPaGqgo3iPqjzoeb3h2hWvLgFP+Q41kDn/c=",
     "homepage": "https://registry.terraform.io/providers/huaweicloud/huaweicloud",
     "owner": "huaweicloud",
     "repo": "terraform-provider-huaweicloud",
-    "rev": "v1.71.2",
+    "rev": "v1.72.0",
     "spdx": "MPL-2.0",
     "vendorHash": null
   },
@@ -858,13 +858,13 @@
     "vendorHash": null
   },
   "newrelic": {
-    "hash": "sha256-xHBr+6rI0G6Fv7HXTrdvtDc+Ij53IfPAb7bvXgyTaH0=",
+    "hash": "sha256-kyfNlLVzrNMLKGCahpbzeyqvFYPug6RyPPxCnxwP/W4=",
     "homepage": "https://registry.terraform.io/providers/newrelic/newrelic",
     "owner": "newrelic",
     "repo": "terraform-provider-newrelic",
-    "rev": "v3.53.0",
+    "rev": "v3.54.0",
     "spdx": "MPL-2.0",
-    "vendorHash": "sha256-UsekZjrioy2F/OvfrvXMVYlZO3I2NU4B+BOZHwP5YSk="
+    "vendorHash": "sha256-hxDLJrv7a8JZ6etYS7u+kiIcudJJeB47PKQTE3NzCvI="
   },
   "nomad": {
     "hash": "sha256-k61iQ9FQG3nscBp5CE/fFCbHpeLawbUAtGPM+IZtfVc=",
@@ -958,13 +958,13 @@
     "vendorHash": "sha256-0Atbzx1DjInPMa1lNxyNKfNMILjN4S814TlIAQeTfdI="
   },
   "opentelekomcloud": {
-    "hash": "sha256-H7IG6YjGSbPXaprWfGjQzHcaEIa9H6xUuoG4PPho/8s=",
+    "hash": "sha256-gcELIKjDeXp0rqz+tDp2S9VEzPVoL+7RfvpfNF/qets=",
     "homepage": "https://registry.terraform.io/providers/opentelekomcloud/opentelekomcloud",
     "owner": "opentelekomcloud",
     "repo": "terraform-provider-opentelekomcloud",
-    "rev": "v1.36.27",
+    "rev": "v1.36.28",
     "spdx": "MPL-2.0",
-    "vendorHash": "sha256-3dDj0I7kBkwbQun90VUqdvpUcelMz1v7/OfgXfb87yE="
+    "vendorHash": "sha256-KvQNpXn11KdGbGQBWj7FwVypJOcFhLjgOKBfFZOyL7M="
   },
   "opsgenie": {
     "hash": "sha256-+msy9kPAryR0Ll5jKOd47DMjeMxEdSIfKZZKVHohQGY=",

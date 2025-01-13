@@ -193,4 +193,3 @@ subprocess.run(['git', 'commit', f'-m{commitMessage}', '--', f'{versions_file_pa
 logging.info("#### Updating plugins ####")
 plugin_script = current_path.joinpath("../plugins/update_plugins.py").resolve()
 subprocess.call(plugin_script)
-

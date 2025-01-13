@@ -893,6 +893,7 @@
   ./services/misc/workout-tracker.nix
   ./services/misc/whisparr.nix
   ./services/misc/xmrig.nix
+  ./services/misc/ytdl-sub.nix
   ./services/misc/zoneminder.nix
   ./services/misc/zookeeper.nix
   ./services/monitoring/alerta.nix
@@ -1055,6 +1056,7 @@
   ./services/networking/dnsmasq.nix
   ./services/networking/dnsproxy.nix
   ./services/networking/doh-proxy-rust.nix
+  ./services/networking/doh-server.nix
   ./services/networking/ejabberd.nix
   ./services/networking/envoy.nix
   ./services/networking/epmd.nix
