@@ -259,6 +259,38 @@
       },
       "name": "asciidoc"
     },
+    "7499": {
+      "compatible": [
+        "clion",
+        "datagrip",
+        "goland",
+        "idea-community",
+        "idea-ultimate",
+        "mps",
+        "phpstorm",
+        "pycharm-community",
+        "pycharm-professional",
+        "rider",
+        "ruby-mine",
+        "rust-rover",
+        "webstorm"
+      ],
+      "builds": {
+        "243.21565.447": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.22562.218": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.22562.220": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.22562.250": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.112": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.114": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.115": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.116": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.117": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.119": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.120": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip",
+        "243.23654.19": "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip"
+      },
+      "name": "gittoolbox"
+    },
     "8182": {
       "compatible": [
         "clion",
@@ -393,6 +425,38 @@
         "243.23654.119": "https://plugins.jetbrains.com/files/9568/666746/go-plugin-243.23654.117.zip"
       },
       "name": "go"
+    },
+    "9836": {
+      "compatible": [
+        "clion",
+        "datagrip",
+        "goland",
+        "idea-community",
+        "idea-ultimate",
+        "mps",
+        "phpstorm",
+        "pycharm-community",
+        "pycharm-professional",
+        "rider",
+        "ruby-mine",
+        "rust-rover",
+        "webstorm"
+      ],
+      "builds": {
+        "243.21565.447": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.22562.218": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.22562.220": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.22562.250": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.112": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.114": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.115": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.116": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.117": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.119": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.120": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip",
+        "243.23654.19": "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip"
+      },
+      "name": "randomness"
     },
     "10037": {
       "compatible": [
@@ -754,10 +818,12 @@
     "https://plugins.jetbrains.com/files/7322/646590/python-ce-243.22562.145.zip": "sha256-45UtQRZMtKF6addrrB3A+goeyICMfcZ2FKcJvJSqgg4=",
     "https://plugins.jetbrains.com/files/7322/666773/python-ce-243.23654.117.zip": "sha256-l6ePJtwdj6+k7Qvpus9zGqIs141eT0/qTeZL0Ud4rM0=",
     "https://plugins.jetbrains.com/files/7391/658997/asciidoctor-intellij-plugin-0.43.6.zip": "sha256-3RJ7YVFtynyqeLIzdrirCMbWNZmUkJ+DT/9my71H0Dk=",
+    "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip": "sha256-rpJ0tPIf3mw5KLSv+wx16mXVKA1PxKTktgCYzKU3cU4=",
     "https://plugins.jetbrains.com/files/8554/633920/featuresTrainer-243.21565.204.zip": "sha256-3MCG1SNEy2Mf9r+nTLcRwJ+rIJRvtO0kYKFNjIan86E=",
     "https://plugins.jetbrains.com/files/8554/654690/featuresTrainer-243.22562.233.zip": "sha256-JugbJM8Lr2kbhP9hdLE3kUStl2vOMUB5wGTwNLxAZd0=",
     "https://plugins.jetbrains.com/files/8554/666817/featuresTrainer-243.23654.115.zip": "sha256-3HiNFTBJ1b/6IvMMkMCmNVo/4VMtTTKeiC6XqR6LIUs=",
     "https://plugins.jetbrains.com/files/8607/606922/NixIDEA-0.4.0.16.zip": "sha256-9GMqs/hSavcw1E4ZJTLDH1lx3HEeQ5NR8BT+Q9pN3io=",
-    "https://plugins.jetbrains.com/files/9568/666746/go-plugin-243.23654.117.zip": "sha256-8Y7JyjX8ytias4ix1azWkhPEVYXDomWRiMQlrKco9zM="
+    "https://plugins.jetbrains.com/files/9568/666746/go-plugin-243.23654.117.zip": "sha256-8Y7JyjX8ytias4ix1azWkhPEVYXDomWRiMQlrKco9zM=",
+    "https://plugins.jetbrains.com/files/9836/667181/intellij-randomness-3.3.4-signed.zip": "sha256-W1N6XYHhiQD+04N8q1BlH8MBBA61rgYoHpdzXqyWD6A="
   }
 }
