@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.1.2";
+  version = "2025.1.3";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -3419,7 +3419,8 @@
       ];
     "mfi" =
       ps: with ps; [
-      ]; # missing inputs: mficlient
+        mficlient
+      ];
     "microbees" =
       ps: with ps; [
       ]; # missing inputs: microBeesPy
@@ -3958,7 +3959,8 @@
       ];
     "onkyo" =
       ps: with ps; [
-      ]; # missing inputs: pyeiscp
+        pyeiscp
+      ];
     "onvif" =
       ps: with ps; [
         ha-ffmpeg
@@ -6963,6 +6965,7 @@
     "meteo_france"
     "meteoclimatic"
     "metoffice"
+    "mfi"
     "microsoft_face"
     "microsoft_face_detect"
     "microsoft_face_identify"
@@ -7043,6 +7046,7 @@
     "oncue"
     "ondilo_ico"
     "onewire"
+    "onkyo"
     "onvif"
     "open_meteo"
     "openai_conversation"

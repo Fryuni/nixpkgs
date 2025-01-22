@@ -91,11 +91,11 @@ with self; {
 
   ack = buildPerlPackage rec {
     pname = "ack";
-    version = "3.7.0";
+    version = "3.8.0";
 
     src = fetchurl {
       url = "mirror://cpan/authors/id/P/PE/PETDANCE/ack-v${version}.tar.gz";
-      hash = "sha256-6nyqFPdX3ggzEO0suimGYd3Mpd7gbsjxgEPqYlp53yA=";
+      hash = "sha256-ZAsaGzbKFaTR0XkvKkTmmurlg5HPDSH6iilmWoiV9xg=";
     };
 
     outputs = [ "out" "man" ];
@@ -2226,6 +2226,9 @@ with self; {
       url = "mirror://cpan/authors/id/X/XA/XAOC/Cairo-1.109.tar.gz";
       hash = "sha256-ghlzbkAcIxHaX1FXdd5D/YfmOEtQTaNqGS8rIXZDB38=";
     };
+    nativeBuildInputs = [
+      pkgs.pkg-config
+    ];
     buildInputs = [ pkgs.cairo ];
     propagatedBuildInputs = [ ExtUtilsDepends ExtUtilsPkgConfig ];
     meta = {
@@ -2242,6 +2245,9 @@ with self; {
       url = "mirror://cpan/authors/id/X/XA/XAOC/Cairo-GObject-1.005.tar.gz";
       hash = "sha256-jYlkRNceHQvKPSTjHl2CvQ2VQqrtkdH7fqs2e85nXFA=";
     };
+    nativeBuildInputs = [
+      pkgs.pkg-config
+    ];
     buildInputs = [ pkgs.cairo ];
     propagatedBuildInputs = [ Cairo Glib ];
     meta = {
@@ -5018,6 +5024,11 @@ with self; {
       url = "mirror://cpan/authors/id/D/DP/DPARIS/Crypt-DES-2.07.tar.gz";
       hash = "sha256-LbHrtYN7TLIAUcDuW3M7RFPjE33wqSMGA0yGdiHt1+c=";
     };
+    patches = [
+      # Fix build error with gcc14. See https://rt.cpan.org/Public/Bug/Display.html?id=133363.
+      # Source: https://rt.cpan.org/Public/Ticket/Attachment/1912753/1024508/0001-_des.h-expose-perl_des_expand_key-and-perl_des_crypt.patch
+      ../development/perl-modules/CryptDES-expose-perl_des_expand_key-and-perl_des_crypt.patch
+    ];
     meta = {
       description = "Perl DES encryption module";
       license = with lib.licenses; [ bsdOriginalShortened ];
@@ -10230,6 +10241,8 @@ with self; {
       description = "Locate per-dist and per-module shared files";
       homepage = "https://metacpan.org/release/File-ShareDir";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
+      # Can't load module IO, dynamic loading not available in this perl.
+      broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
     };
   };
 
@@ -10697,6 +10710,8 @@ with self; {
       homepage = "https://metacpan.org/release/Games-Solitaire-Verify";
       license = with lib.licenses; [ mit ];
       mainProgram = "verify-solitaire-solution";
+      # Unsuccessful stat on filename containing newline at lib/perl5/5.40.0/File/Path.pm line 361.
+      broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
     };
   };
 
@@ -10708,6 +10723,9 @@ with self; {
       hash = "sha256-aDEFS/VCS09cI9NifT0UhEgPb5wsZmMiIpFfKFG+buQ=";
     };
 
+    nativeBuildInputs = [
+      pkgs.pkg-config
+    ];
     buildInputs = [ pkgs.gd pkgs.libjpeg pkgs.zlib pkgs.freetype pkgs.libpng pkgs.fontconfig pkgs.xorg.libXpm ExtUtilsPkgConfig TestFork TestNoWarnings ];
 
     # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
@@ -10939,12 +10957,17 @@ with self; {
       url = "mirror://cpan/authors/id/X/XA/XAOC/Glib-1.3294.tar.gz";
       hash = "sha256-1xX1qGvMGHB13oXnrlvAewcU1u3BlqktpDmG76ROXLs=";
     };
+    nativeBuildInputs = [
+      pkgs.pkg-config
+    ];
     buildInputs = [ pkgs.glib ];
     propagatedBuildInputs = [ ExtUtilsDepends ExtUtilsPkgConfig ];
     meta = {
       description = "Perl wrappers for the GLib utility and Object libraries";
       homepage = "https://gtk2-perl.sourceforge.net";
       license = with lib.licenses; [ lgpl21Only ];
+      # Can't load module IO, dynamic loading not available in this perl.
+      broken = !stdenv.buildPlatform.canExecute stdenv.hostPlatform;
     };
   };
 
@@ -10963,7 +10986,13 @@ with self; {
         hash = "sha256-/QAhKENSeP+QRoWx/v8EMFPOouZ36Qd78lhZpvInz7Q=";
       })
     ];
-    nativeCheckInputs = [ pkgs.cairo CairoGObject ];
+    nativeBuildInputs = [
+      pkgs.pkg-config
+    ];
+    nativeCheckInputs = [ CairoGObject ];
+    checkInputs = [
+      pkgs.cairo
+    ];
     propagatedBuildInputs = [ pkgs.gobject-introspection Glib ];
     preCheck = ''
       # Our gobject-introspection patches make the shared library paths absolute
@@ -11435,7 +11464,7 @@ with self; {
     '';
     meta = {
       description = "Pluggable Markov engine analogous to MegaHAL";
-      homepage = "https://hailo.org";
+      homepage = "https://github.com/hailo/hailo";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
       mainProgram = "hailo";
     };
@@ -22766,8 +22795,12 @@ with self; {
       hash = "sha256-RokV+joE3PZXT8lX7/SVkV4kVpQ0lwyR7o5OFFn8kRQ=";
     };
     setOutputFlags = false;
-    buildInputs = [ pkgs.which ];
+    nativeBuildInputs = [ pkgs.which ];
     patches = [ ../development/perl-modules/Socket6-sv_undef.patch ];
+    preConfigure = lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      substituteInPlace configure \
+        --replace-fail 'cross_compiling=no' 'cross_compiling=yes;ipv6_cv_can_inet_ntop=yes'
+    '';
     meta = {
       description = "IPv6 related part of the C socket.h defines and structure manipulators";
       license = with lib.licenses; [ bsd3 ];
@@ -27685,7 +27718,21 @@ with self; {
       # in an error with clang 16.
       ../development/perl-modules/tk-configure-implicit-int-fix.patch
     ];
-    makeMakerFlags = [ "X11INC=${pkgs.xorg.libX11.dev}/include" "X11LIB=${pkgs.xorg.libX11.out}/lib" ];
+    postPatch = ''
+      substituteInPlace pTk/mTk/additions/imgWindow.c \
+        --replace-fail '"X11/Xproto.h"' "<X11/Xproto.h>"
+      substituteInPlace PNG/zlib/Makefile.in \
+        --replace-fail '$(AR) $@' '$(AR) rc $@'
+      substituteInPlace PNG/libpng/scripts/makefile.gcc \
+        --replace-fail 'AR_RC = ar rcs' 'AR_RC = ${pkgs.stdenv.cc.targetPrefix}ar rcs'
+      substituteInPlace JPEG/jpeg/makefile.cfg \
+        --replace-fail 'AR= ar rc' 'AR= ${pkgs.stdenv.cc.targetPrefix}ar rc'
+    '';
+    makeMakerFlags = [
+      "AR=${pkgs.stdenv.cc.targetPrefix}ar"
+      "X11INC=${pkgs.xorg.libX11.dev}/include"
+      "X11LIB=${pkgs.xorg.libX11.out}/lib"
+    ];
     buildInputs = [ pkgs.xorg.libX11 pkgs.libpng ];
     env = lib.optionalAttrs stdenv.cc.isGNU {
       NIX_CFLAGS_COMPILE = toString [
@@ -29140,10 +29187,10 @@ with self; {
 
   XSParseKeyword = buildPerlModule {
     pname = "XS-Parse-Keyword";
-    version = "0.44";
+    version = "0.46";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.44.tar.gz";
-      hash = "sha256-ohrnkiGSfvwR2J2MnbMt9swgsxacX2kuGSEUriNNdhI=";
+      url = "mirror://cpan/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.46.tar.gz";
+      hash = "sha256-ZaJyapEAeUma1LuDxBeAWdpDMGrpLIc0yPoXwC8ioB0=";
     };
     buildInputs = [ ExtUtilsCChecker Test2Suite ];
     propagatedBuildInputs = [ FileShareDir ];
