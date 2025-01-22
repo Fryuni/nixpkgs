@@ -259,6 +259,38 @@
       },
       "name": "asciidoc"
     },
+    "7425": {
+      "compatible": [
+        "clion",
+        "datagrip",
+        "goland",
+        "idea-community",
+        "idea-ultimate",
+        "mps",
+        "phpstorm",
+        "pycharm-community",
+        "pycharm-professional",
+        "rider",
+        "ruby-mine",
+        "rust-rover",
+        "webstorm"
+      ],
+      "builds": {
+        "243.21565.447": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.22562.218": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.22562.220": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.22562.250": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.112": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.114": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.115": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.116": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.117": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.119": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.120": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar",
+        "243.23654.19": "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar"
+      },
+      "name": "wakatime"
+    },
     "7499": {
       "compatible": [
         "clion",
@@ -818,6 +850,7 @@
     "https://plugins.jetbrains.com/files/7322/646590/python-ce-243.22562.145.zip": "sha256-45UtQRZMtKF6addrrB3A+goeyICMfcZ2FKcJvJSqgg4=",
     "https://plugins.jetbrains.com/files/7322/666773/python-ce-243.23654.117.zip": "sha256-l6ePJtwdj6+k7Qvpus9zGqIs141eT0/qTeZL0Ud4rM0=",
     "https://plugins.jetbrains.com/files/7391/658997/asciidoctor-intellij-plugin-0.43.6.zip": "sha256-3RJ7YVFtynyqeLIzdrirCMbWNZmUkJ+DT/9my71H0Dk=",
+    "https://plugins.jetbrains.com/files/7425/603907/WakaTime.jar": "sha256-Z7ZWDomXnTdHFKOElMkt53imef6aT7H5XeD6lOOFxfQ=",
     "https://plugins.jetbrains.com/files/7499/667439/gittoolbox-600.0.14_243-signed.zip": "sha256-rpJ0tPIf3mw5KLSv+wx16mXVKA1PxKTktgCYzKU3cU4=",
     "https://plugins.jetbrains.com/files/8554/633920/featuresTrainer-243.21565.204.zip": "sha256-3MCG1SNEy2Mf9r+nTLcRwJ+rIJRvtO0kYKFNjIan86E=",
     "https://plugins.jetbrains.com/files/8554/654690/featuresTrainer-243.22562.233.zip": "sha256-JugbJM8Lr2kbhP9hdLE3kUStl2vOMUB5wGTwNLxAZd0=",
