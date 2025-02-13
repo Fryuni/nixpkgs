@@ -107,18 +107,19 @@ def _preprocess_screenshot(screenshot_path: str, negate: bool = False) -> str:
         "1",
         "-posterize",
         "3",
-        "-gamma",
-        "100",
-        "-blur",
-        "1x65535",
     ]
-
     out_file = screenshot_path
 
     if negate:
         magick_args.append("-negate")
         out_file += ".negative"
 
+    magick_args += [
+        "-gamma",
+        "100",
+        "-blur",
+        "1x65535",
+    ]
     out_file += ".png"
 
     ret = subprocess.run(
@@ -771,7 +772,7 @@ class Machine:
             retry(tty_matches, timeout)
 
     def send_chars(self, chars: str, delay: float | None = 0.01) -> None:
-        """
+        r"""
         Simulate typing a sequence of characters on the virtual keyboard,
         e.g., `send_chars("foobar\n")` will type the string `foobar`
         followed by the Enter key.

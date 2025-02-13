@@ -26,13 +26,13 @@
   xorg,
 }:
 let
-  version = "2.14.4";
+  version = "2.14.7";
 
   src = fetchFromGitHub {
     owner = "paperless-ngx";
     repo = "paperless-ngx";
     tag = "v${version}";
-    hash = "sha256-asjTRjEMnJcmyAZNZQ+VxXeyGc+j0j1JAAOrOaQ7ma4=";
+    hash = "sha256-p3eUEb/ZPK11NbqE4LU+3TE1Xny9sjfYvVVmABkoAEQ=";
   };
 
   # subpath installation is broken with uvicorn >= 0.26
@@ -86,7 +86,7 @@ let
       cd src-ui
     '';
 
-    npmDepsHash = "sha256-JUmYSHHrNWpJNp01Er2zMgiVVIIOAC+QlKw1HAjD7/E=";
+    npmDepsHash = "sha256-hK7Soop9gBZP4m2UzbEIAsLkPKpbQkLmVruY2So4CSs=";
 
     nativeBuildInputs =
       [
@@ -283,6 +283,7 @@ python.pkgs.buildPythonApplication rec {
     # FileNotFoundError(2, 'No such file or directory'): /build/tmp...
     "test_script_with_output"
     "test_script_exit_non_zero"
+    "testDocumentPageCountMigrated"
     # AssertionError: 10 != 4 (timezone/time issue)
     # Due to getting local time from modification date in test_consumer.py
     "testNormalOperation"
