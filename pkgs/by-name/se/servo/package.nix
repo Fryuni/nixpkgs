@@ -62,17 +62,24 @@ in
 
 rustPlatform.buildRustPackage {
   pname = "servo";
-  version = "0-unstable-2025-02-19";
+  version = "0-unstable-2025-03-01";
 
   src = fetchFromGitHub {
     owner = "servo";
     repo = "servo";
-    rev = "5ff588429f3912c08d7f744a9cccfeae392592cd";
-    hash = "sha256-URX/jc6zr7BCENYmwO4h7SWLp/+wsVJNyyoCcXpvVEs=";
+    rev = "ce977636f63c2cded3c2d26cce548efbb91312b2";
+    hash = "sha256-m+VWSuxXRdY2Pqs7akmtpzrGmFLCY/5WSD/5cQU8RU4=";
+    # Breaks reproducibility depending on whether the picked commit
+    # has other ref-names or not, which may change over time, i.e. with
+    # "ref-names: HEAD -> main" as long this commit is the branch HEAD
+    # and "ref-names:" when it is not anymore.
+    postFetch = ''
+      rm $out/tests/wpt/tests/tools/third_party/attrs/.git_archival.txt
+    '';
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-bwg1FipNkdAI+1V2PhppP31nOCUPl7vKBrroFjlvq2Y=";
+  cargoHash = "sha256-O7M1NJRaUPyh1+i8Ab2vvCwHMLBSMfwgEkfFCuIA9TA=";
 
   postPatch = ''
     # Remap absolute path between modules to include SEMVER
