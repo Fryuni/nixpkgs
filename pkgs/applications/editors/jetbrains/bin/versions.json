@@ -43,26 +43,26 @@
     "goland": {
       "update-channel": "GoLand RELEASE",
       "url-template": "https://download.jetbrains.com/go/goland-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "f474f1f19fb04f7de73596c51b49f2675b3fc11df6a7aaba325c3ad98477d1df",
-      "url": "https://download.jetbrains.com/go/goland-2024.3.4.tar.gz",
-      "build_number": "243.25659.52"
+      "version": "2024.3.5",
+      "sha256": "d59f537fb8d9c741a704605ec00c4b4230211301cd0609c73c66d5edb4eb9340",
+      "url": "https://download.jetbrains.com/go/goland-2024.3.5.tar.gz",
+      "build_number": "243.26053.20"
     },
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIC-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "3eefea10391fdeaaf19ba6d00ee8c7f174a4feb5261394c4d3454d1cf0f5826b",
-      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "8a287528d830e6cdec2ded13c974c39a35b7555243c22d8b83113c96c26630aa",
+      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "idea-ultimate": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIU-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "e9b5b868e425aa1255d75f85028e7ba6275bb8aab88781e960c2c7c34f2173e8",
-      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1",
+      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "mps": {
       "update-channel": "MPS RELEASE",
@@ -75,10 +75,10 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9344d68dda2c0062d9f6f03e27e959346f2f2bba2bce9f1c108653090d2dfb85",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.45",
+      "version": "2024.3.5",
+      "sha256": "e12efb584eb9b632703d1bee9986d95ac09aceaf76ca40e9188d82b713ff0fc1",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.13",
       "version-major-minor": "2022.3"
     },
     "pycharm-community": {
@@ -108,26 +108,26 @@
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
       "url-template": "https://download.jetbrains.com/ruby/RubyMine-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9454aaf0877516b2047bc21517b5459860bdb4cbc797d66612760a336c011ee3",
-      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.4.tar.gz",
-      "build_number": "243.25659.41"
+      "version": "2024.3.5",
+      "sha256": "e5fb7daa24307927cfd329340956b4cae1e0f3bb011841834519c4342428d38b",
+      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.5.tar.gz",
+      "build_number": "243.26053.19"
     },
     "rust-rover": {
       "update-channel": "RustRover RELEASE",
       "url-template": "https://download.jetbrains.com/rustrover/RustRover-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "c4373d591eabcfdca4e8e5f635d9007855ac8a32baf4aac26e189d6415f6df9f",
-      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.6.tar.gz",
-      "build_number": "243.25659.54"
+      "version": "2024.3.7",
+      "sha256": "aec79e12c16082d364617dab83ec63980fddbd66c5734573499b000733c508ad",
+      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.7.tar.gz",
+      "build_number": "243.26053.17"
     },
     "webstorm": {
       "update-channel": "WebStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webstorm/WebStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "206a5e6b6fd3e603d62a7bbb26b0bf3b7ff7939b3e0cd136d360cdb80ec455f8",
-      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.40"
+      "version": "2024.3.5",
+      "sha256": "da587d7ca3ebb08f067143e4a6b35f1aa133aa10af7fc365496838006fcd1aed",
+      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.12"
     },
     "writerside": {
       "update-channel": "Writerside EAP",
@@ -182,26 +182,26 @@
     "goland": {
       "update-channel": "GoLand RELEASE",
       "url-template": "https://download.jetbrains.com/go/goland-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "f474f1f19fb04f7de73596c51b49f2675b3fc11df6a7aaba325c3ad98477d1df",
-      "url": "https://download.jetbrains.com/go/goland-2024.3.4.tar.gz",
-      "build_number": "243.25659.52"
+      "version": "2024.3.5",
+      "sha256": "d59f537fb8d9c741a704605ec00c4b4230211301cd0609c73c66d5edb4eb9340",
+      "url": "https://download.jetbrains.com/go/goland-2024.3.5.tar.gz",
+      "build_number": "243.26053.20"
     },
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIC-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "3eefea10391fdeaaf19ba6d00ee8c7f174a4feb5261394c4d3454d1cf0f5826b",
-      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "8a287528d830e6cdec2ded13c974c39a35b7555243c22d8b83113c96c26630aa",
+      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "idea-ultimate": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIU-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "e9b5b868e425aa1255d75f85028e7ba6275bb8aab88781e960c2c7c34f2173e8",
-      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1",
+      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "mps": {
       "update-channel": "MPS RELEASE",
@@ -214,10 +214,10 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9344d68dda2c0062d9f6f03e27e959346f2f2bba2bce9f1c108653090d2dfb85",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.45",
+      "version": "2024.3.5",
+      "sha256": "e12efb584eb9b632703d1bee9986d95ac09aceaf76ca40e9188d82b713ff0fc1",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.13",
       "version-major-minor": "2022.3"
     },
     "pycharm-community": {
@@ -247,26 +247,26 @@
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
       "url-template": "https://download.jetbrains.com/ruby/RubyMine-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9454aaf0877516b2047bc21517b5459860bdb4cbc797d66612760a336c011ee3",
-      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.4.tar.gz",
-      "build_number": "243.25659.41"
+      "version": "2024.3.5",
+      "sha256": "e5fb7daa24307927cfd329340956b4cae1e0f3bb011841834519c4342428d38b",
+      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.5.tar.gz",
+      "build_number": "243.26053.19"
     },
     "rust-rover": {
       "update-channel": "RustRover RELEASE",
       "url-template": "https://download.jetbrains.com/rustrover/RustRover-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "c4373d591eabcfdca4e8e5f635d9007855ac8a32baf4aac26e189d6415f6df9f",
-      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.6.tar.gz",
-      "build_number": "243.25659.54"
+      "version": "2024.3.7",
+      "sha256": "aec79e12c16082d364617dab83ec63980fddbd66c5734573499b000733c508ad",
+      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.7.tar.gz",
+      "build_number": "243.26053.17"
     },
     "webstorm": {
       "update-channel": "WebStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webstorm/WebStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "206a5e6b6fd3e603d62a7bbb26b0bf3b7ff7939b3e0cd136d360cdb80ec455f8",
-      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.40"
+      "version": "2024.3.5",
+      "sha256": "da587d7ca3ebb08f067143e4a6b35f1aa133aa10af7fc365496838006fcd1aed",
+      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.12"
     },
     "writerside": {
       "update-channel": "Writerside EAP",
@@ -321,26 +321,26 @@
     "goland": {
       "update-channel": "GoLand RELEASE",
       "url-template": "https://download.jetbrains.com/go/goland-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "f474f1f19fb04f7de73596c51b49f2675b3fc11df6a7aaba325c3ad98477d1df",
-      "url": "https://download.jetbrains.com/go/goland-2024.3.4.tar.gz",
-      "build_number": "243.25659.52"
+      "version": "2024.3.5",
+      "sha256": "d59f537fb8d9c741a704605ec00c4b4230211301cd0609c73c66d5edb4eb9340",
+      "url": "https://download.jetbrains.com/go/goland-2024.3.5.tar.gz",
+      "build_number": "243.26053.20"
     },
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIC-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "3eefea10391fdeaaf19ba6d00ee8c7f174a4feb5261394c4d3454d1cf0f5826b",
-      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "8a287528d830e6cdec2ded13c974c39a35b7555243c22d8b83113c96c26630aa",
+      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "idea-ultimate": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIU-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "e9b5b868e425aa1255d75f85028e7ba6275bb8aab88781e960c2c7c34f2173e8",
-      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1",
+      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "mps": {
       "update-channel": "MPS RELEASE",
@@ -353,10 +353,10 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9344d68dda2c0062d9f6f03e27e959346f2f2bba2bce9f1c108653090d2dfb85",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.45",
+      "version": "2024.3.5",
+      "sha256": "e12efb584eb9b632703d1bee9986d95ac09aceaf76ca40e9188d82b713ff0fc1",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.13",
       "version-major-minor": "2022.3"
     },
     "pycharm-community": {
@@ -386,26 +386,26 @@
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
       "url-template": "https://download.jetbrains.com/ruby/RubyMine-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9454aaf0877516b2047bc21517b5459860bdb4cbc797d66612760a336c011ee3",
-      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.4.tar.gz",
-      "build_number": "243.25659.41"
+      "version": "2024.3.5",
+      "sha256": "e5fb7daa24307927cfd329340956b4cae1e0f3bb011841834519c4342428d38b",
+      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.5.tar.gz",
+      "build_number": "243.26053.19"
     },
     "rust-rover": {
       "update-channel": "RustRover RELEASE",
       "url-template": "https://download.jetbrains.com/rustrover/RustRover-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "c4373d591eabcfdca4e8e5f635d9007855ac8a32baf4aac26e189d6415f6df9f",
-      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.6.tar.gz",
-      "build_number": "243.25659.54"
+      "version": "2024.3.7",
+      "sha256": "aec79e12c16082d364617dab83ec63980fddbd66c5734573499b000733c508ad",
+      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.7.tar.gz",
+      "build_number": "243.26053.17"
     },
     "webstorm": {
       "update-channel": "WebStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webstorm/WebStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "206a5e6b6fd3e603d62a7bbb26b0bf3b7ff7939b3e0cd136d360cdb80ec455f8",
-      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.40"
+      "version": "2024.3.5",
+      "sha256": "da587d7ca3ebb08f067143e4a6b35f1aa133aa10af7fc365496838006fcd1aed",
+      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.12"
     },
     "writerside": {
       "update-channel": "Writerside EAP",
@@ -460,26 +460,26 @@
     "goland": {
       "update-channel": "GoLand RELEASE",
       "url-template": "https://download.jetbrains.com/go/goland-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "f474f1f19fb04f7de73596c51b49f2675b3fc11df6a7aaba325c3ad98477d1df",
-      "url": "https://download.jetbrains.com/go/goland-2024.3.4.tar.gz",
-      "build_number": "243.25659.52"
+      "version": "2024.3.5",
+      "sha256": "d59f537fb8d9c741a704605ec00c4b4230211301cd0609c73c66d5edb4eb9340",
+      "url": "https://download.jetbrains.com/go/goland-2024.3.5.tar.gz",
+      "build_number": "243.26053.20"
     },
     "idea-community": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIC-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "3eefea10391fdeaaf19ba6d00ee8c7f174a4feb5261394c4d3454d1cf0f5826b",
-      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "8a287528d830e6cdec2ded13c974c39a35b7555243c22d8b83113c96c26630aa",
+      "url": "https://download.jetbrains.com/idea/ideaIC-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "idea-ultimate": {
       "update-channel": "IntelliJ IDEA RELEASE",
       "url-template": "https://download.jetbrains.com/idea/ideaIU-{version}.tar.gz",
-      "version": "2024.3.4.1",
-      "sha256": "e9b5b868e425aa1255d75f85028e7ba6275bb8aab88781e960c2c7c34f2173e8",
-      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.4.1.tar.gz",
-      "build_number": "243.25659.59"
+      "version": "2024.3.5",
+      "sha256": "f8e8e864f4fedddf1d366a7db23fc4132192c3a6029c614a382186ff564a78a1",
+      "url": "https://download.jetbrains.com/idea/ideaIU-2024.3.5.tar.gz",
+      "build_number": "243.26053.27"
     },
     "mps": {
       "update-channel": "MPS RELEASE",
@@ -492,10 +492,10 @@
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webide/PhpStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9344d68dda2c0062d9f6f03e27e959346f2f2bba2bce9f1c108653090d2dfb85",
-      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.45",
+      "version": "2024.3.5",
+      "sha256": "e12efb584eb9b632703d1bee9986d95ac09aceaf76ca40e9188d82b713ff0fc1",
+      "url": "https://download.jetbrains.com/webide/PhpStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.13",
       "version-major-minor": "2022.3"
     },
     "pycharm-community": {
@@ -525,26 +525,26 @@
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
       "url-template": "https://download.jetbrains.com/ruby/RubyMine-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "9454aaf0877516b2047bc21517b5459860bdb4cbc797d66612760a336c011ee3",
-      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.4.tar.gz",
-      "build_number": "243.25659.41"
+      "version": "2024.3.5",
+      "sha256": "e5fb7daa24307927cfd329340956b4cae1e0f3bb011841834519c4342428d38b",
+      "url": "https://download.jetbrains.com/ruby/RubyMine-2024.3.5.tar.gz",
+      "build_number": "243.26053.19"
     },
     "rust-rover": {
       "update-channel": "RustRover RELEASE",
       "url-template": "https://download.jetbrains.com/rustrover/RustRover-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "c4373d591eabcfdca4e8e5f635d9007855ac8a32baf4aac26e189d6415f6df9f",
-      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.6.tar.gz",
-      "build_number": "243.25659.54"
+      "version": "2024.3.7",
+      "sha256": "aec79e12c16082d364617dab83ec63980fddbd66c5734573499b000733c508ad",
+      "url": "https://download.jetbrains.com/rustrover/RustRover-2024.3.7.tar.gz",
+      "build_number": "243.26053.17"
     },
     "webstorm": {
       "update-channel": "WebStorm RELEASE",
       "url-template": "https://download.jetbrains.com/webstorm/WebStorm-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "206a5e6b6fd3e603d62a7bbb26b0bf3b7ff7939b3e0cd136d360cdb80ec455f8",
-      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.4.tar.gz",
-      "build_number": "243.25659.40"
+      "version": "2024.3.5",
+      "sha256": "da587d7ca3ebb08f067143e4a6b35f1aa133aa10af7fc365496838006fcd1aed",
+      "url": "https://download.jetbrains.com/webstorm/WebStorm-2024.3.5.tar.gz",
+      "build_number": "243.26053.12"
     },
     "writerside": {
       "update-channel": "Writerside EAP",
