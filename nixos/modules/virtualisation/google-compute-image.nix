@@ -9,11 +9,39 @@ with lib;
 let
   cfg = config.virtualisation.googleComputeImage;
   defaultConfigFile = pkgs.writeText "configuration.nix" ''
-    { ... }:
+    { pkgs, ... }:
     {
       imports = [
         <nixpkgs/nixos/modules/virtualisation/google-compute-image.nix>
       ];
+
+      environment.systemPackages = with pkgs; [
+        jq
+        git
+        neovim
+      ];
+
+      nix.settings = {
+        auto-optimise-store = true;
+
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+
+        substituters = [
+          "https://nix-shell.cachix.org"
+          "https://nix-community.cachix.org"
+          "https://nixpkgs.cachix.org"
+          "https://fryuni.cachix.org"
+        ];
+        trusted-public-keys = [
+          "nix-shell.cachix.org-1:kat3KoRVbilxA6TkXEtTN9IfD4JhsQp1TPUHg652Mwc="
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+          "fryuni.cachix.org-1:YCNe73zqPG2YLIxxJkTXDz3/VFKcCiZAvHDIjEJIoDQ="
+        ];
+      };
     }
   '';
 in
@@ -104,6 +132,33 @@ in
       inherit config lib pkgs;
     };
 
+    environment.systemPackages = with pkgs; [
+      jq
+      git
+      neovim
+    ];
+
+    nix.settings = {
+      auto-optimise-store = true;
+
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+
+      substituters = [
+        "https://nix-shell.cachix.org"
+        "https://nix-community.cachix.org"
+        "https://nixpkgs.cachix.org"
+        "https://fryuni.cachix.org"
+      ];
+      trusted-public-keys = [
+        "nix-shell.cachix.org-1:kat3KoRVbilxA6TkXEtTN9IfD4JhsQp1TPUHg652Mwc="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+        "fryuni.cachix.org-1:YCNe73zqPG2YLIxxJkTXDz3/VFKcCiZAvHDIjEJIoDQ="
+      ];
+    };
   };
 
 }
