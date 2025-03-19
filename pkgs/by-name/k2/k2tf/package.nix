@@ -7,25 +7,16 @@
 
 buildGoModule rec {
   pname = "k2tf";
-  version = "0.7.0";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "sl1pm4t";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-zkkRzCTZCvbwBj4oIhTo5d3PvqLMJPzT3zV9jU3PEJs=";
+    rev = "1b376c0c58d6700a61bccb02fae23bbbccb3211d";
+    sha256 = "sha256-2HiiVtdwDwlU5xbZ8XqP+7fUBX6hg+ssZ0a4H6bc9qE=";
   };
 
-  patches = [
-    # update dependencies
-    # https://github.com/sl1pm4t/k2tf/pull/111
-    (fetchpatch {
-      url = "https://github.com/sl1pm4t/k2tf/commit/7e7b778eeb80400cb0dadb1cdea4e617b5738147.patch";
-      hash = "sha256-ZGQUuH7u3aNLml6rvOzOxVwSTlbhZLknXbHKeY4lp00=";
-    })
-  ];
-
-  vendorHash = "sha256-yGuoE1bgwVHk3ym382OC93me9HPlVoNgGo/3JROVC2E=";
+  vendorHash = "sha256-2QjLiugOwfdyrERi0Uf1UUuKLXsagJdVnfjRPFeOD8k=";
 
   ldflags = [
     "-s"
