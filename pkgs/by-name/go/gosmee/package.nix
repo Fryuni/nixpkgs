@@ -7,13 +7,13 @@
 
 buildGoModule rec {
   pname = "gosmee";
-  version = "0.22.4";
+  version = "0.23.4";
 
   src = fetchFromGitHub {
     owner = "chmouel";
     repo = "gosmee";
     rev = "v${version}";
-    hash = "sha256-e+Mkhkk+PTeTipWFnjiJ8jLMYB7D+/FCWaOuaKe1jr4=";
+    hash = "sha256-orQDLuEbfxWWXmothxfTgeaMiqzJeTOFeNnPNDHwnYU=";
   };
   vendorHash = null;
 

@@ -6,14 +6,14 @@
 
 buildNpmPackage rec {
   pname = "claude-code";
-  version = "0.2.48";
+  version = "0.2.69";
 
   src = fetchzip {
     url = "https://registry.npmjs.org/@anthropic-ai/claude-code/-/claude-code-${version}.tgz";
-    hash = "sha256-zocgUMHWAPhA9ebqfeVCMHuJ1QBX3q8Y/dDjsxKhPv4=";
+    hash = "sha256-ShVescHfUhRwctlHLukRic73yUvuc5LP7qev3Hk1qWg=";
   };
 
-  npmDepsHash = "sha256-kwq08sKDZDH0eM5gAj+HllQkadDqgyNxMd2xmiTZvq8=";
+  npmDepsHash = "sha256-7jbvsIXulG6dJOnMc5MjDm/Kcyndm4jDSdj85eSp/hc=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
@@ -22,6 +22,13 @@ buildNpmPackage rec {
   dontNpmBuild = true;
 
   AUTHORIZED = "1";
+
+  # `claude-code` tries to auto-update by default, this disables that functionality.
+  # https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview#environment-variables
+  postInstall = ''
+    wrapProgram $out/bin/claude \
+      --set DISABLE_AUTOUPDATER 1
+  '';
 
   passthru.updateScript = ./update.sh;
 

@@ -9,24 +9,17 @@
 
 buildGoModule rec {
   pname = "paretosecurity";
-  version = "0.0.87";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "ParetoSecurity";
     repo = "agent";
     rev = version;
-    hash = "sha256-SgMALLuGq4HGj5eo7JdvtcWOEGuUoLyC3pgamB1WBzI=";
+    hash = "sha256-ovyfHqLCf5U3UR1HfoA+UQhqLZ6IaILcpqptPRQsb60=";
   };
 
-  # tests do network access, fix pending
-  doCheck = false;
-
-  vendorHash = "sha256-HReQu23sHLaxc5N8h2vYv64ruJPmY4HM9whAEKV+3Eo=";
+  vendorHash = "sha256-7mKAFkKGpBOjXc3J/sfF3k3pJF53tFybXZgbfJInuSY=";
   proxyVendor = true;
-
-  subPackages = [
-    "cmd/paretosecurity"
-  ];
 
   ldflags = [
     "-s"
@@ -34,6 +27,23 @@ buildGoModule rec {
     "-X=github.com/ParetoSecurity/agent/shared.Commit=${src.rev}"
     "-X=github.com/ParetoSecurity/agent/shared.Date=1970-01-01T00:00:00Z"
   ];
+
+  postInstall = ''
+    # Install global systemd files
+    install -Dm400 ${src}/apt/paretosecurity.socket $out/lib/systemd/system/paretosecurity.socket
+    install -Dm400 ${src}/apt/paretosecurity.service $out/lib/systemd/system/paretosecurity.service
+    substituteInPlace $out/lib/systemd/system/paretosecurity.service \
+        --replace-fail "/usr/bin/paretosecurity" "$out/bin/paretosecurity"
+
+    # Install user systemd files
+    install -Dm444 ${src}/apt/paretosecurity-user.timer $out/lib/systemd/user/paretosecurity-user.timer
+    install -Dm444 ${src}/apt/paretosecurity-user.service $out/lib/systemd/user/paretosecurity-user.service
+    substituteInPlace $out/lib/systemd/user/paretosecurity-user.service \
+        --replace-fail "/usr/bin/paretosecurity" "$out/bin/paretosecurity"
+    install -Dm444 ${src}/apt/paretosecurity-trayicon.service $out/lib/systemd/user/paretosecurity-trayicon.service
+    substituteInPlace $out/lib/systemd/user/paretosecurity-trayicon.service \
+        --replace-fail "/usr/bin/paretosecurity" "$out/bin/paretosecurity"
+  '';
 
   passthru.tests = {
     version = testers.testVersion {
@@ -53,10 +63,15 @@ buildGoModule rec {
       settings such as if you have disk encryption and firewall enabled.
 
       If you use the `services.paretosecurity` NixOS module, you also get a
-      root helper, so that you can run the checker in userspace. Some checks
+      root helper that allows you to run the checker in userspace. Some checks
       require root permissions, and the checker asks the helper to run those.
 
-      Additionally, you can run `paretosecurity link` to configure the agent
+      Additionally, if you enable `services.paretosecurity.trayIcon`, you get a
+      little Vilfredo Pareto living in your systray showing your the current
+      status of checks. This will also enable a systemd timer to update the
+      status of checks once per hour.
+
+      Finally, you can run `paretosecurity link` to configure the agent
       to send the status of checks to https://dash.paretosecurity.com to make
       compliance people happy. No sending happens until your device is linked.
     '';

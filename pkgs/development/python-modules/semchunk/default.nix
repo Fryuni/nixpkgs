@@ -9,12 +9,12 @@
 
 buildPythonPackage rec {
   pname = "semchunk";
-  version = "3.1.2";
+  version = "3.2.1";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-JF/7/sj/IJ6gwtTIQ1BCb6jUYKJaRgzB7Y7rNrtjKVw=";
+    hash = "sha256-6kWJMEf2PfG5L1UhRKIEc+zksASsPZLP6SYB/X0ygbA=";
   };
 
   build-system = [

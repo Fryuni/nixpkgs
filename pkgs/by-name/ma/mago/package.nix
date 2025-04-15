@@ -10,17 +10,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mago";
-  version = "0.10.0";
+  version = "0.22.2";
 
   src = fetchFromGitHub {
     owner = "carthage-software";
     repo = "mago";
     tag = version;
-    hash = "sha256-NYAlLJsKI+twrlryVumjsOnY3xvEeLTO/rAFTZtE+KU=";
+    hash = "sha256-78lnNbUKjQYS2BSRGiGmFfnu85Mz+xAwaDG5pVCBqkQ=";
   };
 
   useFetchCargoVendor = true;
-  cargoHash = "sha256-0AnJIrA15WC3LPiokwuX9w9riaaL5s2vqwhj4XRa6LM=";
+  cargoHash = "sha256-lwL+5HuT6xiiittGlRDaFWfS9qum4xHginHT/TUMcco=";
 
   env = {
     # Get openssl-sys to use pkg-config
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     tests.version = testers.testVersion {
       package = mago;
       command = "mago --version";
-      version = "mago-cli ${version}";
+      version = "mago ${version}";
     };
   };
 

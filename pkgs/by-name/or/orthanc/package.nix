@@ -23,22 +23,23 @@
   unzip,
   versionCheckHook,
   nixosTests,
+  orthanc-framework,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "orthanc";
-  version = "1.12.6";
+  version = "1.12.7";
 
   src = fetchhg {
     url = "https://orthanc.uclouvain.be/hg/orthanc/";
     rev = "Orthanc-${finalAttrs.version}";
-    hash = "sha256-1ztA95PiCGL1oD6zVfsEhwrwGNID13/NcyZDD3eHYv0=";
+    hash = "sha256-aWUA8cCnWff5Tl8PWGJJtERlGh4GX4a8hTG9E2ADG9k=";
   };
 
-  patches = [
-    # Without this patch, the build fails to find `GOOGLE_PROTOBUF_VERIFY_VERSION`
-    # The patch has been included upstream, it need to be removed in the next release.
-    ./add-missing-include.patch
+  outputs = [
+    "out"
+    "dev"
+    "doc"
   ];
 
   sourceRoot = "${finalAttrs.src.name}/OrthancServer";
@@ -98,6 +99,15 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "USE_SYSTEM_ZLIB" true)
   ];
 
+  # Remove warnings during the build
+  env.NIX_CFLAGS_COMPILE = "-Wno-builtin-macro-redefined";
+
+  postInstall = ''
+    mkdir -p $doc/share/doc/orthanc
+    cp -r $src/OrthancServer/Resources/Samples $doc/share/doc/orthanc/Samples
+    cp -r $src/OrthancServer/Plugins/Samples $doc/share/doc/orthanc/OrthancPluginSamples
+  '';
+
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
@@ -105,8 +115,11 @@ stdenv.mkDerivation (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.tests = {
-    inherit (nixosTests) orthanc;
+  passthru = {
+    framework = orthanc-framework;
+    tests = {
+      inherit (nixosTests) orthanc;
+    };
   };
 
   meta = {

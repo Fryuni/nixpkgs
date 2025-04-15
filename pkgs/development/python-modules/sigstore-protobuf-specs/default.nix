@@ -5,11 +5,12 @@
   fetchPypi,
   buildPythonPackage,
   betterproto,
+  pydantic,
 }:
 
 buildPythonPackage rec {
   pname = "sigstore-protobuf-specs";
-  version = "0.3.5";
+  version = "0.4.0";
   pyproject = true;
 
   disabled = pythonOlder "3.8";
@@ -17,12 +18,15 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "sigstore_protobuf_specs";
     inherit version;
-    hash = "sha256-yl0XAXrefexbuaABweDkXa5G+L2lk+j6sG6mjurBzpw=";
+    hash = "sha256-XrWiz2xAvGDrRwPqMcDfm0EKkhU70i3eWj8bT2bvCpA=";
   };
 
   nativeBuildInputs = [ flit-core ];
 
-  propagatedBuildInputs = [ betterproto ];
+  propagatedBuildInputs = [
+    betterproto
+    pydantic
+  ];
 
   # Module has no tests
   doCheck = false;

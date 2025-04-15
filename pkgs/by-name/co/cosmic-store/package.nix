@@ -10,16 +10,17 @@
   flatpak,
   openssl,
   nix-update-script,
+  nixosTests,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-store";
   version = "1.0.0-alpha.6";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-store";
-    tag = "epoch-${version}";
+    tag = "epoch-${finalAttrs.version}";
     hash = "sha256-ce7PaHBhRFUoujAS6j10XWbD2PxzK6XXIk/ENclT1iY=";
   };
 
@@ -51,6 +52,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
+    tests = {
+      inherit (nixosTests)
+        cosmic
+        cosmic-autologin
+        cosmic-noxwayland
+        cosmic-autologin-noxwayland
+        ;
+    };
     updateScript = nix-update-script {
       extraArgs = [
         "--version"
@@ -65,11 +74,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pop-os/cosmic-store";
     description = "App Store for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      ahoneybun
-      nyabinary
-      HeitorAugustoLN
-    ];
+    maintainers = lib.teams.cosmic.members;
     platforms = lib.platforms.linux;
   };
-}
+})

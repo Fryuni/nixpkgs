@@ -13,16 +13,17 @@
   libglvnd,
   libgbm,
   nix-update-script,
+  nixosTests,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-player";
   version = "1.0.0-alpha.6";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-player";
-    tag = "epoch-${version}";
+    tag = "epoch-${finalAttrs.version}";
     hash = "sha256-Ebjj+C+yLCRomZy2W8mYDig1pv7aQcD3A9V2M53RM5U=";
   };
 
@@ -71,24 +72,31 @@ rustPlatform.buildRustPackage rec {
     libcosmicAppWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-      "--version-regex"
-      "epoch-(.*)"
-    ];
+  passthru = {
+    tests = {
+      inherit (nixosTests)
+        cosmic
+        cosmic-autologin
+        cosmic-noxwayland
+        cosmic-autologin-noxwayland
+        ;
+    };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "unstable"
+        "--version-regex"
+        "epoch-(.*)"
+      ];
+    };
   };
 
   meta = {
     homepage = "https://github.com/pop-os/cosmic-player";
     description = "Media player for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      ahoneybun
-      HeitorAugustoLN
-    ];
+    maintainers = lib.teams.cosmic.members;
     platforms = lib.platforms.linux;
     mainProgram = "cosmic-player";
   };
-}
+})

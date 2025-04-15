@@ -17,15 +17,15 @@
   jq,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "readest";
-  version = "0.9.19";
+  version = "0.9.35";
 
   src = fetchFromGitHub {
     owner = "readest";
     repo = "readest";
-    tag = "v${version}";
-    hash = "sha256-Z84vH6vEtUMly++I+2AWBGl+3NXEAyjSIVJ57DnUS54=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-w6aMfJwQDEG5WmFdZhtxeTi9w8X3tBqBmpo0nItLYrE=";
     fetchSubmodules = true;
   };
 
@@ -34,18 +34,18 @@ rustPlatform.buildRustPackage rec {
     chmod -R +w .
   '';
 
-  sourceRoot = "${src.name}/apps/readest-app";
+  sourceRoot = "${finalAttrs.src.name}/apps/readest-app";
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit pname version src;
-    hash = "sha256-gHYZpUQOznFIwH0w0tyWyQYyOwNwL8aRcDthx902h+4=";
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-+fJbQmoa89WSfA4dteUSRoEfgEN38tsHZiuWyOvuvhw=";
   };
 
   pnpmRoot = "../..";
 
   useFetchCargoVendor = true;
 
-  cargoHash = "sha256-uAVYvyNKK0megsl3QEfN3vbuO1gJfwbOm9K0SohuGfg=";
+  cargoHash = "sha256-uMm/X4MKu71MxjofRN/HR5d1yzkJhmVt9W5kHDryEtc=";
 
   cargoRoot = "../..";
 
@@ -95,10 +95,10 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Modern, feature-rich ebook reader";
     homepage = "https://github.com/readest/readest";
-    changelog = "https://github.com/readest/readest/releases/tag/v${version}";
+    changelog = "https://github.com/readest/readest/releases/tag/v${finalAttrs.version}";
     mainProgram = "readest";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [ eljamm ];
     platforms = lib.platforms.linux;
   };
-}
+})

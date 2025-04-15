@@ -44,8 +44,8 @@
   zsh,
   fish,
   nixosTests,
-  go_1_23,
-  buildGo123Module,
+  go_1_24,
+  buildGo124Module,
   nix-update-script,
   makeBinaryWrapper,
   autoSignDarwinBinariesHook,
@@ -56,21 +56,21 @@
 with python3Packages;
 buildPythonApplication rec {
   pname = "kitty";
-  version = "0.40.0";
+  version = "0.41.1";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "kovidgoyal";
     repo = "kitty";
     tag = "v${version}";
-    hash = "sha256-c+u+lMuokDR8kWM0an3jFPC/qoK2RZTKqHZtfEnqtnM=";
+    hash = "sha256-oTkzFEPgbFa2wPBJxh/9ZbK8liM9isWGEwExJq5/h2o=";
   };
 
   goModules =
-    (buildGo123Module {
+    (buildGo124Module {
       pname = "kitty-go-modules";
       inherit src version;
-      vendorHash = "sha256-gBEzW2k1HDDmg1P1t6u90Lf1lLe1IKGpF2T9iCA31qs=";
+      vendorHash = "sha256-ld3cGJUjoi3od6gINyGE7fQodl9CSKmakJ1CPLMX+Ss=";
     }).goModules;
 
   buildInputs =
@@ -124,7 +124,7 @@ buildPythonApplication rec {
       sphinx-copybutton
       sphinxext-opengraph
       sphinx-inline-tabs
-      go_1_23
+      go_1_24
       fontconfig
       makeBinaryWrapper
     ]
@@ -160,17 +160,11 @@ buildPythonApplication rec {
     # OSError: master_fd is in error condition
     ./disable-test_ssh_bootstrap_with_different_launchers.patch
 
-    # Remove after 0.40.1
-    (fetchpatch {
-      url = "https://github.com/kovidgoyal/kitty/commit/6171ca6.patch";
-      hash = "sha256-OBB0YcgEYgw3Jcg+Dgus6rwQ4gGL6GMr6pd7m9CGq9k=";
-    })
+    # Makes man page generation respect SOURCE_DATE_EPOCH. Drop on next kitty release https://github.com/kovidgoyal/kitty/pull/8509
+    ./fix-timestamp-reproducibility.patch
 
-    (fetchpatch {
-      url = "https://github.com/kovidgoyal/kitty/commit/8cbdd003e2.patch";
-      hash = "sha256-pKIJIqIdPfB4kQ6FtpYDumpgjJkMxoLT8fKzfgWYJnw=";
-    })
-
+    # Ensures deterministic ordering of fish shell completions. Drop on next kitty release https://github.com/kovidgoyal/kitty/pull/8509
+    ./fix-fish-completion-ordering.patch
   ];
 
   hardeningDisable = [
@@ -243,9 +237,19 @@ buildPythonApplication rec {
 
   # skip failing tests due to darwin sandbox
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # can be re-enabled with the next kitty release, see https://github.com/kovidgoyal/kitty/pull/7939
+
     substituteInPlace kitty_tests/file_transmission.py \
       --replace test_transfer_send dont_test_transfer_send
+
+    substituteInPlace kitty_tests/ssh.py \
+      --replace test_ssh_connection_data no_test_ssh_connection_data \
+
+    substituteInPlace kitty_tests/shell_integration.py \
+      --replace test_fish_integration no_test_fish_integration
+
+    substituteInPlace kitty_tests/fonts.py \
+      --replace test_fallback_font_not_last_resort no_test_fallback_font_not_last_resort
+
     # theme collection test starts an http server
     rm tools/themes/collection_test.go
     # passwd_test tries to exec /usr/bin/dscl

@@ -460,13 +460,10 @@ mkDerivation (finalAttrs: {
       NATIVE_FULL_AOT = "1";
       LIBRARY_PATH = lib.concatStringsSep ":" libGccJitLibraryPaths;
     }
-    // {
-      NIX_CFLAGS_COMPILE = lib.concatStringsSep " " [
-        # Fixes intermittent segfaults when compiled with LLVM >= 7.0.
-        # See https://github.com/NixOS/nixpkgs/issues/127902
-        (lib.optionalString (variant == "macport") "-include ${./macport_noescape_noop.h}")
-        (lib.optionalString stdenv.hostPlatform.isDarwin "-DFD_SETSIZE=10000 -DDARWIN_UNLIMITED_SELECT")
-      ];
+    // lib.optionalAttrs (variant == "macport") {
+      # Fixes intermittent segfaults when compiled with LLVM >= 7.0.
+      # See https://github.com/NixOS/nixpkgs/issues/127902
+      NIX_CFLAGS_COMPILE = "-include ${./macport_noescape_noop.h}";
     };
 
   enableParallelBuilding = true;
@@ -538,10 +535,10 @@ mkDerivation (finalAttrs: {
     };
   };
 
-  meta = meta // {
+  meta = {
     broken = withNativeCompilation && !(stdenv.buildPlatform.canExecute stdenv.hostPlatform);
     knownVulnerabilities = lib.optionals (lib.versionOlder version "30") [
       "CVE-2024-53920 CVE-2025-1244, please use newer versions such as emacs30"
     ];
-  };
+  } // meta;
 })

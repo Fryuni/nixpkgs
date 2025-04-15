@@ -11,15 +11,17 @@
   just,
   bash,
   nix-update-script,
+  nixosTests,
 }:
-rustPlatform.buildRustPackage rec {
+
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-idle";
   version = "1.0.0-alpha.6";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-idle";
-    tag = "epoch-${version}";
+    tag = "epoch-${finalAttrs.version}";
     hash = "sha256-hORU+iMvWA4XMSWmzir9EwjpLK5vOLR8BgMZz+aIZ4U=";
   };
 
@@ -47,13 +49,23 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace src/main.rs --replace-fail '"/bin/sh"' '"${lib.getExe' bash "sh"}"'
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "unstable"
-      "--version-regex"
-      "epoch-(.*)"
-    ];
+  passthru = {
+    tests = {
+      inherit (nixosTests)
+        cosmic
+        cosmic-autologin
+        cosmic-noxwayland
+        cosmic-autologin-noxwayland
+        ;
+    };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "unstable"
+        "--version-regex"
+        "epoch-(.*)"
+      ];
+    };
   };
 
   meta = {
@@ -61,8 +73,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pop-os/cosmic-idle";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-idle";
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = lib.teams.cosmic.members;
     platforms = lib.platforms.linux;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
-}
+})

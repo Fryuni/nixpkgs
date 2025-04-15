@@ -12,16 +12,17 @@
   appstream-glib,
   desktop-file-utils,
   intltool,
+  nixosTests,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-notifications";
   version = "1.0.0-alpha.6";
 
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-notifications";
-    rev = "epoch-${version}";
+    tag = "epoch-${finalAttrs.version}";
     hash = "sha256-d6bAiRSO2opKSZfadyQYrU9oIrXwPNzO/g2E2RY6q04=";
   };
 
@@ -62,12 +63,21 @@ rustPlatform.buildRustPackage rec {
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ wayland ]}"
   '';
 
+  passthru.tests = {
+    inherit (nixosTests)
+      cosmic
+      cosmic-autologin
+      cosmic-noxwayland
+      cosmic-autologin-noxwayland
+      ;
+  };
+
   meta = with lib; {
     homepage = "https://github.com/pop-os/cosmic-notifications";
     description = "Notifications for the COSMIC Desktop Environment";
     mainProgram = "cosmic-notifications";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nyabinary ];
+    maintainers = teams.cosmic.members;
     platforms = platforms.linux;
   };
-}
+})
