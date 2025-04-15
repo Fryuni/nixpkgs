@@ -11,10 +11,10 @@
     "clion": {
       "update-channel": "CLion RELEASE",
       "url-template": "https://download.jetbrains.com/cpp/CLion-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "c23b9aeb1fdd9f88ab977186e9e4558cdb9bdb5e498b7716f4255a845f8880fd",
-      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.4.tar.gz",
-      "build_number": "243.25659.42"
+      "version": "2024.3.5",
+      "sha256": "502145600b1955156841fa5db37e70f97f960aecbfb7503578c728416f83eaaa",
+      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.5.tar.gz",
+      "build_number": "243.26053.34"
     },
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
@@ -67,10 +67,10 @@
     "mps": {
       "update-channel": "MPS RELEASE",
       "url-template": "https://download.jetbrains.com/mps/{versionMajorMinor}/MPS-{version}.tar.gz",
-      "version": "2024.3.1",
+      "version": "2024.3.2",
       "sha256": "b0e1f7bbc56ddf706510a420783418bc61e80bc4ea3c23ae60fb09cee846f01b",
-      "url": "https://download.jetbrains.com/mps/2024.3.1/MPS-2024.3.1.tar.gz",
-      "build_number": "243.24978.546"
+      "url": "https://download.jetbrains.com/mps/2024.3.2/MPS-2024.3.2.tar.gz",
+      "build_number": "243.24978.603"
     },
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
@@ -100,10 +100,10 @@
     "rider": {
       "update-channel": "Rider RELEASE",
       "url-template": "https://download.jetbrains.com/rider/JetBrains.Rider-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "1f9db9f3f90c71fe476e3e17ac78be9fcc982e3f017c598f631b5cd600e6da43",
-      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.6.tar.gz",
-      "build_number": "243.25659.34"
+      "version": "2024.3.7",
+      "sha256": "cffcb61698f0e381dc4190cfd32ef1dd93c702771650626d23281dc151e59672",
+      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.7.tar.gz",
+      "build_number": "243.26053.56"
     },
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
@@ -150,10 +150,10 @@
     "clion": {
       "update-channel": "CLion RELEASE",
       "url-template": "https://download.jetbrains.com/cpp/CLion-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "c23b9aeb1fdd9f88ab977186e9e4558cdb9bdb5e498b7716f4255a845f8880fd",
-      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.4.tar.gz",
-      "build_number": "243.25659.42"
+      "version": "2024.3.5",
+      "sha256": "502145600b1955156841fa5db37e70f97f960aecbfb7503578c728416f83eaaa",
+      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.5.tar.gz",
+      "build_number": "243.26053.34"
     },
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
@@ -206,10 +206,10 @@
     "mps": {
       "update-channel": "MPS RELEASE",
       "url-template": "https://download.jetbrains.com/mps/{versionMajorMinor}/MPS-{version}.tar.gz",
-      "version": "2024.3.1",
+      "version": "2024.3.2",
       "sha256": "b0e1f7bbc56ddf706510a420783418bc61e80bc4ea3c23ae60fb09cee846f01b",
-      "url": "https://download.jetbrains.com/mps/2024.3.1/MPS-2024.3.1.tar.gz",
-      "build_number": "243.24978.546"
+      "url": "https://download.jetbrains.com/mps/2024.3.2/MPS-2024.3.2.tar.gz",
+      "build_number": "243.24978.603"
     },
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
@@ -239,10 +239,10 @@
     "rider": {
       "update-channel": "Rider RELEASE",
       "url-template": "https://download.jetbrains.com/rider/JetBrains.Rider-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "1f9db9f3f90c71fe476e3e17ac78be9fcc982e3f017c598f631b5cd600e6da43",
-      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.6.tar.gz",
-      "build_number": "243.25659.34"
+      "version": "2024.3.7",
+      "sha256": "cffcb61698f0e381dc4190cfd32ef1dd93c702771650626d23281dc151e59672",
+      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.7.tar.gz",
+      "build_number": "243.26053.56"
     },
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
@@ -289,10 +289,10 @@
     "clion": {
       "update-channel": "CLion RELEASE",
       "url-template": "https://download.jetbrains.com/cpp/CLion-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "c23b9aeb1fdd9f88ab977186e9e4558cdb9bdb5e498b7716f4255a845f8880fd",
-      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.4.tar.gz",
-      "build_number": "243.25659.42"
+      "version": "2024.3.5",
+      "sha256": "502145600b1955156841fa5db37e70f97f960aecbfb7503578c728416f83eaaa",
+      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.5.tar.gz",
+      "build_number": "243.26053.34"
     },
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
@@ -345,10 +345,10 @@
     "mps": {
       "update-channel": "MPS RELEASE",
       "url-template": "https://download.jetbrains.com/mps/{versionMajorMinor}/MPS-{version}.tar.gz",
-      "version": "2024.3.1",
+      "version": "2024.3.2",
       "sha256": "b0e1f7bbc56ddf706510a420783418bc61e80bc4ea3c23ae60fb09cee846f01b",
-      "url": "https://download.jetbrains.com/mps/2024.3.1/MPS-2024.3.1.tar.gz",
-      "build_number": "243.24978.546"
+      "url": "https://download.jetbrains.com/mps/2024.3.2/MPS-2024.3.2.tar.gz",
+      "build_number": "243.24978.603"
     },
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
@@ -378,10 +378,10 @@
     "rider": {
       "update-channel": "Rider RELEASE",
       "url-template": "https://download.jetbrains.com/rider/JetBrains.Rider-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "1f9db9f3f90c71fe476e3e17ac78be9fcc982e3f017c598f631b5cd600e6da43",
-      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.6.tar.gz",
-      "build_number": "243.25659.34"
+      "version": "2024.3.7",
+      "sha256": "cffcb61698f0e381dc4190cfd32ef1dd93c702771650626d23281dc151e59672",
+      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.7.tar.gz",
+      "build_number": "243.26053.56"
     },
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
@@ -428,10 +428,10 @@
     "clion": {
       "update-channel": "CLion RELEASE",
       "url-template": "https://download.jetbrains.com/cpp/CLion-{version}.tar.gz",
-      "version": "2024.3.4",
-      "sha256": "c23b9aeb1fdd9f88ab977186e9e4558cdb9bdb5e498b7716f4255a845f8880fd",
-      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.4.tar.gz",
-      "build_number": "243.25659.42"
+      "version": "2024.3.5",
+      "sha256": "502145600b1955156841fa5db37e70f97f960aecbfb7503578c728416f83eaaa",
+      "url": "https://download.jetbrains.com/cpp/CLion-2024.3.5.tar.gz",
+      "build_number": "243.26053.34"
     },
     "datagrip": {
       "update-channel": "DataGrip RELEASE",
@@ -484,10 +484,10 @@
     "mps": {
       "update-channel": "MPS RELEASE",
       "url-template": "https://download.jetbrains.com/mps/{versionMajorMinor}/MPS-{version}.tar.gz",
-      "version": "2024.3.1",
+      "version": "2024.3.2",
       "sha256": "b0e1f7bbc56ddf706510a420783418bc61e80bc4ea3c23ae60fb09cee846f01b",
-      "url": "https://download.jetbrains.com/mps/2024.3.1/MPS-2024.3.1.tar.gz",
-      "build_number": "243.24978.546"
+      "url": "https://download.jetbrains.com/mps/2024.3.2/MPS-2024.3.2.tar.gz",
+      "build_number": "243.24978.603"
     },
     "phpstorm": {
       "update-channel": "PhpStorm RELEASE",
@@ -517,10 +517,10 @@
     "rider": {
       "update-channel": "Rider RELEASE",
       "url-template": "https://download.jetbrains.com/rider/JetBrains.Rider-{version}.tar.gz",
-      "version": "2024.3.6",
-      "sha256": "1f9db9f3f90c71fe476e3e17ac78be9fcc982e3f017c598f631b5cd600e6da43",
-      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.6.tar.gz",
-      "build_number": "243.25659.34"
+      "version": "2024.3.7",
+      "sha256": "cffcb61698f0e381dc4190cfd32ef1dd93c702771650626d23281dc151e59672",
+      "url": "https://download.jetbrains.com/rider/JetBrains.Rider-2024.3.7.tar.gz",
+      "build_number": "243.26053.56"
     },
     "ruby-mine": {
       "update-channel": "RubyMine RELEASE",
