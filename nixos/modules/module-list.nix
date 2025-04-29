@@ -290,6 +290,7 @@
   ./programs/quark-goldleaf.nix
   ./programs/regreet.nix
   ./programs/rog-control-center.nix
+  ./programs/rush.nix
   ./programs/rust-motd.nix
   ./programs/ryzen-monitor-ng.nix
   ./programs/screen.nix
@@ -313,6 +314,7 @@
   ./programs/system-config-printer.nix
   ./programs/systemtap.nix
   ./programs/tcpdump.nix
+  ./programs/television.nix
   ./programs/thefuck.nix
   ./programs/thunar.nix
   ./programs/thunderbird.nix
@@ -367,6 +369,7 @@
   ./security/auditd.nix
   ./security/ca.nix
   ./security/chromium-suid-sandbox.nix
+  ./security/default.nix
   ./security/dhparams.nix
   ./security/doas.nix
   ./security/duosec.nix
@@ -533,8 +536,7 @@
   ./services/desktops/deepin/dde-api.nix
   ./services/desktops/deepin/app-services.nix
   ./services/desktops/deepin/dde-daemon.nix
-  ./services/desktops/dleyna-renderer.nix
-  ./services/desktops/dleyna-server.nix
+  ./services/desktops/dleyna.nix
   ./services/desktops/espanso.nix
   ./services/desktops/flatpak.nix
   ./services/desktops/geoclue2.nix
@@ -554,7 +556,6 @@
   ./services/desktops/gnome/rygel.nix
   ./services/desktops/gnome/sushi.nix
   ./services/desktops/gnome/tinysparql.nix
-  ./services/desktops/gsignond.nix
   ./services/desktops/gvfs.nix
   ./services/desktops/malcontent.nix
   ./services/desktops/neard.nix
@@ -751,6 +752,7 @@
   ./services/matrix/dendrite.nix
   ./services/matrix/hebbot.nix
   ./services/matrix/hookshot.nix
+  ./services/matrix/lk-jwt-service.nix
   ./services/matrix/matrix-alertmanager.nix
   ./services/matrix/maubot.nix
   ./services/matrix/mautrix-meta.nix
@@ -927,6 +929,7 @@
   ./services/misc/weechat.nix
   ./services/misc/workout-tracker.nix
   ./services/misc/xmrig.nix
+  ./services/misc/yarr.nix
   ./services/misc/ytdl-sub.nix
   ./services/misc/zoneminder.nix
   ./services/misc/zookeeper.nix
@@ -1055,6 +1058,8 @@
   ./services/networking/atticd.nix
   ./services/networking/autossh.nix
   ./services/networking/avahi-daemon.nix
+  ./services/networking/ax25/axlisten.nix
+  ./services/networking/ax25/axports.nix
   ./services/networking/babeld.nix
   ./services/networking/bee.nix
   ./services/networking/biboumi.nix
@@ -1171,11 +1176,13 @@
   ./services/networking/kea.nix
   ./services/networking/keepalived/default.nix
   ./services/networking/keybase.nix
+  ./services/networking/kismet.nix
   ./services/networking/knot.nix
   ./services/networking/kresd.nix
   ./services/networking/lambdabot.nix
   ./services/networking/legit.nix
   ./services/networking/libreswan.nix
+  ./services/networking/livekit.nix
   ./services/networking/lldpd.nix
   ./services/networking/logmein-hamachi.nix
   ./services/networking/lokinet.nix
@@ -1348,6 +1355,7 @@
   ./services/networking/veilid.nix
   ./services/networking/vdirsyncer.nix
   ./services/networking/vsftpd.nix
+  ./services/networking/vwifi.nix
   ./services/networking/wasabibackend.nix
   ./services/networking/websockify.nix
   ./services/networking/wg-access-server.nix
@@ -1402,6 +1410,7 @@
   ./services/security/certmgr.nix
   ./services/security/cfssl.nix
   ./services/security/clamav.nix
+  ./services/security/e-imzo.nix
   ./services/security/endlessh-go.nix
   ./services/security/endlessh.nix
   ./services/security/esdm.nix
@@ -1419,6 +1428,7 @@
   ./services/security/nginx-sso.nix
   ./services/security/oauth2-proxy.nix
   ./services/security/oauth2-proxy-nginx.nix
+  ./services/security/openbao.nix
   ./services/security/opensnitch.nix
   ./services/security/paretosecurity.nix
   ./services/security/pass-secret-service.nix
@@ -1559,6 +1569,7 @@
   ./services/web-apps/isso.nix
   ./services/web-apps/jirafeau.nix
   ./services/web-apps/jitsi-meet.nix
+  ./services/web-apps/karakeep.nix
   ./services/web-apps/kasmweb/default.nix
   ./services/web-apps/kanboard.nix
   ./services/web-apps/kavita.nix
@@ -1596,6 +1607,7 @@
   ./services/web-apps/mediagoblin.nix
   ./services/web-apps/open-web-calendar.nix
   ./services/web-apps/mobilizon.nix
+  ./services/web-apps/olivetin.nix
   ./services/web-apps/openwebrx.nix
   ./services/web-apps/outline.nix
   ./services/web-apps/pds.nix

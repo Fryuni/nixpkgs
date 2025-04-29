@@ -98,6 +98,7 @@ in
 
   # Darwin
   apple-sdk_14,
+  apple-sdk_15,
   cups,
   rsync, # used when preparing .app directory
 
@@ -357,6 +358,10 @@ buildStdenv.mkDerivation {
       # Fix for missing vector header on macOS
       # https://bugzilla.mozilla.org/show_bug.cgi?id=1939405
       ./firefox-mac-missing-vector-header.patch
+
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1962497
+      # https://phabricator.services.mozilla.com/D246545
+      ./build-fix-RELRHACK_LINKER-setting-when-linker-name-i.patch
     ]
     ++ extraPatches;
 
@@ -398,6 +403,7 @@ buildStdenv.mkDerivation {
     ]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ pkg-config ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ rsync ]
+    ++ lib.optionals stdenv.hostPlatform.isx86 [ nasm ]
     ++ lib.optionals crashreporterSupport [
       dump_syms
       patchelf
@@ -573,12 +579,11 @@ buildStdenv.mkDerivation {
       libGL
       libGLU
       libstartup_notification
-      nasm
       perl
       zip
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      apple-sdk_14
+      (if lib.versionAtLeast version "138" then apple-sdk_15 else apple-sdk_14)
       cups
     ]
     ++ (lib.optionals (!stdenv.hostPlatform.isDarwin) (
