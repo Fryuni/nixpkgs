@@ -43,6 +43,9 @@
   "no-broken-symlinks.sh": [
     "index.html#no-broken-symlinks.sh"
   ],
+  "nostrictaliasing": [
+    "index.html#nostrictaliasing"
+  ],
   "pkgs-replacevars": [
     "index.html#pkgs-replacevars",
     "index.html#pkgs-substituteall",
@@ -1100,6 +1103,9 @@
   ],
   "var-meta-broken": [
     "index.html#var-meta-broken"
+  ],
+  "var-meta-knownVulnerabilities": [
+    "index.html#var-meta-knownVulnerabilities"
   ],
   "sec-meta-license": [
     "index.html#sec-meta-license"

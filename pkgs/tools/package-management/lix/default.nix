@@ -1,17 +1,17 @@
 {
   lib,
+  stdenv,
   aws-sdk-cpp,
   boehmgc,
   callPackage,
   fetchgit,
   fetchFromGitHub,
   rustPlatform,
-  Security,
   newScope,
   editline,
   ncurses,
-  stdenv,
   clangStdenv,
+  nix-direnv,
   nix-fast-build,
 
   storeDir ? "/nix/store",
@@ -32,7 +32,6 @@ let
       self:
       lib.recurseIntoAttrs {
         inherit
-          Security
           storeDir
           stateDir
           confDir
@@ -81,6 +80,10 @@ let
         # that `nix-eval-jobs` can be built against the correct `lix` version.
         lix = self.callPackage (callPackage ./common-lix.nix lix-args) {
           stdenv = lixStdenv;
+        };
+
+        nix-direnv = nix-direnv.override {
+          nix = self.lix;
         };
 
         nix-eval-jobs = self.callPackage (callPackage ./common-nix-eval-jobs.nix nix-eval-jobs-args) {

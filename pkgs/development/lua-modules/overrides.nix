@@ -237,13 +237,6 @@ in
   });
 
   http = prev.http.overrideAttrs (oa: {
-    patches = [
-      (fetchpatch {
-        name = "invalid-state-progression.patch";
-        url = "https://github.com/daurnimator/lua-http/commit/cb7b59474a.diff";
-        sha256 = "1vmx039n3nqfx50faqhs3wgiw28ws416rhw6vh6srmh9i826dac7";
-      })
-    ];
     /*
       TODO: separate docs derivation? (pandoc is heavy)
       nativeBuildInputs = [ pandoc ];
@@ -717,6 +710,8 @@ in
       platforms = lib.platforms.linux;
     };
   });
+
+  lux-lua = final.callPackage ./lux-lua.nix { inherit lua; };
 
   lz-n = prev.lz-n.overrideAttrs (oa: {
     doCheck = lua.luaversion == "5.1";

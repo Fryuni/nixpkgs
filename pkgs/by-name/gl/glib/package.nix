@@ -31,8 +31,6 @@
   tzdata,
   desktop-file-utils,
   shared-mime-info,
-  darwin,
-  makeHardcodeGsettingsPatch,
   testers,
   gobject-introspection,
   libsystemtap,
@@ -178,18 +176,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libselinux
       util-linuxMinimal # for libmount
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin (
-      with darwin.apple_sdk.frameworks;
-      [
-        AppKit
-        Carbon
-        Cocoa
-        CoreFoundation
-        CoreServices
-        Foundation
-      ]
-    );
+    ];
 
   depsBuildBuild = [
     pkg-config # required to find native gi-docgen
@@ -377,18 +364,6 @@ stdenv.mkDerivation (finalAttrs: {
       packageName = "glib";
       versionPolicy = "odd-unstable";
     };
-
-    mkHardcodeGsettingsPatch =
-      {
-        src,
-        glib-schema-to-var,
-      }:
-      builtins.trace
-        "glib.mkHardcodeGsettingsPatch is deprecated, please use makeHardcodeGsettingsPatch instead"
-        (makeHardcodeGsettingsPatch {
-          inherit src;
-          schemaIdToVariableMapping = glib-schema-to-var;
-        });
   };
 
   meta = with lib; {
