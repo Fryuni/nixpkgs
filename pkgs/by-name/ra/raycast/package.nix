@@ -12,19 +12,19 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "raycast";
-  version = "1.97.0";
+  version = "1.99.0";
 
   src =
     {
       aarch64-darwin = fetchurl {
         name = "Raycast.dmg";
         url = "https://releases.raycast.com/releases/${finalAttrs.version}/download?build=arm";
-        hash = "sha256-cmaih5QYhdSNcYiVrfOkyOO+KMwClvrVkRykY6E9bQ4=";
+        hash = "sha256-5TMVwZ912+r0OP2NeBc53FOkanaRHJgw+P+JbtdBsKg=";
       };
       x86_64-darwin = fetchurl {
         name = "Raycast.dmg";
         url = "https://releases.raycast.com/releases/${finalAttrs.version}/download?build=x86_64";
-        hash = "sha256-iJz3WIDh1n0ZgDgeHYZgxkysVjxJnbFF+48rzCLc4pw=";
+        hash = "sha256-fhW/qQksn69ri7dLwMerRsktZ3Ykn5qmlNkWZ2piN58=";
       };
     }
     .${stdenvNoCC.system} or (throw "raycast: ${stdenvNoCC.system} is unsupported.");

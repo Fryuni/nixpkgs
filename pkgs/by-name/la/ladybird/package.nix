@@ -32,23 +32,18 @@
 }:
 
 let
-  adobe-icc-profiles = fetchurl {
-    url = "https://download.adobe.com/pub/adobe/iccprofiles/win/AdobeICCProfilesCS4Win_end-user.zip";
-    hash = "sha256-kgQ7fDyloloPaXXQzcV9tgpn3Lnr37FbFiZzEb61j5Q=";
-    name = "adobe-icc-profiles.zip";
-  };
   # Note: The cacert version is synthetic and must match the version in the package's CMake
   cacert_version = "2023-12-12";
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ladybird";
-  version = "0-unstable-2025-05-07";
+  version = "0-unstable-2025-05-18";
 
   src = fetchFromGitHub {
     owner = "LadybirdWebBrowser";
     repo = "ladybird";
-    rev = "5610f5a8652fb5273acd3739634bb8f69df1d786";
-    hash = "sha256-XG7FmadzZN9ew3oPOFjv0CzB/UzLWGq3AANRp2MQAq8=";
+    rev = "4d039fc3d4bf2ca9bf85c482d0b989c2128567ba";
+    hash = "sha256-J29UpFxyKEdHvIOMl3DhvtxIKtEgi6weZsk2UU0py8k=";
   };
 
   postPatch = ''
@@ -83,10 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir build/Caches/PublicSuffix
     cp ${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat build/Caches/PublicSuffix
-
-    mkdir build/Caches/AdobeICCProfiles
-    cp ${adobe-icc-profiles} build/Caches/AdobeICCProfiles/adobe-icc-profiles.zip
-    chmod +w build/Caches/AdobeICCProfiles
   '';
 
   nativeBuildInputs = [
