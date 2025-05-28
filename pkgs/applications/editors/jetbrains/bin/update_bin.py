@@ -171,24 +171,21 @@ with versions_file_path.open("w") as versions_file:
     json.dump(versions, versions_file, indent=2)
     versions_file.write("\n")
 
-if len(toVersions) == 0:
-    # No Updates found
-    sys.exit(0)
+if len(toVersions) != 0:
+    if len(toVersions) == 1:
+        commitMessage = ""
+    else:
+        lowestProd, lowestVersion = min(fromVersions.items(), key=lambda p: p[1])
+        highestProd, highestVersion = max(toVersions.items(), key=lambda p: p[1])
+        commitMessage = f"jetbrains: {lowestProd} ({lowestVersion}) -> {highestProd} ({highestVersion})"
+        commitMessage += "\n\n"
 
-if len(toVersions) == 1:
-    commitMessage = ""
-else:
-    lowestVersion = min(fromVersions.values())
-    highestVersion = max(toVersions.values())
-    commitMessage = f"jetbrains: {lowestVersion} -> {highestVersion}"
-    commitMessage += "\n\n"
+    for name in toVersions.keys():
+        commitMessage += f"jetbrains.{name}: {fromVersions[name]} -> {toVersions[name]}\n"
 
-for name in toVersions.keys():
-    commitMessage += f"jetbrains.{name}: {fromVersions[name]} -> {toVersions[name]}\n"
-
-# Commit the result
-logging.info("#### Committing changes... ####")
-subprocess.run(['git', 'commit', f'-m{commitMessage}', '--', f'{versions_file_path}'], check=True)
+    # Commit the result
+    logging.info("#### Committing changes... ####")
+    subprocess.run(['git', 'commit', f'-m{commitMessage}', '--', f'{versions_file_path}'], check=True)
 
 logging.info("#### Updating plugins ####")
 plugin_script = current_path.joinpath("../plugins/update_plugins.py").resolve()
