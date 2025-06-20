@@ -6,6 +6,7 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import datetime
 import hashlib
 import json
+import ctypes
 import os
 import psutil
 import re
@@ -19,6 +20,7 @@ import textwrap
 limine_dir = None
 can_use_direct_paths = False
 install_config = json.load(open('@configPath@', 'r'))
+libc = ctypes.CDLL("libc.so.6")
 
 
 def config(*path: List[str]) -> Optional[Any]:
@@ -232,7 +234,7 @@ def option_from_config(name: str, config_path: List[str], conversion: Callable[[
     return ''
 
 
-def main():
+def install_bootloader() -> None:
     global limine_dir
 
     boot_fs = None
@@ -337,9 +339,12 @@ def main():
 
     config_file += config('extraEntries')
 
-    with open(config_file_path, 'w') as file:
+    with open(f"{config_file_path}.tmp", 'w') as file:
         file.truncate()
         file.write(config_file.strip())
+        file.flush()
+        os.fsync(file.fileno())
+    os.rename(f"{config_file_path}.tmp", config_file_path)
 
     paths[config_file_path] = True
 
@@ -412,27 +417,42 @@ def main():
                 efi_disk = find_disk_device(efi_partition)
 
                 efibootmgr_output = subprocess.check_output([efibootmgr], stderr=subprocess.STDOUT, universal_newlines=True)
-                create_flag = '-c'
+
                 # Check the output of `efibootmgr` to find if limine is already installed and present in the boot record
-                if matches := re.findall(r'Boot[0-9a-fA-F]{4}\*? Limine', efibootmgr_output):
-                    create_flag = '-C' # if present, keep the same boot order
+                limine_boot_entry = None
+                if matches := re.findall(r'Boot([0-9a-fA-F]{4})\*? Limine', efibootmgr_output):
+                    limine_boot_entry = matches[0]
 
-                efibootmgr_output = subprocess.check_output([
-                    efibootmgr,
-                    create_flag,
-                    '-d', efi_disk,
-                    '-p', efi_partition.removeprefix(efi_disk).removeprefix('p'),
-                    '-l', f'\\efi\\limine\\{boot_file}',
-                    '-L', 'Limine',
-                ], stderr=subprocess.STDOUT, universal_newlines=True)
+                # If there's already a Limine entry, replace it
+                if limine_boot_entry:
+                    boot_order = re.findall(r'BootOrder: ((?:[0-9a-fA-F]{4},?)*)', efibootmgr_output)[0]
 
-                for line in efibootmgr_output.split('\n'):
-                    if matches := re.findall(r'Boot([0-9a-fA-F]{4}) has same label Limine', line):
-                        subprocess.run(
-                            [efibootmgr, '-b', matches[0], '-B'],
-                            stdout=subprocess.DEVNULL,
-                            stderr=subprocess.DEVNULL,
-                        )
+                    efibootmgr_output = subprocess.check_output([
+                        efibootmgr,
+                        '-b', limine_boot_entry,
+                        '-B',
+                    ], stderr=subprocess.STDOUT, universal_newlines=True)
+
+                    efibootmgr_output = subprocess.check_output([
+                        efibootmgr,
+                        '-c',
+                        '-b', limine_boot_entry,
+                        '-d', efi_disk,
+                        '-p', efi_partition.removeprefix(efi_disk).removeprefix('p'),
+                        '-l', f'\\efi\\limine\\{boot_file}',
+                        '-L', 'Limine',
+                        '-o', boot_order,
+                    ], stderr=subprocess.STDOUT, universal_newlines=True)
+                else:
+                    efibootmgr_output = subprocess.check_output([
+                        efibootmgr,
+                        '-c',
+                        '-d', efi_disk,
+                        '-p', efi_partition.removeprefix(efi_disk).removeprefix('p'),
+                        '-l', f'\\efi\\limine\\{boot_file}',
+                        '-L', 'Limine',
+                    ], stderr=subprocess.STDOUT, universal_newlines=True)
+
     if config('biosSupport'):
         if cpu_family != 'x86':
             raise Exception(f'Unsupported CPU family for BIOS install: {cpu_family}')
@@ -468,4 +488,17 @@ def main():
         if not paths[path]:
             os.remove(path)
 
-main()
+def main() -> None:
+    try:
+        install_bootloader()
+    finally:
+        # Since fat32 provides little recovery facilities after a crash,
+        # it can leave the system in an unbootable state, when a crash/outage
+        # happens shortly after an update. To decrease the likelihood of this
+        # event sync the efi filesystem after each update.
+        rc = libc.syncfs(os.open(f"{config('efiMountPoint')}", os.O_RDONLY))
+        if rc != 0:
+            print(f"could not sync {config('efiMountPoint')}: {os.strerror(rc)}", file=sys.stderr)
+
+if __name__ == '__main__':
+    main()

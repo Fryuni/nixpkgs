@@ -63,7 +63,6 @@ with lib.maintainers;
     shortName = "apm employees";
     # Edits to this list should only be done by an already existing member.
     members = [
-      wolfgangwalther
       DutchGerman
     ];
   };
@@ -185,6 +184,19 @@ with lib.maintainers;
     githubTeams = [ "categorization" ];
     scope = "Maintain the categorization system in Nixpkgs, per RFC 146. This team has authority over all categorization issues in Nixpkgs.";
     shortName = "Categorization";
+  };
+
+  ci = {
+    members = [
+      MattSturgeon
+      mic92
+      philiptaron
+      wolfgangwalther
+      zowoq
+    ];
+    githubTeams = [ "nixpkgs-ci" ];
+    scope = "Maintain Nixpkgs' in-tree Continuous Integration, including GitHub Actions.";
+    shortName = "CI";
   };
 
   cinnamon = {
@@ -914,11 +926,21 @@ with lib.maintainers;
   ngi = {
     members = [
       eljamm
+      ethancedwards8
       fricklerhandwerk
+      OPNA2608
+      prince213
       wegank
     ];
     scope = "Maintain NGI-supported software.";
     shortName = "NGI";
+  };
+
+  nixos-rebuild = {
+    members = [ thiagokokada ];
+    scope = "Maintain nixos-rebuild(-ng).";
+    shortName = "nixos-rebuild";
+    enableFeatureFreezePing = true;
   };
 
   node = {

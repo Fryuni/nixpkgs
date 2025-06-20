@@ -4,7 +4,7 @@
   fetchFromGitHub,
   makeWrapper,
   copyDesktopItems,
-  electron_35,
+  electron_36,
   nodejs,
   pnpm_10,
   makeDesktopItem,
@@ -18,23 +18,23 @@
 }:
 
 let
-  electron = electron_35;
+  electron = electron_36;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "podman-desktop";
-  version = "1.18.1";
+  version = "1.19.2";
 
   passthru.updateScript = _experimental-update-script-combinators.sequence [
     (nix-update-script { })
     (lib.getExe (writeShellApplication {
-      name = "${finalAttrs.pname}-dependencies-updater";
+      name = "podman-desktop-dependencies-updater";
       runtimeInputs = [
         nix
         jq
         gnugrep
       ];
       runtimeEnv = {
-        PNAME = finalAttrs.pname;
+        PNAME = "podman-desktop";
         PKG_FILE = builtins.toString ./package.nix;
       };
       text = ''
@@ -55,12 +55,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "containers";
     repo = "podman-desktop";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GYdetO/WiEQAvVSvu81tKqkOH7YUgkB7RVW0Crd/2ww=";
+    hash = "sha256-Yw4HPHtMMxaI7MLamZy+MglvHHpO6h4/kHY2TBXWErg=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-IjCO2mLDHhb1fB92plBAFcH1RpmOtiUGlFHEEAAHOJ8=";
+    hash = "sha256-6xXTzqEeWpDKhZN6z4dSHrU7qWK9AAlD2DXnr7ac0So=";
   };
 
   patches = [
@@ -143,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "A graphical tool for developing on containers and Kubernetes";
+    description = "Graphical tool for developing on containers and Kubernetes";
     homepage = "https://podman-desktop.io";
     changelog = "https://github.com/containers/podman-desktop/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;

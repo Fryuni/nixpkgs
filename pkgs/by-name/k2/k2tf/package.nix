@@ -12,8 +12,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "sl1pm4t";
     repo = pname;
-    rev = "1b376c0c58d6700a61bccb02fae23bbbccb3211d";
-    sha256 = "sha256-2HiiVtdwDwlU5xbZ8XqP+7fUBX6hg+ssZ0a4H6bc9qE=";
+    rev = "v${version}";
+    sha256 = "sha256-zkkRzCTZCvbwBj4oIhTo5d3PvqLMJPzT3zV9jU3PEJs=";
   };
 
   vendorHash = "sha256-2QjLiugOwfdyrERi0Uf1UUuKLXsagJdVnfjRPFeOD8k=";

@@ -26,19 +26,19 @@
   xorg,
 }:
 let
-  version = "2.16.1";
+  version = "2.16.3";
 
   src = fetchFromGitHub {
     owner = "paperless-ngx";
     repo = "paperless-ngx";
     tag = "v${version}";
-    hash = "sha256-wdcwSWaixNceVqrCXStf+0jnWbigd3k5FXRF0o2UbW0=";
+    hash = "sha256-mtzr/rRzcYcZl9tUkhxEKoFQWm1QTToOYZJXhynwDmk=";
   };
 
   python = python3.override {
     self = python;
     packageOverrides = final: prev: {
-      django = prev.django_5;
+      django = prev.django_5_1;
 
       # tesseract5 may be overwritten in the paperless module and we need to propagate that to make the closure reduction effective
       ocrmypdf = prev.ocrmypdf.override { tesseract = tesseract5; };
@@ -69,7 +69,7 @@ let
 
       pnpmDeps = pnpm.fetchDeps {
         inherit pname version src;
-        hash = "sha256-tSBpZ+1aPLUI0SKpOyKo+OLsJZiyDCxRb+5hKMPrxL8=";
+        hash = "sha256-Z7c+AstVnxbPnEhc51qSqOYhRXqNJVwTvgHFcFp+pYg=";
       };
 
       nativeBuildInputs =
@@ -134,8 +134,8 @@ python.pkgs.buildPythonApplication rec {
 
   postPatch = ''
     # pytest-xdist with to many threads makes the tests flaky
-    if (( $NIX_BUILD_CORES > 4)); then
-      NIX_BUILD_CORES=4
+    if (( $NIX_BUILD_CORES > 3)); then
+      NIX_BUILD_CORES=3
     fi
     substituteInPlace pyproject.toml \
       --replace-fail '"--numprocesses=auto",' "" \
@@ -150,6 +150,7 @@ python.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [
     "django-allauth"
+    "redis"
   ];
 
   dependencies =
@@ -160,7 +161,7 @@ python.pkgs.buildPythonApplication rec {
       channels-redis
       concurrent-log-handler
       dateparser
-      django_5
+      django
       django-allauth
       django-auditlog
       django-celery-results
@@ -305,8 +306,8 @@ python.pkgs.buildPythonApplication rec {
       tesseract5
       ;
     nltkData = with nltk-data; [
-      punkt_tab
-      snowball_data
+      punkt-tab
+      snowball-data
       stopwords
     ];
     tests = { inherit (nixosTests) paperless; };
