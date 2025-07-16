@@ -398,6 +398,10 @@ let
         # Enable debugfs for wireless drivers
         CFG80211_DEBUGFS = yes;
         MAC80211_DEBUGFS = yes;
+
+        # HAM radio
+        HAMRADIO = yes;
+        AX25 = module;
       }
       // lib.optionalAttrs (stdenv.hostPlatform.system == "aarch64-linux") {
         # Not enabled by default, hides modules behind it
@@ -431,6 +435,13 @@ let
       ATH10K_DFS_CERTIFIED = option yes;
       B43_PHY_HT = option yes;
       BCMA_HOST_PCI = option yes;
+
+      # Enable "untested" hardware support for RTL8xxxU.
+      # There's a bunch of those still floating around,
+      # and given how old the hardware is, we're unlikely
+      # to kill any, so let's enable all known device IDs.
+      RTL8XXXU_UNTESTED = option yes;
+
       RTW88 = module;
       RTW88_8822BE = lib.mkMerge [
         (whenOlder "5.8" yes)

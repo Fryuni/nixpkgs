@@ -14,7 +14,7 @@
 
 python312Packages.buildPythonApplication rec {
   pname = "snapcraft";
-  version = "8.9.4";
+  version = "8.10.1";
 
   pyproject = true;
 
@@ -22,7 +22,7 @@ python312Packages.buildPythonApplication rec {
     owner = "canonical";
     repo = "snapcraft";
     tag = version;
-    hash = "sha256-iiz+sVncztaCNndU+4YMhxECw7R6ks+25apRnd0WgyM=";
+    hash = "sha256-WGCbqtuCOF5X8yOVrgLKWyDcqjpb8sbTPRZzVesnAIY=";
   };
 
   patches = [
@@ -142,7 +142,7 @@ python312Packages.buildPythonApplication rec {
       squashfsTools
     ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  enabledTestPaths = [ "tests/unit" ];
 
   disabledTests = [
     "test_bin_echo"

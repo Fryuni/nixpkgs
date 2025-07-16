@@ -8,18 +8,16 @@
 
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_net";
-  version = "0.15.1";
+  version = "0.19.1";
 
   src = fetchFromGitHub {
     owner = "supabase";
     repo = "pg_net";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BhLZdoMeK6QkmEEn3/+G6+TElFea2uifaQBW5aftqpM=";
+    hash = "sha256-Sy2PG1zCB6tNbcMNMWvl/Fe2Zu1stvEIqGrLsRF09GY=";
   };
 
   buildInputs = [ curl ];
-
-  env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   meta = {
     description = "Async networking for Postgres";

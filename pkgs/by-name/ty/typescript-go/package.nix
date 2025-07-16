@@ -2,22 +2,22 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 buildGoModule {
   pname = "typescript-go";
-  version = "0-unstable-2025-06-09";
+  version = "0-unstable-2025-07-08";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "typescript-go";
-    rev = "f7d02dd5cc61be86f4f61018171c370cefebe3fd";
-    hash = "sha256-19+t/Yq73Ih8yCoMJe4r65iejOeAeKYEWacMzqGs6jQ=";
+    rev = "bc8d29cb2f6248c9f6fbbc9a7625634c070b8f67";
+    hash = "sha256-XpqQxL2aC0xfRVrPAj7gERIHI1Po3d5DGOrY9raNB14=";
     fetchSubmodules = false;
   };
 
-  vendorHash = "sha256-SoBlxQfMg59UOO+99HPeKqEPxD2p7JauLMTpQ7Jl03s=";
+  vendorHash = "sha256-9gZ1h/rsJ5DEcU8CJGKszE98GzZqfs2ELp1lbXsliYk=";
 
   ldflags = [
     "-s"
@@ -41,7 +41,9 @@ buildGoModule {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = nix-update-script {
+      extraArgs = [ "--version=branch" ];
+    };
   };
 
   meta = {

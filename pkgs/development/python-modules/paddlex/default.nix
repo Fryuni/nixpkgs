@@ -18,6 +18,7 @@
   typing-extensions,
   ujson,
   distutils,
+  huggingface-hub,
 }:
 
 let
@@ -49,14 +50,14 @@ let
 in
 buildPythonPackage rec {
   pname = "paddlex";
-  version = "3.0.1";
+  version = "3.1.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "PaddlePaddle";
     repo = "PaddleX";
     tag = "v${version}";
-    hash = "sha256-qov5nqGIsSfaho2dcWVsyWKQlJsIJgdX3rDz66JtLDI=";
+    hash = "sha256-vmb1A7AifQmWv31b847hP1lHeBe+ZDEGR3raIGykRoo=";
   };
 
   build-system = [ setuptools ];
@@ -82,6 +83,7 @@ buildPythonPackage rec {
     typing-extensions
     ujson
     gputil
+    huggingface-hub
   ];
 
   meta = {

@@ -29,6 +29,8 @@ jobs:
       matrix:
         system: ${{ fromJSON(inputs.systems) }}
     name: ${{ matrix.system }}
+    outputs:
+      targetRunId: ${{ steps.targetRunId.outputs.targetRunId }}
     steps:
       - name: Enable swap
         run: |
@@ -44,7 +46,7 @@ jobs:
           path: untrusted
 
       - name: Install Nix
-        uses: cachix/install-nix-action@17fe5fb4a23ad6cbbe47d6b3f359611ad276644c # v31
+        uses: cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba # v31
         with:
           extra_nix_config: sandbox = true
 
@@ -63,6 +65,11 @@ jobs:
         with:
           name: merged-${{ matrix.system }}
           path: merged/*
+
+      - name: Log current API rate limits
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api /rate_limit | jq
 
       - name: Get target run id
         if: inputs.targetSha
@@ -88,8 +95,6 @@ jobs:
               throw new Error(`Could not find a push.yml workflow run for ${targetSha}.`)
             }
 
-            core.setOutput('targetRunId', run_id)
-
             // Waiting 120 * 5 sec = 10 min. max.
             // Eval takes max 5-6 minutes, normally.
             for (let i = 0; i < 120; i++) {
@@ -98,10 +103,20 @@ jobs:
                 run_id,
                 name: `merged-${system}`
               })
-              if (result.data.total_count > 0) return
+              if (result.data.total_count > 0) {
+                core.setOutput('targetRunId', run_id)
+                return
+              }
               await new Promise(resolve => setTimeout(resolve, 5000))
             }
-            throw new Error(`No merged-${system} artifact found.`)
+            // No artifact found at this stage. This usually means that Eval failed on the target branch.
+            // This should only happen when Eval is broken on the target branch and this PR fixes it.
+            // Continue without targetRunId to skip the remaining steps, but pass the job.
+
+      - name: Log current API rate limits
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api /rate_limit | jq
 
       - uses: actions/download-artifact@v4
         if: steps.targetRunId.outputs.targetRunId
@@ -133,7 +148,7 @@ jobs:
   compare:
     runs-on: ubuntu-24.04-arm
     needs: [eval]
-    if: inputs.targetSha
+    if: needs.eval.outputs.targetRunId
     permissions:
       statuses: write
     steps:
@@ -151,7 +166,7 @@ jobs:
           path: trusted
 
       - name: Install Nix
-        uses: cachix/install-nix-action@17fe5fb4a23ad6cbbe47d6b3f359611ad276644c # v31
+        uses: cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba # v31
         with:
           extra_nix_config: sandbox = true
 
@@ -228,7 +243,7 @@ jobs:
           merged-as-untrusted: true
 
       - name: Install Nix
-        uses: cachix/install-nix-action@17fe5fb4a23ad6cbbe47d6b3f359611ad276644c # v31
+        uses: cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba # v31
         with:
           extra_nix_config: sandbox = true
 

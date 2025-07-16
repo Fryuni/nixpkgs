@@ -19,21 +19,40 @@
   pytestCheckHook,
   pytest-cov-stub,
   scikit-misc,
+  writableTmpDirAsHomeHook,
 }:
 
 buildPythonPackage rec {
   pname = "plotnine";
-  version = "0.14.5";
+  version = "0.14.6";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "has2k1";
     repo = "plotnine";
     tag = "v${version}";
-    hash = "sha256-3ImNLmZ8RhhqRGv/FtdjbHmdOtgQC7hjUsViEQYE8Ao=";
+    hash = "sha256-nTMu0zx13XepqQyrJrAvBCjjHdY02tlXlFk2kITHZfI=";
   };
 
+  # Fixes: TypeError: hue_pal.__init__() got an unexpected keyword argument 'color_space'
+  #
+  # In the mizani 0.14.0 release, hue_pal was changed to use HCL color space from HSL (or HSLuv) space.
+  # The previous functionality is still available with hls_pal.
+  postPatch = ''
+    substituteInPlace plotnine/scales/scale_color.py \
+      --replace-fail \
+        "from mizani.palettes import hue_pal" \
+        "from mizani.palettes import hls_pal" \
+      --replace-fail \
+        "hue_pal(" \
+        "hls_pal("
+  '';
+
   build-system = [ setuptools-scm ];
+
+  pythonRelaxDeps = [
+    "mizani"
+  ];
 
   dependencies = [
     matplotlib
@@ -49,11 +68,8 @@ buildPythonPackage rec {
     pytestCheckHook
     pytest-cov-stub
     scikit-misc
+    writableTmpDirAsHomeHook
   ];
-
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
 
   pythonImportsCheck = [ "plotnine" ];
 
