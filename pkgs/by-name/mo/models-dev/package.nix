@@ -9,20 +9,20 @@
 
 let
   models-dev-node-modules-hash = {
-    "aarch64-darwin" = "sha256-2EVW5zQTcqH9zBYAegWj/Wtb0lYHZwA7Bbqs3gRjcx0=";
-    "aarch64-linux" = "sha256-nJgFnszwvknqA21uaqlGQQ1x+4ztKx0/tEvcNrv1LJg=";
-    "x86_64-darwin" = "sha256-Un6UxmvsmBuDdUwcWnu4qb0nPN1V1PFJi4VGVkNh/YU=";
-    "x86_64-linux" = "sha256-nlL+Ayacxz4fm404cABORSVGQcNxb3cB4mOezkrI90U=";
+    "aarch64-darwin" = "sha256-VkqxZF2LkNBoIkbQGz98O+y7LgLqQ+FofV2WyMOOUEs=";
+    "aarch64-linux" = "sha256-P7Dik1bXWdipzs4orPff53bDwEXYFHSC05RV789mrTI=";
+    "x86_64-darwin" = "sha256-/VdwzrV+srDrexvXHLKtN2Od24XlXVDWu6pEk1zLtjM=";
+    "x86_64-linux" = "sha256-hMiCOMskK9kwGKaixsvodUVsOuuageiUAwxp/AvzR44=";
   };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "models-dev";
-  version = "0-unstable-2025-07-29";
+  version = "0-unstable-2025-08-07";
   src = fetchFromGitHub {
     owner = "sst";
     repo = "models.dev";
-    rev = "69e91b1cee1dbd737dc60f5f99ce123a81763cda";
-    hash = "sha256-fr4cgQsW03ukgCxNBtlokAXmqjGh1fFJucWx1dJ7xV0=";
+    rev = "f7d8b3932adea23b2cb4d0be615e7dff7870b8bc";
+    hash = "sha256-4bzXnZhILxtVMKtj54gXXtuTvh6KY9bLNCLnB1INy/E=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -72,6 +72,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ bun ];
+
+  patches = [
+    # In bun 1.2.13 (release-25.05) HTML entrypoints get content hashes
+    # appended → index.html becomes index-pq8vj7za.html in ./dist. So, we
+    # rename the index file back to index.html
+    ./post-build-rename-index-file.patch
+  ];
 
   configurePhase = ''
     runHook preConfigure

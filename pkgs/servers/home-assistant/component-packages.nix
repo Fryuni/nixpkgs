@@ -2,7 +2,7 @@
 # Do not edit!
 
 {
-  version = "2025.7.4";
+  version = "2025.8.0";
   components = {
     "3_day_blinds" =
       ps: with ps; [
@@ -95,6 +95,7 @@
       ps: with ps; [
         hassil
         home-assistant-intents
+        pyturbojpeg
       ];
     "air_quality" =
       ps: with ps; [
@@ -111,6 +112,9 @@
       ps: with ps; [
         pyairnow
       ];
+    "airos" =
+      ps: with ps; [
+      ]; # missing inputs: airos
     "airq" =
       ps: with ps; [
         aioairq
@@ -543,6 +547,9 @@
     "bang_olufsen" =
       ps: with ps; [
         mozart-api
+      ];
+    "bauknecht" =
+      ps: with ps; [
       ];
     "bayesian" =
       ps: with ps; [
@@ -2292,7 +2299,8 @@
       ];
     "hko" =
       ps: with ps; [
-      ]; # missing inputs: hko
+        hko
+      ];
     "hlk_sw16" =
       ps: with ps; [
         hlk-sw16
@@ -3323,7 +3331,8 @@
       ];
     "london_underground" =
       ps: with ps; [
-      ]; # missing inputs: london-tube-status
+        london-tube-status
+      ];
     "lookin" =
       ps: with ps; [
         aiolookin
@@ -3404,7 +3413,8 @@
       ];
     "marytts" =
       ps: with ps; [
-      ]; # missing inputs: speak2mary
+        speak2mary
+      ];
     "mastodon" =
       ps: with ps; [
         mastodon-py
@@ -4141,8 +4151,8 @@
       ];
     "onkyo" =
       ps: with ps; [
-        pyeiscp
-      ];
+        ifaddr
+      ]; # missing inputs: aioonkyo
     "onvif" =
       ps: with ps; [
         ha-ffmpeg
@@ -4153,6 +4163,16 @@
       ps: with ps; [
         open-meteo
       ];
+    "open_router" =
+      ps: with ps; [
+        ha-ffmpeg
+        hassil
+        home-assistant-intents
+        mutagen
+        openai
+        pymicro-vad
+        pyspeex-noise
+      ]; # missing inputs: python-open-router
     "openai_conversation" =
       ps: with ps; [
         ha-ffmpeg
@@ -6158,7 +6178,8 @@
       ];
     "triggercmd" =
       ps: with ps; [
-      ]; # missing inputs: triggercmd
+        triggercmd
+      ];
     "tts" =
       ps: with ps; [
         ha-ffmpeg
@@ -6264,6 +6285,9 @@
     "uptime" =
       ps: with ps; [
       ];
+    "uptime_kuma" =
+      ps: with ps; [
+      ]; # missing inputs: pythonkuma
     "uptimerobot" =
       ps: with ps; [
         pyuptimerobot
@@ -6397,6 +6421,9 @@
       ps: with ps; [
         pyvolumio
       ];
+    "volvo" =
+      ps: with ps; [
+      ]; # missing inputs: volvocarsapi
     "volvooncall" =
       ps: with ps; [
         volvooncall
@@ -6745,6 +6772,9 @@
     "zamg" =
       ps: with ps; [
         zamg
+      ];
+    "zbox_hub" =
+      ps: with ps; [
       ];
     "zengge" =
       ps: with ps; [
@@ -7141,6 +7171,7 @@
     "history"
     "history_stats"
     "hive"
+    "hko"
     "hlk_sw16"
     "holiday"
     "home_connect"
@@ -7273,6 +7304,7 @@
     "logentries"
     "logger"
     "london_air"
+    "london_underground"
     "lookin"
     "loqed"
     "lovelace"
@@ -7285,6 +7317,7 @@
     "mailgun"
     "manual"
     "manual_mqtt"
+    "marytts"
     "mastodon"
     "matrix"
     "matter"
@@ -7395,7 +7428,6 @@
     "ondilo_ico"
     "onedrive"
     "onewire"
-    "onkyo"
     "onvif"
     "open_meteo"
     "openai_conversation"
@@ -7679,6 +7711,7 @@
     "transmission"
     "transport_nsw"
     "trend"
+    "triggercmd"
     "tts"
     "tuya"
     "twentemilieu"

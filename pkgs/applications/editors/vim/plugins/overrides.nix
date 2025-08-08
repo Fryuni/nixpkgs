@@ -333,6 +333,10 @@ in
     dependencies = [ self.blink-cmp ];
   };
 
+  blink-cmp-words = super.blink-cmp-words.overrideAttrs {
+    dependencies = [ self.blink-cmp ];
+  };
+
   bluloco-nvim = super.bluloco-nvim.overrideAttrs {
     dependencies = [ self.lush-nvim ];
   };
@@ -386,6 +390,13 @@ in
     dependencies = with self; [
       telescope-nvim
       plenary-nvim
+    ];
+  };
+
+  checkmate-nvim = super.checkmate-nvim.overrideAttrs {
+    checkInputs = with self; [
+      # checkmate.snippets
+      luasnip
     ];
   };
 
@@ -993,6 +1004,13 @@ in
 
   defx-nvim = super.defx-nvim.overrideAttrs {
     dependencies = [ self.nvim-yarp ];
+  };
+
+  demicolon-nvim = super.demicolon-nvim.overrideAttrs {
+    dependencies = with self; [
+      nvim-treesitter
+      nvim-treesitter-textobjects
+    ];
   };
 
   denops-vim = super.denops-vim.overrideAttrs {
@@ -2590,6 +2608,12 @@ in
     checkInputs = [
       self.fzf-lua
     ];
+
+    nvimSkipModules = lib.optionals stdenv.hostPlatform.isDarwin [
+      #FIXME: https://github.com/NixOS/nixpkgs/issues/431458
+      # fzf-lua throws `address already in use` on darwin
+      "notify.integrations.fzf"
+    ];
   };
 
   nvim-nu = super.nvim-nu.overrideAttrs {
@@ -2728,7 +2752,13 @@ in
 
   nvim-unception = super.nvim-unception.overrideAttrs {
     # Attempt rpc socket connection
-    nvimSkipModules = "client.client";
+    nvimSkipModules = [
+      "client.client"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      "server.server"
+      "unception"
+    ];
   };
 
   nvim-vtsls = super.nvim-vtsls.overrideAttrs {

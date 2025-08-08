@@ -208,6 +208,7 @@ in
   amazon-init-shell = runTest ./amazon-init-shell.nix;
   amazon-ssm-agent = runTest ./amazon-ssm-agent.nix;
   amd-sev = runTest ./amd-sev.nix;
+  android-translation-layer = runTest ./android-translation-layer.nix;
   angie-api = runTest ./angie-api.nix;
   anki-sync-server = runTest ./anki-sync-server.nix;
   anubis = runTest ./anubis.nix;
@@ -421,7 +422,14 @@ in
   dex-oidc = runTest ./dex-oidc.nix;
   dhparams = runTest ./dhparams.nix;
   disable-installer-tools = runTest ./disable-installer-tools.nix;
-  discourse = runTest ./discourse.nix;
+  discourse = runTest {
+    imports = [ ./discourse.nix ];
+    _module.args.package = pkgs.discourse;
+  };
+  discourseAllPlugins = runTest {
+    imports = [ ./discourse.nix ];
+    _module.args.package = pkgs.discourseAllPlugins;
+  };
   dnscrypt-proxy2 = runTestOn [ "x86_64-linux" ] ./dnscrypt-proxy2.nix;
   dnsdist = import ./dnsdist.nix { inherit pkgs runTest; };
   doas = runTest ./doas.nix;
@@ -764,8 +772,18 @@ in
   k3s = handleTest ./k3s { };
   kafka = handleTest ./kafka { };
   kanboard = runTest ./web-apps/kanboard.nix;
-  kanidm = runTest ./kanidm.nix;
-  kanidm-provisioning = runTest ./kanidm-provisioning.nix;
+  kanidm =
+    kanidmVersion:
+    runTest {
+      imports = [ ./kanidm.nix ];
+      _module.args = { inherit kanidmVersion; };
+    };
+  kanidm-provisioning =
+    kanidmVersion:
+    runTest {
+      imports = [ ./kanidm-provisioning.nix ];
+      _module.args = { inherit kanidmVersion; };
+    };
   karma = runTest ./karma.nix;
   kavita = runTest ./kavita.nix;
   kbd-setfont-decompress = runTest ./kbd-setfont-decompress.nix;
@@ -1250,6 +1268,7 @@ in
   qgis-ltr = handleTest ./qgis.nix { package = pkgs.qgis-ltr; };
   qownnotes = runTest ./qownnotes.nix;
   qtile = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./qtile/default.nix;
+  qtile-extras = runTestOn [ "x86_64-linux" "aarch64-linux" ] ./qtile-extras/default.nix;
   quake3 = runTest ./quake3.nix;
   quicktun = runTest ./quicktun.nix;
   quickwit = runTest ./quickwit.nix;
@@ -1334,6 +1353,7 @@ in
   snapcast = runTest ./snapcast.nix;
   snapper = runTest ./snapper.nix;
   snipe-it = runTest ./web-apps/snipe-it.nix;
+  snips-sh = runTest ./snips-sh.nix;
   soapui = runTest ./soapui.nix;
   soft-serve = runTest ./soft-serve.nix;
   sogo = runTest ./sogo.nix;
@@ -1498,6 +1518,7 @@ in
   ttyd = runTest ./web-servers/ttyd.nix;
   tt-rss = runTest ./web-apps/tt-rss.nix;
   txredisapi = runTest ./txredisapi.nix;
+  tuned = runTest ./tuned.nix;
   tuptime = runTest ./tuptime.nix;
   turbovnc-headless-server = runTest ./turbovnc-headless-server.nix;
   turn-rs = runTest ./turn-rs.nix;

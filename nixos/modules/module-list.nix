@@ -139,6 +139,7 @@
   ./misc/assertions.nix
   ./misc/crashdump.nix
   ./misc/documentation.nix
+  ./misc/documentation/modular-services.nix
   ./misc/extra-arguments.nix
   ./misc/ids.nix
   ./misc/label.nix
@@ -683,6 +684,7 @@
   ./services/hardware/tlp.nix
   ./services/hardware/trezord.nix
   ./services/hardware/triggerhappy.nix
+  ./services/hardware/tuned.nix
   ./services/hardware/tuxedo-rs.nix
   ./services/hardware/udev.nix
   ./services/hardware/udisks2.nix
@@ -1681,6 +1683,7 @@
   ./services/web-apps/simplesamlphp.nix
   ./services/web-apps/slskd.nix
   ./services/web-apps/snipe-it.nix
+  ./services/web-apps/snips-sh.nix
   ./services/web-apps/sogo.nix
   ./services/web-apps/stash.nix
   ./services/web-apps/stirling-pdf.nix
