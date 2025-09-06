@@ -32,14 +32,14 @@
 
 buildPythonPackage rec {
   pname = "pylance";
-  version = "0.33.0";
+  version = "0.35.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "lancedb";
     repo = "lance";
     tag = "v${version}";
-    hash = "sha256-Oi30laXR58A219B40797jW8wjIhgzPxa/cMYlDIGVVw=";
+    hash = "sha256-TVcSgns+K26CgplSJ4SVlIattG3eDRdg9b2pFKGZGDM=";
   };
 
   sourceRoot = "${src.name}/python";
@@ -51,7 +51,7 @@ buildPythonPackage rec {
       src
       sourceRoot
       ;
-    hash = "sha256-i9jr4XfbmEdnj9J0sL/HNkFEF6bz7+jsiOdjKvypIsw=";
+    hash = "sha256-riAUasZV6yFW9yPoVojH8/zYKV1xlckTVrLzdUZgoDM=";
   };
 
   nativeBuildInputs = [
@@ -100,6 +100,9 @@ buildPythonPackage rec {
   '';
 
   disabledTests = [
+    # Hangs indefinitely
+    "test_all_permutations"
+
     # Writes to read-only build directory
     "test_add_data_storage_version"
     "test_fix_data_storage_version"

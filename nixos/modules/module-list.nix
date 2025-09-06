@@ -362,6 +362,7 @@
   ./programs/xwayland.nix
   ./programs/yazi.nix
   ./programs/ydotool.nix
+  ./programs/yubikey-manager.nix
   ./programs/yubikey-touch-detector.nix
   ./programs/zmap.nix
   ./programs/zoom-us.nix
@@ -484,6 +485,7 @@
   ./services/cluster/patroni/default.nix
   ./services/cluster/rke2/default.nix
   ./services/cluster/spark/default.nix
+  ./services/cluster/temporal/default.nix
   ./services/computing/boinc/client.nix
   ./services/computing/foldingathome/client.nix
   ./services/computing/slurm/slurm.nix
@@ -543,10 +545,6 @@
   ./services/desktops/blueman.nix
   ./services/desktops/bonsaid.nix
   ./services/desktops/cpupower-gui.nix
-  ./services/desktops/deepin/app-services.nix
-  ./services/desktops/deepin/dde-api.nix
-  ./services/desktops/deepin/dde-daemon.nix
-  ./services/desktops/deepin/deepin-anything.nix
   ./services/desktops/dleyna.nix
   ./services/desktops/espanso.nix
   ./services/desktops/flatpak.nix
@@ -641,6 +639,7 @@
   ./services/hardware/brltty.nix
   ./services/hardware/buffyboard.nix
   ./services/hardware/ddccontrol.nix
+  ./services/hardware/deepcool-digital-linux.nix
   ./services/hardware/display.nix
   ./services/hardware/fancontrol.nix
   ./services/hardware/freefall.nix
@@ -790,6 +789,7 @@
   ./services/misc/airsonic.nix
   ./services/misc/amazon-ssm-agent.nix
   ./services/misc/ananicy.nix
+  ./services/misc/angrr.nix
   ./services/misc/anki-sync-server.nix
   ./services/misc/apache-kafka.nix
   ./services/misc/atuin.nix
@@ -867,6 +867,7 @@
   ./services/misc/mame.nix
   ./services/misc/mbpfan.nix
   ./services/misc/mediatomb.nix
+  ./services/misc/memos.nix
   ./services/misc/metabase.nix
   ./services/misc/mollysocket.nix
   ./services/misc/moonraker.nix
@@ -930,6 +931,7 @@
   ./services/misc/spice-autorandr.nix
   ./services/misc/spice-vdagentd.nix
   ./services/misc/spice-webdavd.nix
+  ./services/misc/spoolman.nix
   ./services/misc/sssd.nix
   ./services/misc/subsonic.nix
   ./services/misc/sundtek.nix
@@ -1036,6 +1038,7 @@
   ./services/monitoring/ups.nix
   ./services/monitoring/uptime-kuma.nix
   ./services/monitoring/uptime.nix
+  ./services/monitoring/vlagent.nix
   ./services/monitoring/vmagent.nix
   ./services/monitoring/vmalert.nix
   ./services/monitoring/vnstat.nix
@@ -1097,6 +1100,7 @@
   ./services/networking/bitlbee.nix
   ./services/networking/blockbook-frontend.nix
   ./services/networking/blocky.nix
+  ./services/networking/byedpi.nix
   ./services/networking/cato-client.nix
   ./services/networking/centrifugo.nix
   ./services/networking/cgit.nix
@@ -1157,7 +1161,6 @@
   ./services/networking/frp.nix
   ./services/networking/frr.nix
   ./services/networking/g3proxy.nix
-  ./services/networking/gateone.nix
   ./services/networking/gdomap.nix
   ./services/networking/ghostunnel.nix
   ./services/networking/git-daemon.nix
@@ -1185,6 +1188,7 @@
   ./services/networking/i2pd.nix
   ./services/networking/icecream/daemon.nix
   ./services/networking/icecream/scheduler.nix
+  ./services/networking/ifstate.nix
   ./services/networking/imaginary.nix
   ./services/networking/inadyn.nix
   ./services/networking/inspircd.nix
@@ -1213,6 +1217,7 @@
   ./services/networking/libreswan.nix
   ./services/networking/livekit-ingress.nix
   ./services/networking/livekit.nix
+  ./services/networking/llama-swap.nix
   ./services/networking/lldpd.nix
   ./services/networking/logmein-hamachi.nix
   ./services/networking/lokinet.nix
@@ -1322,7 +1327,6 @@
   ./services/networking/scion/scion-ip-gateway.nix
   ./services/networking/scion/scion-router.nix
   ./services/networking/scion/scion.nix
-  ./services/networking/seafile.nix
   ./services/networking/searx.nix
   ./services/networking/shadowsocks.nix
   ./services/networking/shairport-sync.nix
@@ -1536,6 +1540,7 @@
   ./services/web-apps/audiobookshelf.nix
   ./services/web-apps/baikal.nix
   ./services/web-apps/bluemap.nix
+  ./services/web-apps/bluesky-pds.nix
   ./services/web-apps/bookstack.nix
   ./services/web-apps/c2fmzq-server.nix
   ./services/web-apps/calibre-web.nix
@@ -1654,7 +1659,6 @@
   ./services/web-apps/openwebrx.nix
   ./services/web-apps/outline.nix
   ./services/web-apps/part-db.nix
-  ./services/web-apps/pds.nix
   ./services/web-apps/peering-manager.nix
   ./services/web-apps/peertube-runner.nix
   ./services/web-apps/peertube.nix

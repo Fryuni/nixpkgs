@@ -16,7 +16,6 @@
   nixosTests,
   python3,
   makeWrapper,
-  runtimeShell,
   symlinkJoin,
   replaceVars,
   extraPackages ? [ ],
@@ -25,7 +24,7 @@
   conmon,
   extraRuntimes ? lib.optionals stdenv.hostPlatform.isLinux [ runc ], # e.g.: runc, gvisor, youki
   fuse-overlayfs,
-  util-linux,
+  util-linuxMinimal,
   iptables,
   iproute2,
   catatonit,
@@ -34,8 +33,8 @@
   netavark,
   passt,
   vfkit,
-  testers,
-  podman,
+  versionCheckHook,
+  writableTmpDirAsHomeHook,
 }:
 let
   # do not add qemu to this wrapper, store paths get written to the podman vm config and break when GCed
@@ -43,7 +42,7 @@ let
   binPath = lib.makeBinPath (
     lib.optionals stdenv.hostPlatform.isLinux [
       fuse-overlayfs
-      util-linux
+      util-linuxMinimal
       iptables
       iproute2
     ]
@@ -73,13 +72,13 @@ let
 in
 buildGoModule rec {
   pname = "podman";
-  version = "5.5.2";
+  version = "5.6.0";
 
   src = fetchFromGitHub {
     owner = "containers";
     repo = "podman";
     rev = "v${version}";
-    hash = "sha256-iLpJQC1v+jPeQNCjgtx3pPKsa6wLcrqtQkeG7qF3rWo=";
+    hash = "sha256-0w22mEbp1RRQlVqAKx0oHG0dVoC6m6Oo2l5RaL05t/A=";
   };
 
   patches = [
@@ -124,7 +123,6 @@ buildGoModule rec {
   buildPhase = ''
     runHook preBuild
     patchShebangs .
-    substituteInPlace Makefile --replace "/bin/bash" "${runtimeShell}"
     ${
       if stdenv.hostPlatform.isDarwin then
         ''
@@ -164,13 +162,15 @@ buildGoModule rec {
     patchelf --set-rpath "${lib.makeLibraryPath [ systemd ]}":$RPATH $out/bin/.podman-wrapped
   '';
 
-  passthru.tests = {
-    version = testers.testVersion {
-      package = podman;
-      command = "HOME=$TMPDIR podman --version";
-    };
-  }
-  // lib.optionalAttrs stdenv.hostPlatform.isLinux {
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [
+    versionCheckHook
+    writableTmpDirAsHomeHook
+  ];
+  versionCheckKeepEnvironment = [ "HOME" ];
+  versionCheckProgramArg = "--version";
+
+  passthru.tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
     inherit (nixosTests) podman;
     # related modules
     inherit (nixosTests)

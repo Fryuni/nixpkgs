@@ -814,15 +814,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "fzf-lua";
-      version = "0.0.2063-1";
+      version = "0.0.2111-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/fzf-lua-0.0.2063-1.rockspec";
-          sha256 = "0lgiygz0l05wy7f3fpc0cbfpz56v77n065pynsdpfaq09f1cal5d";
+          url = "mirror://luarocks/fzf-lua-0.0.2111-1.rockspec";
+          sha256 = "1ga202jkvzw9cq80ryfmjfs6v4l83h6ajlbipdd8xsk9yqrzi2dm";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/ibhagwan/fzf-lua/archive/5be1c24918761c6d3229a4024aa323ae95d933e0.zip";
-        sha256 = "06zrpcja0mqp3y1w2w79d4sf8dbcia6m2gaac2hqig60rh9za0gr";
+        url = "https://github.com/ibhagwan/fzf-lua/archive/bebc84e7ffc8fd86103f6ed6c590df72d524d342.zip";
+        sha256 = "0vykm7dlb38qib6gxy048dhacqaswi23g0l6lgnrz1ifwnpgi7x5";
       };
 
       disabled = luaOlder "5.1";
@@ -903,15 +903,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "grug-far.nvim";
-      version = "1.6.44-1";
+      version = "1.6.45-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/grug-far.nvim-1.6.44-1.rockspec";
-          sha256 = "0dzw1plzj2p1fr41zmbmvvbiswkk0w38whpmlasam4qcrx2hlbcn";
+          url = "mirror://luarocks/grug-far.nvim-1.6.45-1.rockspec";
+          sha256 = "05hwis664cvchk8g8bgqf4va32i58fihad8dgr7qca4m6f38a7qv";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/MagicDuck/grug-far.nvim/archive/482517700eef8579b289a20995f017a0775a6ec4.zip";
-        sha256 = "03y7sa60n5nqdm4ygnh817k5gzqpalz07nq1p3qdjcpf539d8b1l";
+        url = "https://github.com/MagicDuck/grug-far.nvim/archive/385d1949dc21d0c39e7a74b4f4a25da18817bc86.zip";
+        sha256 = "1dx3xzbkrnyd0wnh136j74i9bl194yxg33sf4ddrgs0i7ylxxk6p";
       };
 
       disabled = luaOlder "5.1";
@@ -934,15 +934,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "haskell-tools.nvim";
-      version = "6.1.1-1";
+      version = "6.2.0-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/haskell-tools.nvim-6.1.1-1.rockspec";
-          sha256 = "1w0wvrpf5gh0r1bzss5bqdghv2wynps2cxgvbkp27kzj5kqrfhdx";
+          url = "mirror://luarocks/haskell-tools.nvim-6.2.0-1.rockspec";
+          sha256 = "0y7z59sf0pa1awj7vx3h4lfcmbkv2f933a5lmy9k7sa6zcmrdd7i";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/mrcjkb/haskell-tools.nvim/archive/v6.1.1.zip";
-        sha256 = "0pmmyfwj8as5l0l6hvr5n7n4nnsnpa6p1jj7w5j8jlk4h6c006kn";
+        url = "https://github.com/mrcjkb/haskell-tools.nvim/archive/v6.2.0.zip";
+        sha256 = "123sa84kanmh80bqqqymziyzdr7gwag4m432iabbx9708qmx62c2";
       };
 
       disabled = luaOlder "5.1";
@@ -1618,15 +1618,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "lsp-progress.nvim";
-      version = "1.0.13-1";
+      version = "1.0.14-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/lsp-progress.nvim-1.0.13-1.rockspec";
-          sha256 = "13h0kyrri0bvhkzvyngamsacx62n2dhb2j2gs495z4ghyh1p345i";
+          url = "mirror://luarocks/lsp-progress.nvim-1.0.14-1.rockspec";
+          sha256 = "0b2fi0asrqhw7yiikg7ds8yjwqmsh1xl3qcqzkwabm5sxila5ai7";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/linrongbin16/lsp-progress.nvim/archive/d5f4d28efe75ce636bfbe271eb45f39689765aab.zip";
-        sha256 = "0h63z55gwv36rahhha8vkbxb9n4f8psa265khz719i97j17x39rr";
+        url = "https://github.com/linrongbin16/lsp-progress.nvim/archive/f61cb7a788e4695ed9ae5e1b6b01bfff8f136f8b.zip";
+        sha256 = "04bdnag8wnahfl0g1x3i9dgs5rd6rjhbyyrj48wjg5lyc58qgb2x";
       };
 
       disabled = luaOlder "5.1";
@@ -2044,17 +2044,17 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "lua-resty-session";
-      version = "4.1.3-1";
+      version = "4.1.4-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/lua-resty-session-4.1.3-1.rockspec";
-          sha256 = "11qiw5yg56n41jp8bipi6fd6gilfmb8rwjhrdkcg19i7xrk94x8g";
+          url = "mirror://luarocks/lua-resty-session-4.1.4-1.rockspec";
+          sha256 = "0ny09yvdvbm1lkhsn7c5c9klmsjdp62qy01a77bzvq49s8ma6mik";
         }).outPath;
       src = fetchFromGitHub {
         owner = "bungle";
         repo = "lua-resty-session";
-        rev = "v4.1.3";
-        hash = "sha256-mnc+AOszKRQCwMETPhSrniyZX5Wb2NQq/EHDNoQiFxE=";
+        rev = "v4.1.4";
+        hash = "sha256-S9dMlbCQjLzAdvlNE1bBAtB02vZhF+Tx08zlU0WZYsM=";
       };
 
       disabled = luaOlder "5.1";
@@ -2763,13 +2763,13 @@ final: prev: {
       knownRockspec =
         (fetchurl {
           url = "mirror://luarocks/lualine.nvim-scm-1.rockspec";
-          sha256 = "0cmss7ks8d1yxw43m9zc8glbqgxylpnh25xw7c0ym5l04p61ary0";
+          sha256 = "1mixb73qp35wv4bjkkakxjzvczc2gk5m4ywylj5xx41r074hpp1f";
         }).outPath;
       src = fetchFromGitHub {
         owner = "nvim-lualine";
         repo = "lualine.nvim";
-        rev = "a94fc68960665e54408fe37dcf573193c4ce82c9";
-        hash = "sha256-2aPgA7riA/FubQpTkqsxLKl7OZ8L6FkucNHc2QEx2HQ=";
+        rev = "b8c23159c0161f4b89196f74ee3a6d02cdc3a955";
+        hash = "sha256-lWt2kpW+hsTMWt8tar/+AISTDrIt4Jn27NmI9j+Xt4s=";
       };
 
       disabled = luaOlder "5.1";
@@ -2983,17 +2983,17 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "luarocks-build-rust-mlua";
-      version = "0.2.4-1";
+      version = "0.2.5-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/luarocks-build-rust-mlua-0.2.4-1.rockspec";
-          sha256 = "1mi4lpd2an35rb61vz9070102yqykr2hpb850dh33lr377b7y2bh";
+          url = "mirror://luarocks/luarocks-build-rust-mlua-0.2.5-1.rockspec";
+          sha256 = "0h5y2wjv6zpd44jsgv4aiiv5wjj0fls0c81m6wbgr7vl5sx10dnm";
         }).outPath;
       src = fetchFromGitHub {
         owner = "mlua-rs";
         repo = "luarocks-build-rust-mlua";
-        rev = "0.2.4";
-        hash = "sha256-uAoAvn95FdGhMnzDT3Z2aQZyM1AG+HNPCF/J2shKVbQ=";
+        rev = "0.2.5";
+        hash = "sha256-OJk0UgM+GzuE7+AlpdTc3wcoelOk4tS3uOzjsZreBKs=";
       };
 
       meta = {
@@ -3596,15 +3596,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "lze";
-      version = "0.11.4-1";
+      version = "0.11.5-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/lze-0.11.4-1.rockspec";
-          sha256 = "1gj3isq6d3zp99y5zsiq64s2kszhvscg74hm0s0mnsj6sg7zbqm1";
+          url = "mirror://luarocks/lze-0.11.5-1.rockspec";
+          sha256 = "09am4f3gg4yxj9851aali33dxws46s7fa3479fc2m5kcj5d30lly";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/BirdeeHub/lze/archive/v0.11.4.zip";
-        sha256 = "1zmda6qvjc9dd7dpz6gl8qmn8bnknazklb59bzxn95pz6n89fry0";
+        url = "https://github.com/BirdeeHub/lze/archive/v0.11.5.zip";
+        sha256 = "1ga2x9pcd3b5mal13kc70qsqjqba9vm3vvknj75qqd3va7jhpr5l";
       };
 
       disabled = luaOlder "5.1";
@@ -3981,15 +3981,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "neotest";
-      version = "5.9.1-1";
+      version = "5.11.0-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/neotest-5.9.1-1.rockspec";
-          sha256 = "1q2589rjwbhhbxdf30n6kq1dmvlj27bn57rbv63s4x47qdzdnzfb";
+          url = "mirror://luarocks/neotest-5.11.0-1.rockspec";
+          sha256 = "09zij8y0514syna8wayra4fk8imz8j31qc3qy2rra74lkycvi26n";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/nvim-neotest/neotest/archive/3c81345c28cd639fcc02843ed3653be462f47024.zip";
-        sha256 = "1rqfxhy0c721hzz9azp1w403b8bccq6q24miynb42z4hc14qh8nm";
+        url = "https://github.com/nvim-neotest/neotest/archive/35a59c1f59dbb954d92b74ab64a966a668cea495.zip";
+        sha256 = "1arc0yprfbz9cfh9icm827s52nzkkz13zxlg3jbkmg95nqbp68lg";
       };
 
       disabled = luaOlder "5.1";
@@ -4390,17 +4390,17 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "rapidjson";
-      version = "0.7.1-1";
+      version = "0.7.2-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/rapidjson-0.7.1-1.rockspec";
-          sha256 = "01lbsn9rckdyx0va7nm9dammic9117kxiawp55yg2h5q3p978d41";
+          url = "mirror://luarocks/rapidjson-0.7.2-1.rockspec";
+          sha256 = "1g3gw1rr54jvylq7afzkqdpid3h7nlmk76hmfva8xzhcdvbcl88h";
         }).outPath;
       src = fetchFromGitHub {
         owner = "xpol";
         repo = "lua-rapidjson";
-        rev = "v0.7.1";
-        hash = "sha256-y/czEVPtCt4uN1n49Qi7BrgZmkG+SDXlM5D2GvvO2qg=";
+        rev = "v0.7.2";
+        hash = "sha256-WdfGIgbwlMMItsasN+ZITd/iqSeHC0EVeYoUcolb1MU=";
       };
 
       disabled = luaOlder "5.1";
@@ -4651,15 +4651,15 @@ final: prev: {
     }:
     buildLuarocksPackage {
       pname = "rustaceanvim";
-      version = "6.6.0-1";
+      version = "6.9.1-1";
       knownRockspec =
         (fetchurl {
-          url = "mirror://luarocks/rustaceanvim-6.6.0-1.rockspec";
-          sha256 = "02nm7wddffhg53w4cpsf19a5gvgrhm617k3md406q0wyja7hqysn";
+          url = "mirror://luarocks/rustaceanvim-6.9.1-1.rockspec";
+          sha256 = "1ah0f2n8dkdy50spsbly2pfzz1x0ld1ghgnrh3l6vr4fjbjwyk8d";
         }).outPath;
       src = fetchzip {
-        url = "https://github.com/mrcjkb/rustaceanvim/archive/v6.6.0.zip";
-        sha256 = "005xvdl21yya7v4cr0svnyq9mlf3p7v0lzidgggwhlslc7yw3bg1";
+        url = "https://github.com/mrcjkb/rustaceanvim/archive/v6.9.1.zip";
+        sha256 = "09rwfr8k4k4kivkq828q14l7shpispqwzrbmnvglzdhd3ziy4189";
       };
 
       disabled = luaOlder "5.1";

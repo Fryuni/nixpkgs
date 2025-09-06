@@ -7,13 +7,13 @@
 }:
 buildNpmPackage rec {
   pname = "eslint";
-  version = "9.32.0";
+  version = "9.34.0";
 
   src = fetchFromGitHub {
     owner = "eslint";
     repo = "eslint";
     tag = "v${version}";
-    hash = "sha256-ORqkolpd5B2mZ5lpePHU3RCpUHnl2p9ugMe2+A8sauA=";
+    hash = "sha256-C56uNYpXLO0LgURW+7iXWTWqmXQHc1nx1bKf7DFSHs4=";
   };
 
   # NOTE: Generating lock-file
@@ -25,7 +25,7 @@ buildNpmPackage rec {
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-9IWGjPwvZFPlbClQ5XRx0clN0HD6eyggX+v5mtU0exQ=";
+  npmDepsHash = "sha256-ZF7+IJakVkwswL0FV5wAc0dOK+gd9I6A7DaZbMiMaDU=";
   npmInstallFlags = [ "--omit=dev" ];
 
   dontNpmBuild = true;

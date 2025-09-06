@@ -386,14 +386,25 @@ runTests {
     expected = 255;
   };
 
-  testFromHexStringSecondExample = {
-    expr = fromHexString (builtins.hashString "sha256" "test");
+  # Highest supported integer value in Nix.
+  testFromHexStringMaximum = {
+    expr = fromHexString "7fffffffffffffff";
     expected = 9223372036854775807;
   };
 
+  testFromHexStringLeadingZeroes = {
+    expr = fromHexString "00ffffffffffffff";
+    expected = 72057594037927935;
+  };
+
   testFromHexStringWithPrefix = {
-    expr = fromHexString "0Xf";
+    expr = fromHexString "0xf";
     expected = 15;
+  };
+
+  testFromHexStringMixedCase = {
+    expr = fromHexString "eEeEe";
+    expected = 978670;
   };
 
   testToBaseDigits = {
@@ -1994,6 +2005,39 @@ runTests {
   };
 
   # ATTRSETS
+
+  testGenAttrs = {
+    expr = attrsets.genAttrs [ "foo" "bar" ] (name: "x_" + name);
+    expected = {
+      foo = "x_foo";
+      bar = "x_bar";
+    };
+  };
+  testGenAttrs' = {
+    expr = attrsets.genAttrs' [ "foo" "bar" ] (s: nameValuePair ("x_" + s) ("y_" + s));
+    expected = {
+      x_foo = "y_foo";
+      x_bar = "y_bar";
+    };
+  };
+  testGenAttrs'Example2 = {
+    expr = attrsets.genAttrs' [
+      {
+        x = "foo";
+        y = "baz";
+      }
+    ] (s: lib.nameValuePair ("x_" + s.x) ("y_" + s.y));
+    expected = {
+      x_foo = "y_baz";
+    };
+  };
+  testGenAttrs'ConflictingName = {
+    # c.f. warning of genAttrs'
+    expr = attrsets.genAttrs' [ "foo" "bar" "baz" ] (s: nameValuePair "foo" s);
+    expected = {
+      foo = "foo";
+    };
+  };
 
   testConcatMapAttrs = {
     expr =

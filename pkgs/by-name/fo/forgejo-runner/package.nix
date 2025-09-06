@@ -41,17 +41,17 @@ let
 in
 buildGoModule rec {
   pname = "forgejo-runner";
-  version = "9.0.3";
+  version = "10.0.1";
 
   src = fetchFromGitea {
     domain = "code.forgejo.org";
     owner = "forgejo";
     repo = "runner";
     rev = "v${version}";
-    hash = "sha256-Zanx6Hg05+mvxdga8zQoCv13/kdAMnyCBMfuihvQv3M=";
+    hash = "sha256-p9inpt3v5KnKWdkkr2viL3KxN2fawesjaziyl2QsYko=";
   };
 
-  vendorHash = "sha256-PvqG4ogIiFeDN7gwM+cECXFjo9FBkdzglf+nuLqAZhE=";
+  vendorHash = "sha256-/LoNiNgUCFDW/nlqiDXvr2m0UwFNtyOewGmd1F35YEg=";
 
   # See upstream Makefile
   # https://code.forgejo.org/forgejo/runner/src/branch/main/Makefile
@@ -99,6 +99,7 @@ buildGoModule rec {
       adamcstephens
       emilylange
       christoph-heiss
+      tebriel
     ];
     mainProgram = "forgejo-runner";
   };

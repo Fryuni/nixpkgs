@@ -18,13 +18,13 @@
 
 stdenv.mkDerivation rec {
   pname = "timeshift";
-  version = "25.07.5";
+  version = "25.07.7";
 
   src = fetchFromGitHub {
     owner = "linuxmint";
     repo = "timeshift";
     rev = version;
-    hash = "sha256-AXtHs19DeSF2v5v4aBchGlsO59Z7h5OfmAaDb9SjwSc=";
+    hash = "sha256-X3TwUkOeGzcgFM/4Fyfs8eQuGK2wHe3t13WSpIizX8s=";
   };
 
   postPatch = ''
